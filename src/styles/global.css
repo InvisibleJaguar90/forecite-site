@@ -1,0 +1,35 @@
+/* Site-wide resets and small helpers that aren't part of the design tokens. */
+
+html, body { margin: 0; padding: 0; }
+* { box-sizing: border-box; }
+
+body {
+  background: var(--forest-800);
+  color: var(--fg-1);
+}
+
+button { font-family: inherit; }
+input:focus { border-bottom-color: var(--gold-500) !important; }
+
+details > summary::-webkit-details-marker { display: none; }
+details[open] > summary > span:last-child {
+  transform: rotate(45deg);
+  transition: transform 200ms var(--ease-editorial);
+  display: inline-block;
+}
+details > summary > span:last-child {
+  transition: transform 200ms var(--ease-editorial);
+  display: inline-block;
+}
+
+/* Ghost button — bracket color responds on hover */
+.ghost-btn:hover .ghost-bracket {
+  color: var(--gold-500);
+}
+
+/* Focus outlines stay visible for keyboard users.
+   Polished further in Session 4 (visual + content polish). */
+:focus-visible {
+  outline: 1px solid var(--gold-500);
+  outline-offset: 3px;
+}
