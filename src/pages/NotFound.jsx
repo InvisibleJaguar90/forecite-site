@@ -29,7 +29,7 @@ export default function NotFound() {
         <p style={{ fontSize: 18, lineHeight: 1.6, maxWidth: '48ch', marginTop: 32, color: 'var(--bone-200)' }}>
           Either the URL got mistyped or the page was moved. The site is small, so it shouldn't take long to find what you were after.
         </p>
-        <div style={{ display: 'flex', gap: 16, marginTop: 48, flexWrap: 'wrap' }}>
+        <div className="flex-stack-sm" style={{ display: 'flex', gap: 16, marginTop: 48, flexWrap: 'wrap' }}>
           <Link to="/" style={{ textDecoration: 'none' }}>
             <Button variant="primary">
               Go home <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>

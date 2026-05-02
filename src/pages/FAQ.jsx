@@ -150,7 +150,7 @@ export default function FAQ() {
       </Section>
 
       <Section label="05 FAQ — List" style={{ paddingTop: 0, paddingBottom: 96 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 96 }}>
+        <div className="faq-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 96 }}>
           <div style={{ position: 'sticky', top: 'calc(var(--topbar-h) + 32px)', alignSelf: 'start' }}>
             <Eyebrow>Index</Eyebrow>
             <ol

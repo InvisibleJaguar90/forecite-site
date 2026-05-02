@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './styles/colors_and_type.css';
 import './styles/global.css';
+import './styles/responsive.css';
 
 import App from './App.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';

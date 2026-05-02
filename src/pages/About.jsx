@@ -75,13 +75,13 @@ export default function About() {
         label="04 About — How this works"
         style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
       >
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
+        <div className="about-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
           <div style={{ maxWidth: '48ch' }}>
             <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65 }}>
               When you work with Forecite, you work with me. I run your audit, scope the engagement, and handle the implementation. There's no layer between us. I take on fewer clients because of that, and each engagement gets the full depth of the methodology and tools I've built.
             </p>
           </div>
-          <div style={{ display: 'flex', alignItems: 'start', gap: 24 }}>
+          <div className="person-row" style={{ display: 'flex', alignItems: 'start', gap: 24 }}>
             {/* Photo placeholder — real portrait lands in Session 4 */}
             <div
               aria-hidden

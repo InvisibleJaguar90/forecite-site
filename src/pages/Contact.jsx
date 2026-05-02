@@ -64,7 +64,7 @@ export default function Contact() {
       />
 
       <Section label="06 Contact" style={{ paddingTop: 140, paddingBottom: 144 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 96, alignItems: 'start' }}>
+        <div className="contact-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 96, alignItems: 'start' }}>
           <div>
             <Eyebrow style={{ marginBottom: 24 }}>Contact</Eyebrow>
             <h1
@@ -108,8 +108,8 @@ export default function Contact() {
           </div>
 
           {/* Cal.com inline scheduling embed */}
-          <div style={{ minHeight: 580 }}>
-            <div style={{ width: '100%', height: '100%', overflow: 'scroll' }} id="my-cal-inline-geo-audit-walkthrough" />
+          <div className="cal-embed" style={{ minHeight: 580, width: '100%' }}>
+            <div style={{ width: '100%', height: '100%', overflow: 'auto' }} id="my-cal-inline-geo-audit-walkthrough" />
           </div>
         </div>
       </Section>

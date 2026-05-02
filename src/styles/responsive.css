@@ -1,0 +1,400 @@
+/* =====================================================================
+   Responsive utility classes (Session 2 — mobile responsiveness sitewide)
+
+   Pages set their *desktop* layout via inline `style` props (legacy from
+   the JSX-globals era). Inline styles win over CSS class rules unless we
+   use !important — so this file uses !important on the layout overrides
+   that need to beat the inline desktop values. The mobile rules live
+   here, the desktop rules live inline. Cleanly inverted from the usual
+   mobile-first approach, but it preserves the existing JSX without a
+   structural rewrite.
+
+   Class names are stable — see Section 2 of website-rebuild-handover.md
+   for the inventory.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   1. Section padding — keep big breathing room on desktop, dial back
+      on mobile so we don't waste a third of the viewport on top/bottom
+      whitespace.
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  section.grain {
+    padding-left: var(--gutter-md) !important;
+    padding-right: var(--gutter-md) !important;
+    /* When pages set explicit paddingTop/paddingBottom inline (e.g.
+       paddingTop: 140), tighten by 30%. We can't change those numbers
+       without touching every page; we use scale via font-size only. */
+  }
+  section.grain[style*="paddingTop"] { /* no-op marker */ }
+}
+
+/* ---------------------------------------------------------------------
+   2. Grid utilities — collapse multi-col to single col on mobile.
+      Each utility class names the desktop layout in its name; the rule
+      collapses it to 1 column at the named breakpoint.
+   --------------------------------------------------------------------- */
+
+/* Collapse to 1 column at <=768. Most common case. */
+@media (max-width: 768px) {
+  .stack-md {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+}
+
+/* Two-column flex (e.g. hero CTA pair). Stack as flex column at <=480. */
+@media (max-width: 480px) {
+  .flex-stack-sm {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .flex-stack-sm > * {
+    width: 100%;
+  }
+  .flex-stack-sm a, .flex-stack-sm button { width: 100%; }
+}
+
+/* Stats row: 4-up on desktop, 2-up on tablet, 1-up on mobile.
+   We also need to redraw the borders that the inline style attaches to
+   each cell. Inline sets borderRight on cells 0–2; on the collapse we
+   hide those right borders and show top borders instead (except on the
+   first item, which already has the section-spanning top border). */
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .stats-grid > * {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    border-right: none !important;
+    border-top: 1px solid var(--border-bone-on-forest);
+  }
+  .stats-grid > *:nth-child(odd) {
+    padding-left: 0 !important;
+    border-right: 1px solid var(--border-bone-on-forest) !important;
+  }
+}
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .stats-grid > * {
+    padding-left: 0 !important;
+    border-right: none !important;
+    border-top: 1px solid var(--border-bone-on-forest);
+  }
+}
+
+/* Services 3-column row — collapse to 1-col at <=768. Also kill the
+   right borders that the inline style sets between cells. */
+@media (max-width: 1024px) {
+  .cards-3 {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .cards-3 > *:nth-child(2) {
+    border-right: none !important;
+  }
+}
+@media (max-width: 768px) {
+  .cards-3 {
+    grid-template-columns: 1fr !important;
+  }
+  .cards-3 > * {
+    border-right: none !important;
+    min-height: 0 !important;
+    padding-bottom: 28px !important;
+  }
+}
+
+/* Platform dashboard (5-up cells with border between).
+   At tablet, 2-up. At mobile, 1-up. Borders need redrawing. */
+@media (max-width: 1024px) {
+  .platforms-5 {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .platforms-5 > * {
+    border-right: 1px solid var(--border-bone-on-forest) !important;
+  }
+  .platforms-5 > *:nth-child(2n) {
+    border-right: none !important;
+  }
+}
+@media (max-width: 600px) {
+  .platforms-5 {
+    grid-template-columns: 1fr !important;
+  }
+  .platforms-5 > * {
+    border-right: none !important;
+  }
+}
+
+/* FAQ 1fr 2fr (sidebar + body) → stack at <=768. Sidebar drops the
+   sticky positioning so it doesn't pin awkwardly above the content. */
+@media (max-width: 768px) {
+  .faq-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .faq-grid > *:first-child {
+    position: static !important;
+  }
+  /* The summary block in FAQ pages indents body content with marginLeft:48.
+     That eats most of a 320px viewport. Reset on mobile. */
+  .faq-grid details > div {
+    margin-left: 0 !important;
+  }
+}
+
+/* About page two-column block (1fr 1fr) — stack on mobile. */
+@media (max-width: 768px) {
+  .about-2col {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+}
+
+/* Audit categories 2-column (1fr 1fr) — stack on mobile. */
+@media (max-width: 768px) {
+  .audit-cats {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+}
+
+/* Audit findings: 60px label + 1fr body. Drop label column on mobile so
+   the body uses full width, and float the index inline with the title. */
+@media (max-width: 768px) {
+  .findings-row {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+/* Audit big-score row (display: flex with score next to copy) — stack on mobile. */
+@media (max-width: 768px) {
+  .score-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 24px !important;
+  }
+}
+
+/* Services per-tier row: '120px 1fr' or '120px 1fr 1fr'. Collapse to a
+   single column on mobile; the deliverables panel drops its left border
+   and indent. */
+@media (max-width: 768px) {
+  .services-row {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .services-row .deliverables-col {
+    border-left: none !important;
+    border-top: 1px solid var(--border-bone-on-forest);
+    padding-left: 0 !important;
+    padding-top: 24px !important;
+  }
+}
+
+/* Contact 1fr 1fr — stack so Cal.com gets full width on mobile.
+   Also drop the giant 96px gap on stack. */
+@media (max-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+}
+@media (max-width: 768px) {
+  .contact-grid {
+    gap: 32px !important;
+  }
+  /* Cal.com inline embed wrapper. Inline sets minHeight 580; phones
+     need full-bleed-feeling width and a slightly taller embed for
+     month_view. */
+  .cal-embed {
+    width: 100% !important;
+    min-height: 640px !important;
+  }
+  .cal-embed > div {
+    width: 100% !important;
+  }
+}
+
+/* About person row (photo + name) — keep horizontal on mobile but
+   shrink photo so the row doesn't dominate. */
+@media (max-width: 480px) {
+  .person-row {
+    gap: 16px !important;
+  }
+  .person-row > div:first-child {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   3. Footer — 4-col → 2-col → 1-col responsive collapse.
+   --------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+  }
+}
+@media (max-width: 600px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .footer-meta {
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: flex-start !important;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   4. TopBar — burger menu drawer (Session 2 hero feature).
+   --------------------------------------------------------------------- */
+
+/* Desktop: nav inline, burger hidden. */
+.tb-nav { display: flex; }
+.tb-cta { display: inline-flex; }
+.tb-burger { display: none; }
+
+/* Mobile: hide inline nav + the desktop CTA, show the burger. */
+@media (max-width: 768px) {
+  .tb-nav { display: none !important; }
+  .tb-cta { display: none !important; }
+  .tb-burger {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid var(--border-bone-on-forest);
+    color: var(--fg-1);
+    cursor: pointer;
+    margin-left: auto;
+    border-radius: 2px;
+  }
+  .tb-burger:hover {
+    border-color: var(--border-bone-on-forest-hover);
+  }
+}
+
+/* Burger lines */
+.tb-burger-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 18px;
+}
+.tb-burger-lines span {
+  display: block;
+  height: 1.5px;
+  background: var(--fg-1);
+  transition: transform 200ms var(--ease-editorial), opacity 200ms var(--ease-editorial);
+  border-radius: 2px;
+}
+.tb-burger[aria-expanded="true"] .tb-burger-lines span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.tb-burger[aria-expanded="true"] .tb-burger-lines span:nth-child(2) {
+  opacity: 0;
+}
+.tb-burger[aria-expanded="true"] .tb-burger-lines span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* Drawer */
+.tb-drawer {
+  position: fixed;
+  inset: var(--topbar-h) 0 0 0;
+  background: var(--forest-900);
+  z-index: 49;
+  padding: 32px var(--gutter-md) 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  animation: tb-drawer-in 220ms var(--ease-editorial);
+}
+@keyframes tb-drawer-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.tb-drawer a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  color: var(--fg-1);
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: -0.005em;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-bone-on-forest);
+  min-height: 44px;
+}
+.tb-drawer a[aria-current="page"] {
+  color: var(--fg-1);
+}
+.tb-drawer a[aria-current="page"]::before {
+  content: "·";
+  color: var(--gold-500);
+  margin-right: 12px;
+}
+.tb-drawer a span.tb-drawer-arrow {
+  color: var(--mute-400);
+  font-family: var(--font-mono);
+}
+.tb-drawer .tb-drawer-cta {
+  margin-top: 24px;
+  background: var(--bone-200);
+  color: var(--ink-900);
+  padding: 18px 22px;
+  border: none;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 2px;
+  min-height: 56px;
+}
+
+/* Lock body scroll while drawer is open. */
+body.drawer-open {
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------
+   5. Tap target safety net — every link/button at least 44x44 on touch.
+      We don't want this on desktop because some intentional inline
+      buttons (like footer link rows) are smaller.
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) and (hover: none) {
+  a[href], button {
+    min-height: 44px;
+  }
+  /* Footer compact link list is the deliberate exception (12px mono).
+     Honor density there. */
+  footer a, footer button { min-height: 0; }
+}
+
+/* ---------------------------------------------------------------------
+   6. Topbar layout shim — on mobile we want the burger flush right and
+      no extra gap from the now-hidden nav.
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  header.tb-header {
+    padding: 0 var(--gutter-md) !important;
+  }
+  header.tb-header > nav.tb-nav {
+    margin-left: 0 !important;
+  }
+}

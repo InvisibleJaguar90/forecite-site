@@ -57,7 +57,7 @@ export default function Home() {
         >
           ChatGPT, Claude, Google AI Overviews, Perplexity, Gemini. Your customers are already there. The businesses that build citation coverage now will own the answers their competitors spend years trying to earn back. We make sure you're first.
         </p>
-        <div style={{ display: 'flex', gap: 16, marginTop: 48 }}>
+        <div className="flex-stack-sm" style={{ display: 'flex', gap: 16, marginTop: 48, flexWrap: 'wrap' }}>
           <Link to="/contact" style={{ textDecoration: 'none' }}>
             <Button variant="primary">
               Get your free audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
@@ -68,6 +68,7 @@ export default function Home() {
           </Link>
         </div>
         <div
+          className="stats-grid"
           style={{
             marginTop: 96,
             display: 'grid',
@@ -137,7 +138,7 @@ export default function Home() {
         >
           Every engagement starts with an audit and is scoped to your business.
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0 }}>
+        <div className="cards-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0 }}>
           {SERVICES.map((s) => (
             <div
               key={s.i}
@@ -201,7 +202,7 @@ export default function Home() {
         label="01 Home — FAQ teaser"
         style={{ paddingTop: 96, paddingBottom: 120, borderTop: '1px solid var(--border-bone-on-forest)' }}
       >
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 96 }}>
+        <div className="faq-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 96 }}>
           <div>
             <Eyebrow>[FAQ]</Eyebrow>
             <h2 style={{ fontSize: 44, fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1.1, margin: '20px 0 0' }}>

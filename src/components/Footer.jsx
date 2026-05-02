@@ -27,6 +27,7 @@ export default function Footer() {
       }}
     >
       <div
+        className="footer-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: '2fr 1fr 1fr 1fr',
@@ -110,11 +111,13 @@ export default function Footer() {
         </div>
       </div>
       <div
+        className="footer-meta"
         style={{
           borderTop: '1px solid var(--border-bone-on-forest)',
           paddingTop: 24,
           display: 'flex',
           justifyContent: 'space-between',
+          gap: 16,
           maxWidth: 'var(--maxw-wide)',
           margin: '64px auto 0',
         }}

@@ -109,7 +109,7 @@ export default function AuditShowcase() {
         label="03 Audit — Score"
         style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 64 }}>
+        <div className="score-row" style={{ display: 'flex', alignItems: 'center', gap: 64 }}>
           <div
             style={{
               fontFamily: 'var(--font-mono)',
@@ -148,7 +148,7 @@ export default function AuditShowcase() {
         style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
       >
         <Eyebrow style={{ marginBottom: 48 }}>Category breakdown</Eyebrow>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64 }}>
+        <div className="audit-cats" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64 }}>
           <div>
             {CATEGORIES.map((c) => (
               <ScoreBar key={c.name} label={c.name} score={c.score} color={c.color} />
@@ -171,7 +171,7 @@ export default function AuditShowcase() {
         style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
       >
         <Eyebrow style={{ marginBottom: 48 }}>What the platforms see</Eyebrow>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 0 }}>
+        <div className="platforms-5" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 0 }}>
           {PLATFORMS.map((p, i) => (
             <div
               key={p.name}
@@ -228,6 +228,7 @@ export default function AuditShowcase() {
         {FINDINGS.map((f, i) => (
           <div
             key={i}
+            className="findings-row"
             style={{
               borderTop: '1px solid var(--border-bone-on-forest)',
               padding: '32px 0',

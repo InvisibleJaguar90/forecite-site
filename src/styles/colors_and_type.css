@@ -230,3 +230,65 @@ hr {
   mix-blend-mode: overlay;
   z-index: 1;
 }
+
+/* =====================================================================
+   Responsive token overrides (Session 2)
+   Shrinks type scale and gutters at tablet / mobile / small mobile.
+   Page-level grid collapses live in responsive.css.
+   ===================================================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  :root {
+    --gutter-md: 32px;
+    --gutter-lg: 48px;
+    --gutter-xl: 64px;
+    --space-9: 64px;
+    --space-10: 96px;
+
+    --fs-display: 96px;
+    --fs-h1: 72px;
+    --fs-h2: 48px;
+    --fs-h3: 36px;
+    --fs-h4: 28px;
+  }
+}
+
+/* Mobile (phones in portrait, also the burger-menu cutover) */
+@media (max-width: 768px) {
+  :root {
+    --gutter-sm: 16px;
+    --gutter-md: 20px;
+    --gutter-lg: 24px;
+    --gutter-xl: 32px;
+
+    --space-7: 32px;
+    --space-8: 40px;
+    --space-9: 48px;
+    --space-10: 64px;
+
+    --fs-display: 56px;
+    --fs-h1: 44px;
+    --fs-h2: 32px;
+    --fs-h3: 26px;
+    --fs-h4: 22px;
+    --fs-h5: 20px;
+    --fs-h6: 18px;
+    --fs-body-lg: 16px;
+  }
+
+  h1, .h1 { line-height: 1.1; }
+  h2, .h2 { line-height: 1.1; }
+}
+
+/* Small mobile (320–390 range) */
+@media (max-width: 480px) {
+  :root {
+    --gutter-md: 16px;
+    --gutter-lg: 20px;
+
+    --fs-h1: 38px;
+    --fs-h2: 28px;
+    --fs-h3: 22px;
+  }
+}

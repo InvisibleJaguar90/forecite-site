@@ -76,6 +76,7 @@ export default function Services() {
           style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
         >
           <div
+            className="services-row"
             style={{
               display: 'grid',
               gridTemplateColumns: '120px 1fr' + (s.deliverables ? ' 1fr' : ''),
@@ -124,7 +125,7 @@ export default function Services() {
               ))}
             </div>
             {s.deliverables && (
-              <div style={{ borderLeft: '1px solid var(--border-bone-on-forest)', paddingLeft: 32 }}>
+              <div className="deliverables-col" style={{ borderLeft: '1px solid var(--border-bone-on-forest)', paddingLeft: 32 }}>
                 <Eyebrow style={{ marginBottom: 16 }}>Deliverables</Eyebrow>
                 {s.deliverables.map((d, i) => (
                   <div
