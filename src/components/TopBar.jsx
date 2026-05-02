@@ -19,13 +19,16 @@ export default function TopBar() {
     setOpen(false);
   }, [location.pathname]);
 
-  // Close on ESC + lock body scroll while drawer is open.
+  // Close on ESC + lock html/body scroll while drawer is open.
   useEffect(() => {
+    const root = document.documentElement;
     if (!open) {
       document.body.classList.remove('drawer-open');
+      root.classList.remove('drawer-open');
       return;
     }
     document.body.classList.add('drawer-open');
+    root.classList.add('drawer-open');
     const onKey = (e) => {
       if (e.key === 'Escape') setOpen(false);
     };
@@ -33,6 +36,7 @@ export default function TopBar() {
     return () => {
       window.removeEventListener('keydown', onKey);
       document.body.classList.remove('drawer-open');
+      root.classList.remove('drawer-open');
     };
   }, [open]);
 
@@ -117,29 +121,53 @@ export default function TopBar() {
 
       {open && (
         <div id="tb-drawer" className="tb-drawer" role="dialog" aria-modal="true" aria-label="Site menu">
-          {NAV_ITEMS.map(({ to, label, end }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={end}
+          <div className="tb-drawer-head">
+            <Link
+              to="/"
+              className="tb-drawer-brand"
+              onClick={() => setOpen(false)}
+              aria-label="Forecite home"
+            >
+              <Bracketed>Forecite</Bracketed>
+            </Link>
+            <button
+              type="button"
+              className="tb-drawer-close"
+              aria-label="Close menu"
               onClick={() => setOpen(false)}
             >
-              <span>{label}</span>
+              <span className="tb-burger-lines" aria-hidden="true" data-open="true">
+                <span />
+                <span />
+                <span />
+              </span>
+            </button>
+          </div>
+          <div className="tb-drawer-body">
+            {NAV_ITEMS.map(({ to, label, end }) => (
+              <NavLink
+                key={to}
+                to={to}
+                end={end}
+                onClick={() => setOpen(false)}
+              >
+                <span>{label}</span>
+                <span className="tb-drawer-arrow">&rarr;</span>
+              </NavLink>
+            ))}
+            <NavLink to="/contact" onClick={() => setOpen(false)}>
+              <span>Contact</span>
               <span className="tb-drawer-arrow">&rarr;</span>
             </NavLink>
-          ))}
-          <NavLink to="/contact" onClick={() => setOpen(false)}>
-            <span>Contact</span>
-            <span className="tb-drawer-arrow">&rarr;</span>
-          </NavLink>
-          <Link
-            to="/contact"
-            className="tb-drawer-cta"
-            onClick={() => setOpen(false)}
-          >
-            <span>Get your free audit</span>
-            <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-          </Link>
+            <Link
+              to="/contact"
+              className="tb-drawer-cta"
+              onClick={() => setOpen(false)}
+            >
+              <span>Get your free audit</span>
+              <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+            </Link>
+          </div>
         </div>
       )}
     </>

@@ -308,24 +308,77 @@
   transform: translateY(-6.5px) rotate(-45deg);
 }
 
-/* Drawer */
+/* Drawer — full-viewport overlay so there's no gap to peek through, and
+   so the close button (inside the drawer) stays visible no matter how
+   far the body had been scrolled before the drawer opened. */
 .tb-drawer {
   position: fixed;
-  inset: var(--topbar-h) 0 0 0;
+  inset: 0;
   background: var(--forest-900);
-  z-index: 49;
-  padding: 32px var(--gutter-md) 48px;
+  z-index: 60; /* above the topbar (50) so we don't fight the sticky header */
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  overflow-y: auto;
+  overflow: hidden; /* the body inside is the only scroller */
   animation: tb-drawer-in 220ms var(--ease-editorial);
 }
 @keyframes tb-drawer-in {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
-.tb-drawer a {
+
+/* Drawer's own internal header — brand on left, close button on right.
+   Sits at the top of the drawer, never scrolls away. */
+.tb-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--topbar-h);
+  padding: 0 var(--gutter-md);
+  border-bottom: 1px solid var(--border-bone-on-forest);
+  flex-shrink: 0;
+}
+.tb-drawer-brand {
+  color: var(--fg-1);
+  text-decoration: none;
+  font-size: 22px;
+}
+.tb-drawer-close {
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1px solid var(--border-bone-on-forest);
+  color: var(--fg-1);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+.tb-drawer-close:hover {
+  border-color: var(--border-bone-on-forest-hover);
+}
+/* Force the lines into the X position regardless of state. */
+.tb-drawer-close .tb-burger-lines span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.tb-drawer-close .tb-burger-lines span:nth-child(2) {
+  opacity: 0;
+}
+.tb-drawer-close .tb-burger-lines span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* Drawer body — scrolls if the link list outgrows the viewport. */
+.tb-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 24px var(--gutter-md) 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tb-drawer-body a {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -338,24 +391,25 @@
   border-bottom: 1px solid var(--border-bone-on-forest);
   min-height: 44px;
 }
-.tb-drawer a[aria-current="page"] {
+.tb-drawer-body a[aria-current="page"] {
   color: var(--fg-1);
 }
-.tb-drawer a[aria-current="page"]::before {
+.tb-drawer-body a[aria-current="page"]::before {
   content: "·";
   color: var(--gold-500);
   margin-right: 12px;
 }
-.tb-drawer a span.tb-drawer-arrow {
+.tb-drawer-body a span.tb-drawer-arrow {
   color: var(--mute-400);
   font-family: var(--font-mono);
 }
-.tb-drawer .tb-drawer-cta {
+.tb-drawer-body .tb-drawer-cta {
   margin-top: 24px;
   background: var(--bone-200);
   color: var(--ink-900);
   padding: 18px 22px;
   border: none;
+  border-bottom: none;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -366,10 +420,17 @@
   border-radius: 2px;
   min-height: 56px;
 }
+.tb-drawer-body .tb-drawer-cta:hover {
+  background: var(--bone-100);
+}
 
-/* Lock body scroll while drawer is open. */
+/* Lock the page behind the drawer. Both html and body, plus a position
+   trick on body, so iOS Safari and Android Chrome both respect it. */
+html.drawer-open,
 body.drawer-open {
-  overflow: hidden;
+  overflow: hidden !important;
+  height: 100%;
+  touch-action: none;
 }
 
 /* ---------------------------------------------------------------------
