@@ -128,6 +128,10 @@ export default function TopBar() {
               <span className="tb-drawer-arrow">&rarr;</span>
             </NavLink>
           ))}
+          <NavLink to="/contact" onClick={() => setOpen(false)}>
+            <span>Contact</span>
+            <span className="tb-drawer-arrow">&rarr;</span>
+          </NavLink>
           <Link
             to="/contact"
             className="tb-drawer-cta"
