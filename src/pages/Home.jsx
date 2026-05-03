@@ -17,7 +17,7 @@ const SERVICES = [
 
 const FAQ_TEASER = [
   ['What is GEO?', "GEO stands for generative engine optimization. It's the practice of making your business visible in AI search, so when a potential customer asks ChatGPT or Google AI Overviews a question you should be answering, your business is one of the sources cited in the response."],
-  ['How is this different from SEO?', 'SEO gets your website onto a ranked list. GEO gets your business cited in a written answer. According to Ahrefs (2026), only 38% of the sources cited in AI Overviews also rank in the top 10 search results. Your search ranking and your AI visibility are two different things.'],
+  ['How is this different from SEO?', "SEO gets your website onto a ranked list. GEO gets your business cited in a written answer. According to Ahrefs (2026), 62% of AI Overview citations come from sources outside Google's top 10. Your search ranking and your AI visibility are two different things."],
   ['Why should I care right now?', "Brands cited in AI Overviews earn 35% more clicks than uncited competitors on the same search (Seer Interactive, 2025). At the same time, 47% of US adults used AI to find a local business in the past month (Yext, 2026). Most businesses haven't caught up to this shift yet. The ones that move first will own the citations their competitors spend years trying to earn back."],
 ];
 

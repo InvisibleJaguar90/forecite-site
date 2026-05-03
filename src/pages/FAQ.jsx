@@ -16,15 +16,23 @@ const FAQS_MAIN = [
     a: [
       'SEO gets your website onto a ranked list. GEO gets your business cited in a written answer.',
       "That distinction matters because the signals that earn a citation are measurably different from the ones that earn a high search ranking. According to Ahrefs (2026), only 38% of the sources cited in Google AI Overviews also rank in the top 10 organic search results. 31% of citations come from pages that don't appear in the top 100 results at all.",
-      'If your SEO is strong, that gives you a foundation. But search rankings and AI citations are diverging, not converging, and the business that shows up first in a Google search is increasingly not the business that shows up in the AI answer above it.',
+      'If your SEO is strong, that gives you a foundation. But search rankings and AI citations are diverging, not converging. Google AI Overviews is the most generous to traditional SEO of the six platforms, and even there a third of citations come from pages outside the top 100. ChatGPT runs on Bing. Perplexity favors Reddit. Claude has its own search index. Ranking first in Google increasingly doesn\'t put you in the answer that appears above it, let alone the answers on the platforms that don\'t touch Google at all.',
     ],
   },
   {
     q: 'Why should I care about AI search right now?',
     a: [
-      'Because your customers are already using it. According to Yext (2026), 47% of US adults used AI to find a local business in the past month. Among households earning over $150,000, AI has overtaken Google as the primary starting point for local business discovery.',
-      'At the same time, AI Overviews now appear on 48% of all tracked Google searches in the US, according to BrightEdge (2026). In healthcare, that number is 88%. When an AI Overview appears, organic click-through rates drop 61%, according to Seer Interactive (2025). The traffic that used to come from ranking well is being absorbed by AI answers.',
+      'Because your customers are already using it. According to Yext (2026), 47% of US adults used AI to find a local business in the past month. Among households earning over $150,000, AI has overtaken Google as the starting point for local business discovery, by 53% to 49%.',
+      'At the same time, AI Overviews now appear on 48% of all tracked Google searches in the US, up from 30% a year earlier (BrightEdge, 2026). In healthcare specifically, that number is 88%. When an AI Overview appears above standard search results, organic click-through rates on those results drop 61% (Seer Interactive, 2025). The traffic that used to come from ranking well is being absorbed by AI answers, and the trend is steepening, not levelling off.',
       "But here's the other side of that number: brands that are cited in AI Overviews earn 35% more clicks than uncited competitors on the same search (Seer Interactive, 2025). AI search is redistributing attention, and the businesses that show up in the answer are the ones capturing it.",
+    ],
+  },
+  {
+    q: 'What kinds of businesses do you work with?',
+    a: [
+      'Professional services businesses where AI search recommendations are starting to drive qualified leads. That includes medical and aesthetic practices (med spas, dental, dermatology, cosmetic surgery, concierge medicine), law firms, financial advisors, and other regulated or trust-dependent professional services.',
+      "The common thread: high-consideration purchases where customers research before they commit, which means they're asking AI platforms questions like \"best [X] in [city]\" or \"how do I find a good [Y].\" If your business is what AI should be recommending in answer to those questions but isn't, our work applies.",
+      "If you're outside professional services and you're seeing AI-driven discovery in your category, talk to us anyway. The methodology generalizes.",
     ],
   },
   {
@@ -44,6 +52,14 @@ const FAQS_MAIN = [
     ],
   },
   {
+    q: 'How long until I see results?',
+    a: [
+      'It depends on what gets fixed and which platform. Schema markup, llms.txt, and other technical changes show up in days to weeks as crawlers re-index. Content rewrites and new FAQ pages start appearing in AI answers over weeks to months. Brand authority work (Wikidata entities, off-site signals, review velocity) compounds over 3-6 months and keeps building from there.',
+      'The fastest changes show in your re-audit score within the first quarter. The slowest ones build durable competitive moats and keep working for a year or more.',
+      "The businesses that get visible quickly are the ones whose work targets the actual gaps. Generic checklists waste months. The audit-first approach is what makes sure the first quarter's work is the work that matters.",
+    ],
+  },
+  {
     q: "Why can't I just do this once and be done?",
     a: [
       "Because the platforms change how they select sources constantly. A schema format that worked in January gets deprecated by March. Google adjusts how AI Overviews selects citations. A new platform gains traction and starts pulling from sources the others ignore.",
@@ -52,9 +68,27 @@ const FAQS_MAIN = [
     ],
   },
   {
+    q: 'How is this priced?',
+    a: [
+      'The audit is free. After that, pricing is project-scoped because the work is.',
+      'Implementation is a one-time engagement priced against what your audit found. A site that needs schema and llms.txt only is a different scope than a site that also needs content rewrites across 30 pages and Wikidata entity creation.',
+      "Adaptation is a monthly retainer that covers ongoing platform tracking, content updates, and quarterly re-audits. Retainer size scales with implementation work and the rate of change in your industry.",
+      "We scope after the audit because that's when we know what the work actually is. Specifics come on the walkthrough call.",
+    ],
+  },
+  {
     q: 'Is the audit really free?',
     a: [
-      "Yes. No strings, no deposit, no commitment. You get the full six-category score, the ranked findings, and a walkthrough call. If the findings make the case for working together, we'll talk about next steps. If not, you still have the audit.",
+      'Yes. No strings, no deposit, no commitment. You get the full six-category score, the ranked findings, and a walkthrough call.',
+      "The honest version: we offer a free audit because seeing your specific gaps is more persuasive than any pitch. If the findings make the case for working together, we'll talk about next steps. If not, you keep the audit and we move on.",
+    ],
+  },
+  {
+    q: "What's your guarantee?",
+    a: [
+      "We don't guarantee a specific GEO score, and any agency that does is making a promise they can't keep. The platforms decide who they cite, not us, and the methodology that drives those decisions changes constantly.",
+      'What we do guarantee: every recommendation in your audit is grounded in what we measured, not in a generic checklist. The work specified in your engagement gets done on the timeline we agreed to. The quarterly re-audit measures real progress against the prior baseline. If a recommendation we shipped didn\'t move what it was supposed to move, we revisit it at no additional cost.',
+      "The honest version: most of what makes GEO work is the same patient compounding that makes any marketing channel work. The businesses that get visible are the ones whose work targets actual gaps and stays consistent through the platform changes. We're not selling magic. We're selling the discipline that gets to the magic.",
     ],
   },
 ];
@@ -104,6 +138,14 @@ const FAQS_TECHNICAL = [
       'They share a foundation. A well-built site with clean HTML, fast load times, proper heading structure, and quality content gives you a head start on both. Server-side rendering helps, because AI crawlers can read the HTML without executing JavaScript. Strong Core Web Vitals and an established domain are useful baselines.',
       'Where they diverge is in what earns visibility. SEO operates on backlinks, keyword relevance, and ranking algorithms. GEO operates on structured data, entity verification, content citability, and platform-specific signals. According to Ahrefs (2026), 31% of URLs cited in AI Overviews come from pages outside the top 100 organic results. A site can rank first in traditional search and still be absent from the AI answer above it.',
       "If you already have an SEO provider doing good work, GEO complements it. We address the layer that traditional SEO doesn't cover.",
+    ],
+  },
+  {
+    q: 'Will this hurt my SEO?',
+    a: [
+      'No. Nothing GEO does conflicts with traditional SEO, and most of it strengthens the foundation both rely on.',
+      "Schema markup makes content easier for both search engines and AI platforms to parse. Author attribution and bio pages improve E-E-A-T signals that Google's organic rankings already weight heavily. Faster page speed, cleaner HTML, and proper canonical tags help every crawler. Content rewrites for citability make pages clearer for human readers and better at answering specific questions, which is what Google's helpful-content updates have been rewarding for years.",
+      "If you have an SEO provider doing good work, GEO complements it rather than competing with it. We address the layer traditional SEO doesn't cover: structured data depth, AI crawler access, entity verification, and platform-specific signals. The two practices share more foundation than they don't.",
     ],
   },
   {

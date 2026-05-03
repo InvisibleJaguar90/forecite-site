@@ -9,7 +9,7 @@ const SITEMAP = [
   { to: '/contact', label: 'Contact' },
 ];
 
-const VERTICALS = ['Med spa', 'Dental', 'Dermatology', 'Cosmetic surgery', 'Concierge medicine'];
+const SERVICES = ['Audit', 'Implementation', 'Adaptation'];
 const ENGINES = ['ChatGPT', 'Claude', 'Google AI Overviews', 'Perplexity', 'Gemini', 'Bing Copilot'];
 
 export default function Footer() {
@@ -83,9 +83,9 @@ export default function Footer() {
               fontSize: 11,
             }}
           >
-            Verticals
+            Services
           </div>
-          {VERTICALS.map((v) => (
+          {SERVICES.map((v) => (
             <div key={v} style={{ marginBottom: 6 }}>
               {v}
             </div>
