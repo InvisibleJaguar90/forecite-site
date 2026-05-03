@@ -3,6 +3,10 @@
 html, body { margin: 0; padding: 0; }
 * { box-sizing: border-box; }
 
+/* Smooth-scroll for in-page anchor navigation (e.g. Services hero step cards
+   that link to #audit / #implementation / #adaptation). */
+html { scroll-behavior: smooth; }
+
 html, body {
   /* Belt-and-braces against horizontal scroll. Inline-styled grids that
      hadn't been told to collapse used to push body width past 100vw on
@@ -36,6 +40,17 @@ details > summary > span:last-child {
 
 /* Ghost button — bracket color responds on hover */
 .ghost-btn:hover .ghost-bracket {
+  color: var(--gold-500);
+}
+
+/* Services hero step cards — gold tint on hover, arrow lifts. */
+.services-step {
+  transition: background 200ms var(--ease-editorial);
+}
+.services-step:hover {
+  background: color-mix(in srgb, var(--gold-500) 6%, transparent);
+}
+.services-step:hover .services-step-arrow {
   color: var(--gold-500);
 }
 

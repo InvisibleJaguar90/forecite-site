@@ -196,6 +196,16 @@
   }
 }
 
+/* Audit categories list inside tier 01 body. Two-column tag grid at
+   desktop; collapses to one column on small phones where the two
+   columns get cramped. */
+@media (max-width: 600px) {
+  .categories-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px 0 !important;
+  }
+}
+
 /* Contact 1fr 1fr — stack so Cal.com gets full width on mobile.
    Also drop the giant 96px gap on stack. */
 @media (max-width: 1024px) {

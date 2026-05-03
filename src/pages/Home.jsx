@@ -12,7 +12,7 @@ const STATS = [
 const SERVICES = [
   { i: '01', t: 'Audit', b: 'Find out where you stand in AI search and what to fix first. We score your visibility across six categories, identify every gap, and rank the fixes by impact. Your first audit is on us.' },
   { i: '02', t: 'Implementation', b: 'We do the work the audit recommends, starting with the highest-impact changes. Schema markup, content rewrites for citability, llms.txt, author attribution, and the platform-specific signals that ChatGPT, Claude, Google AI Overviews, Perplexity, Gemini, and Bing Copilot each need to cite you.' },
-  { i: '03', t: 'Ongoing optimization', b: "AI search doesn't sit still. Platforms change how they select sources constantly. We track those changes, adapt your strategy the same week, and re-audit quarterly so you can see what moved." },
+  { i: '03', t: 'Adaptation', b: "AI search doesn't sit still. Platforms change how they select sources constantly. We track those changes, adapt your strategy the same week, and re-audit quarterly so you can see what moved." },
 ];
 
 const FAQ_TEASER = [

@@ -2,14 +2,32 @@ import { Link } from 'react-router-dom';
 import { Eyebrow, Button, Section } from '../components/Atoms.jsx';
 import Meta from '../components/Meta.jsx';
 
+const STEPS = [
+  { i: '01', t: 'Audit', anchor: '#audit' },
+  { i: '02', t: 'Implementation', anchor: '#implementation' },
+  { i: '03', t: 'Adaptation', anchor: '#adaptation' },
+];
+
+const CATEGORIES = [
+  'AI Citability',
+  'Brand Authority',
+  'Content & E-E-A-T',
+  'Technical Foundations',
+  'Schema & Structured Data',
+  'Platform Optimization',
+];
+
 const SERVICES = [
   {
     i: '01',
-    t: 'GEO audit',
+    id: 'audit',
+    t: 'Audit',
     lead: 'Find out where you stand in AI search and what to fix first.',
     body: [
-      "When someone asks ChatGPT, Claude, or Google AI Overviews a question about what you do, does your business show up in the answer? The audit tells you. We score your AI visibility across six categories, identify every gap, and rank the fixes by how much they'll move the needle. You walk away knowing exactly what's working, what's not, and where to start.",
-      'Your first audit is on us.',
+      { type: 'p', text: 'When someone asks ChatGPT, Claude, or Google AI Overviews a question about what you do, does your business show up in the answer? The audit tells you. We score your AI visibility across six categories:' },
+      { type: 'categories', items: CATEGORIES },
+      { type: 'p', text: "Then we rank the fixes by how much they'll move the needle and walk you through the findings together. You leave knowing exactly what's working, what's not, and where to start." },
+      { type: 'p', text: 'Your first audit is on us.' },
     ],
     deliverables: [
       'AI visibility score with category breakdown',
@@ -19,23 +37,25 @@ const SERVICES = [
   },
   {
     i: '02',
+    id: 'implementation',
     t: 'Implementation',
     lead: 'We do the work the audit recommends, starting with the highest-impact fixes.',
     body: [
-      'After the audit, we scope an implementation plan specific to your site and your goals. The work follows your audit findings, not a generic checklist. We start with the changes that will have the biggest effect on whether AI platforms cite you, then work outward from there.',
-      'The work spans three layers. Structural changes are things your visitors never see but AI systems rely on. Content work means rewriting pages so AI can actually extract and cite useful answers from your site. And off-site work builds your presence on the platforms AI pulls from most.',
-      "We don't run the same playbook twice. What shapes the work is your site, your competitive landscape, the platforms your customers actually use. An engagement for a cosmetic surgery group competing in Manhattan has almost nothing in common with one for a nonprofit clinic serving rural patients.",
+      { type: 'p', text: 'After the audit, we scope an implementation plan specific to your site and your goals. The work follows your audit findings, not a generic checklist. We start with the changes that will have the biggest effect on whether AI platforms cite you, then work outward from there.' },
+      { type: 'p', text: 'The work spans three layers. Structural changes are things your visitors never see but AI systems rely on. Content work means rewriting pages so AI can actually extract and cite useful answers from your site. And off-site work builds your presence on the platforms AI pulls from most.' },
+      { type: 'p', text: "We don't run the same playbook twice. What shapes the work is your site, your competitive landscape, the platforms your customers actually use. An engagement for a cosmetic surgery group competing in Manhattan has little in common with one for a regional law firm in the Midwest." },
     ],
     deliverables: null,
   },
   {
     i: '03',
-    t: 'Ongoing optimization',
+    id: 'adaptation',
+    t: 'Adaptation',
     lead: "AI search doesn't sit still. Neither do we.",
     body: [
-      "The platforms that answer your customers' questions change how they find and cite sources constantly. A schema format that worked in January gets deprecated in March. A new AI platform gains traction and starts pulling from sources the others ignore. Google adjusts how AI Overviews selects citations, and sites that were visible last quarter drop out.",
-      "Keeping up with this is a job in itself, and it's not yours. We track platform changes as they happen. When Google restructures AI Overviews, or ChatGPT shifts how it selects sources, your strategy adapts the same week. Your competitors find out three months later, when the leads dry up and they can't figure out why.",
-      "The quarterly re-audit measures how far you've moved and where the next wave of visibility is, so you can focus on running your business while we keep AI sending people to it.",
+      { type: 'p', text: "The platforms that answer your customers' questions change how they find and cite sources constantly. A schema format that worked in January gets deprecated in March. A new AI platform gains traction and starts pulling from sources the others ignore. Google adjusts how AI Overviews selects citations, and sites that were visible last quarter drop out." },
+      { type: 'p', text: "Keeping up with this is a job in itself, and it's not yours. We track platform changes as they happen. When Google restructures AI Overviews, or ChatGPT shifts how it selects sources, your strategy adapts the same week. Your competitors find out three months later, when the leads dry up and they can't figure out why." },
+      { type: 'p', text: "The quarterly re-audit measures how far you've moved and where the next wave of visibility is, so you can focus on running your business while we keep AI sending people to it." },
     ],
     deliverables: null,
   },
@@ -46,11 +66,11 @@ export default function Services() {
     <main>
       <Meta
         title="Services · Forecite"
-        description="Audit, implementation, and ongoing optimization for AI search visibility. Every engagement starts with an audit and is scoped to your business."
+        description="Audit, implementation, and adaptation for AI search visibility. We get AI platforms recommending your business, and keep them recommending it as the platforms change."
         path="/services"
       />
 
-      <Section label="02 Services — Hero" style={{ paddingTop: 140, paddingBottom: 96 }}>
+      <Section label="02 Services — Hero" style={{ paddingTop: 140, paddingBottom: 64 }}>
         <Eyebrow style={{ marginBottom: 24 }}>Services</Eyebrow>
         <h1
           style={{
@@ -64,16 +84,71 @@ export default function Services() {
         >
           What we do
         </h1>
-        <p style={{ fontSize: 18, lineHeight: 1.6, maxWidth: '52ch', marginTop: 32, color: 'var(--bone-200)' }}>
-          Every engagement starts with an audit and is scoped to your business. No packages, no templates.
+        <p style={{ fontSize: 22, lineHeight: 1.45, maxWidth: '36ch', marginTop: 32, color: 'var(--bone-200)' }}>
+          We get AI platforms recommending your business.
         </p>
+        <div
+          className="cards-3 services-steps"
+          style={{
+            marginTop: 56,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: 0,
+            borderTop: '1px solid var(--border-bone-on-forest)',
+            borderBottom: '1px solid var(--border-bone-on-forest)',
+          }}
+        >
+          {STEPS.map((step, i) => (
+            <a
+              key={step.i}
+              href={step.anchor}
+              className="services-step"
+              style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                padding: '32px 28px 36px',
+                borderRight: i < STEPS.length - 1 ? '1px solid var(--border-bone-on-forest)' : 'none',
+                display: 'block',
+              }}
+            >
+              <Eyebrow>{step.i}</Eyebrow>
+              <div
+                style={{
+                  fontSize: 28,
+                  fontWeight: 500,
+                  letterSpacing: '-0.01em',
+                  margin: '20px 0 20px',
+                }}
+              >
+                {step.t}
+              </div>
+              <span
+                className="services-step-arrow"
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  color: 'var(--mute-400)',
+                  fontSize: 14,
+                  letterSpacing: '0.04em',
+                }}
+              >
+                ↓ Read more
+              </span>
+            </a>
+          ))}
+        </div>
       </Section>
 
       {SERVICES.map((s) => (
         <Section
           key={s.i}
+          id={s.id}
           label={`02 Services — ${s.t}`}
-          style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
+          style={{
+            paddingTop: 96,
+            paddingBottom: 96,
+            borderTop: '1px solid var(--border-bone-on-forest)',
+            scrollMarginTop: 'var(--topbar-h)',
+          }}
         >
           <div
             className="services-row"
@@ -109,20 +184,48 @@ export default function Services() {
               >
                 {s.lead}
               </p>
-              {s.body.map((paragraph, pi) => (
-                <p
-                  key={pi}
-                  style={{
-                    fontSize: 15,
-                    lineHeight: 1.7,
-                    color: 'var(--mute-400)',
-                    marginTop: pi === 0 ? 24 : 16,
-                    maxWidth: '52ch',
-                  }}
-                >
-                  {paragraph}
-                </p>
-              ))}
+              {s.body.map((block, pi) => {
+                if (block.type === 'categories') {
+                  return (
+                    <div
+                      key={pi}
+                      className="categories-grid"
+                      style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr',
+                        gap: '10px 32px',
+                        margin: '20px 0 8px',
+                        maxWidth: '52ch',
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: 13,
+                      }}
+                    >
+                      {block.items.map((cat, ci) => (
+                        <div key={ci} style={{ display: 'flex', gap: 12, alignItems: 'baseline' }}>
+                          <span style={{ color: 'var(--gold-500)', fontSize: 11, letterSpacing: '0.04em' }}>
+                            {String(ci + 1).padStart(2, '0')}
+                          </span>
+                          <span>{cat}</span>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+                return (
+                  <p
+                    key={pi}
+                    style={{
+                      fontSize: 15,
+                      lineHeight: 1.7,
+                      color: 'var(--mute-400)',
+                      marginTop: pi === 0 ? 24 : 16,
+                      maxWidth: '52ch',
+                    }}
+                  >
+                    {block.text}
+                  </p>
+                );
+              })}
             </div>
             {s.deliverables && (
               <div className="deliverables-col" style={{ borderLeft: '1px solid var(--border-bone-on-forest)', paddingLeft: 32 }}>

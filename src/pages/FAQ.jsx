@@ -48,7 +48,7 @@ const FAQS_MAIN = [
     a: [
       "Because the platforms change how they select sources constantly. A schema format that worked in January gets deprecated by March. Google adjusts how AI Overviews selects citations. A new platform gains traction and starts pulling from sources the others ignore.",
       'The content itself ages out, too. According to Seer Interactive (2025), 65% of AI citations target content published within the past year. Pages that were current six months ago get deprioritized as newer, better-structured content appears.',
-      'Ongoing optimization means we track these changes as they happen, adapt your strategy, publish fresh content, and re-audit quarterly (or whenever you want an updated read) so you can see what moved and where the next opportunities are.',
+      'Adaptation means we track these changes as they happen, adapt your strategy, publish fresh content, and re-audit quarterly (or whenever you want an updated read) so you can see what moved and where the next opportunities are.',
     ],
   },
   {
