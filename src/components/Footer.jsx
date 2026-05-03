@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const SITEMAP = [
   { to: '/', label: 'Home' },
   { to: '/services', label: 'Services' },
-  { to: '/audit', label: 'Audit showcase' },
+  { to: '/audit', label: 'Case study' },
   { to: '/about', label: 'About' },
   { to: '/faq', label: 'FAQ' },
   { to: '/contact', label: 'Contact' },

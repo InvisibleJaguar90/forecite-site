@@ -5,7 +5,7 @@ import { Bracketed, Button } from './Atoms.jsx';
 const NAV_ITEMS = [
   { to: '/', label: 'Home', end: true },
   { to: '/services', label: 'Services' },
-  { to: '/audit', label: 'Audit showcase' },
+  { to: '/audit', label: 'Case study' },
   { to: '/about', label: 'About' },
   { to: '/faq', label: 'FAQ' },
 ];

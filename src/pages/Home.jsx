@@ -5,8 +5,8 @@ import Meta from '../components/Meta.jsx';
 const STATS = [
   ['+35%', 'clicks for brands cited in AI Overviews vs. uncited competitors', 'https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-september-2025-update', 'Seer Interactive, 2025'],
   ['47%', 'of US adults used AI to find a local business in the past month', 'https://www.yext.com/blog/7-data-backed-facts-on-ai-trust-and-consumer-decision-making-in-2026', 'Yext, 2026'],
-  ['-61%', 'organic click-through rate when AI Overviews appear', 'https://www.seerinteractive.com/insights/aio-impact-on-google-ctr-september-2025-update', 'Seer Interactive, 2025'],
-  ['38%', 'of AI Overview citations come from top-10 results. The rest come from elsewhere.', 'https://ahrefs.com/blog/ai-seo-statistics/', 'Ahrefs, 2026'],
+  ['60%', 'of US Google searches end without a click, because Google now answers most questions on the page itself.', 'https://sparktoro.com/blog/2024-zero-click-search-study-for-every-1000-us-google-searches-only-374-clicks-go-to-the-open-web-in-the-eu-its-360/', 'SparkToro, 2024'],
+  ['62%', "of AI Overview citations come from sources outside Google's top 10.", 'https://ahrefs.com/blog/ai-seo-statistics/', 'Ahrefs, 2026'],
 ];
 
 const SERVICES = [
@@ -25,8 +25,8 @@ export default function Home() {
   return (
     <main>
       <Meta
-        title="Forecite · When customers ask AI, you're the answer."
-        description="Generative engine optimization. ChatGPT, Claude, Google AI Overviews, Perplexity, Gemini, Bing Copilot. Forecite makes sure your business is cited in the answer."
+        title="Forecite · Have the foresight to be cited."
+        description="Generative engine optimization. We get your business recommended by ChatGPT, Claude, Google AI Overviews, Perplexity, Gemini, and Bing Copilot."
         path="/"
       />
 
@@ -39,25 +39,38 @@ export default function Home() {
             fontWeight: 500,
             lineHeight: 1.02,
             letterSpacing: '-0.02em',
-            maxWidth: '14ch',
+            maxWidth: '18ch',
             margin: 0,
             textWrap: 'balance',
           }}
         >
-          When customers ask AI, you're the answer.
+          Your competitors don't know AI search matters. Yet.
         </h1>
-        <p
+        <div
           style={{
-            fontSize: 20,
-            lineHeight: 1.5,
-            maxWidth: '46ch',
-            marginTop: 32,
-            color: 'var(--bone-200)',
+            fontFamily: 'var(--font-mono)',
+            fontSize: 'clamp(22px, 2.6vw, 32px)',
+            fontWeight: 500,
+            lineHeight: 1.3,
+            letterSpacing: 0,
+            color: 'var(--gold-500)',
+            margin: '32px 0 0',
           }}
         >
-          ChatGPT, Claude, Google AI Overviews, Perplexity, Gemini. Your customers are already there. The businesses that build citation coverage now will own the answers their competitors spend years trying to earn back. We make sure you're first.
+          Have the foresight to be cited.
+        </div>
+        <p
+          style={{
+            fontSize: 18,
+            lineHeight: 1.55,
+            maxWidth: '48ch',
+            marginTop: 28,
+            color: 'var(--mute-400)',
+          }}
+        >
+          On ChatGPT, Claude, Google AI Overviews, Perplexity, Gemini, and Bing Copilot, AI is already recommending businesses to your customers. Build citation coverage now and your competitors will spend years trying to earn it back.
         </p>
-        <div className="flex-stack-sm" style={{ display: 'flex', gap: 16, marginTop: 48, flexWrap: 'wrap' }}>
+        <div className="flex-stack-sm" style={{ display: 'flex', gap: 16, marginTop: 32, flexWrap: 'wrap' }}>
           <Link to="/contact" style={{ textDecoration: 'none' }}>
             <Button variant="primary">
               Get your free audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
@@ -136,7 +149,7 @@ export default function Home() {
             margin: '0 0 64px',
           }}
         >
-          Every engagement starts with an audit and is scoped to your business.
+          We make AI search recommend your business.
         </h2>
         <div className="cards-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0 }}>
           {SERVICES.map((s) => (
@@ -173,7 +186,7 @@ export default function Home() {
         label="01 Home — Proof"
         style={{ paddingTop: 120, paddingBottom: 120, borderTop: '1px solid var(--border-bone-on-forest)' }}
       >
-        <Eyebrow style={{ marginBottom: 24 }}>Proof</Eyebrow>
+        <Eyebrow style={{ marginBottom: 24 }}>Case study</Eyebrow>
         <h2
           style={{
             fontSize: 'clamp(36px, 4.5vw, 56px)',
@@ -182,13 +195,13 @@ export default function Home() {
             lineHeight: 1.05,
             margin: '0 0 24px',
             textWrap: 'balance',
-            maxWidth: '20ch',
+            maxWidth: '24ch',
           }}
         >
-          A med spa in Manhattan. Score: 52 out of 100.
+          A 20-year-old Manhattan med spa, invisible to AI search.
         </h2>
-        <p style={{ fontSize: 17, color: 'var(--bone-200)', lineHeight: 1.55, maxWidth: '56ch', marginBottom: 36 }}>
-          Twenty years in business. Thirteen practitioners. Press in Good Housekeeping and the Today Show. And when someone asks an AI platform about cosmetic treatments in New York, the practice barely shows up. We ran a full GEO audit across 12 pages and six scoring categories. The findings tell a story about what AI search actually needs to cite a business, and how far apart that is from what most businesses have in place.
+        <p style={{ fontSize: 17, color: 'var(--bone-200)', lineHeight: 1.55, maxWidth: '60ch', marginBottom: 36 }}>
+          Ask an AI which med spa to visit in Manhattan and this practice barely shows up. It's been in business 20 years, has 13 practitioners on staff, and has been featured in Good Housekeeping and on the Today Show. None of that signal reaches AI search. We ran a full GEO audit across 12 pages and six categories. The findings show what AI search actually needs to cite a business, and how far apart that is from what most businesses have in place. Their final GEO score: 52 out of 100.
         </p>
         <Link to="/audit" style={{ textDecoration: 'none' }}>
           <Button variant="ghost">
