@@ -31,7 +31,7 @@ const FAQS_MAIN = [
   {
     q: 'What kinds of businesses do you work with?',
     a: [
-      'Professional services businesses where AI search recommendations are starting to drive qualified leads. That includes medical and aesthetic practices (med spas, dental, dermatology, cosmetic surgery, concierge medicine), law firms, financial advisors, and other regulated or trust-dependent professional services.',
+      'Professional services businesses where AI search recommendations are starting to drive qualified leads. That includes medical and aesthetic practices (med spas, dental, dermatology, cosmetic surgery, concierge medicine), therapy and mental health practices, law firms, financial advisors, and other regulated or trust-dependent professional services.',
       "The common thread: high-consideration purchases where customers research before they commit, which means they're asking AI platforms questions like \"best [X] in [city]\" or \"how do I find a good [Y].\" If your business is what AI should be recommending in answer to those questions but isn't, our work applies.",
       "If you're outside professional services and you're seeing AI-driven discovery in your category, talk to us anyway. The methodology generalizes.",
     ],

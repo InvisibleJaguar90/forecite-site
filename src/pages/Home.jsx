@@ -39,12 +39,12 @@ export default function Home() {
             fontWeight: 500,
             lineHeight: 1.02,
             letterSpacing: '-0.02em',
-            maxWidth: '18ch',
+            maxWidth: '22ch',
             margin: 0,
             textWrap: 'balance',
           }}
         >
-          Your competitors don't know AI search matters. Yet.
+          When customers ask AI, you're the answer.
         </h1>
         <p
           style={{
