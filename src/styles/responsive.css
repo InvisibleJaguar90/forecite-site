@@ -129,15 +129,18 @@
   }
 }
 
-/* FAQ 1fr 2fr (sidebar + body) → stack at <=768. Sidebar drops the
-   sticky positioning so it doesn't pin awkwardly above the content. */
+/* FAQ 1fr 2fr (sidebar + body) → stack at <=768. Sidebar (the Index)
+   gets hidden entirely on mobile — without sticky positioning it would
+   sit above the answers and force the reader to scroll past 20 question
+   titles before reaching the first answer. Desktop keeps the Index as
+   a clickable navigation column. */
 @media (max-width: 768px) {
   .faq-grid {
     grid-template-columns: 1fr !important;
     gap: 32px !important;
   }
-  .faq-grid > *:first-child {
-    position: static !important;
+  .faq-index {
+    display: none !important;
   }
   /* The summary block in FAQ pages indents body content with marginLeft:48.
      That eats most of a 320px viewport. Reset on mobile. */

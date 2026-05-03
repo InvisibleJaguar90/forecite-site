@@ -54,6 +54,15 @@ details > summary > span:last-child {
   color: var(--gold-500);
 }
 
+/* FAQ index links — desktop only (hidden on mobile by responsive.css).
+   Subtle bone lift on hover so they read as clickable. */
+.faq-index-link {
+  transition: color 160ms var(--ease-editorial);
+}
+.faq-index-link:hover {
+  color: var(--bone-200);
+}
+
 /* Focus outlines stay visible for keyboard users.
    Polished further in Session 4 (visual + content polish). */
 :focus-visible {

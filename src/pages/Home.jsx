@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <main>
       <Meta
-        title="Forecite · Have the foresight to be cited."
+        title="Forecite · Get recommended by AI"
         description="Generative engine optimization. We get your business recommended by ChatGPT, Claude, Google AI Overviews, Perplexity, Gemini, and Bing Copilot."
         path="/"
       />
@@ -46,25 +46,12 @@ export default function Home() {
         >
           Your competitors don't know AI search matters. Yet.
         </h1>
-        <div
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 'clamp(22px, 2.6vw, 32px)',
-            fontWeight: 500,
-            lineHeight: 1.3,
-            letterSpacing: 0,
-            color: 'var(--gold-500)',
-            margin: '32px 0 0',
-          }}
-        >
-          Have the foresight to be cited.
-        </div>
         <p
           style={{
             fontSize: 18,
             lineHeight: 1.55,
             maxWidth: '48ch',
-            marginTop: 28,
+            marginTop: 32,
             color: 'var(--mute-400)',
           }}
         >

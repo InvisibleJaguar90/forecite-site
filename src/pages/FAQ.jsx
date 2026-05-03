@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Eyebrow, Button, Section } from '../components/Atoms.jsx';
 import Meta from '../components/Meta.jsx';
@@ -167,6 +168,22 @@ const FAQS_TECHNICAL = [
 const ALL_FAQS = [...FAQS_MAIN, ...FAQS_TECHNICAL];
 
 export default function FAQ() {
+  // When the URL hash matches an FAQ id (e.g. /faq#faq-7), auto-open the
+  // matching <details>. Runs on initial load and on every in-session hash
+  // change (clicks from the Index sidebar). Native anchor scroll handles
+  // positioning; we just expand the answer so the user lands on it open.
+  useEffect(() => {
+    const openFromHash = () => {
+      const hash = window.location.hash;
+      if (!hash.startsWith('#faq-')) return;
+      const el = document.querySelector(hash);
+      if (el && el.tagName === 'DETAILS') el.open = true;
+    };
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
+    return () => window.removeEventListener('hashchange', openFromHash);
+  }, []);
+
   return (
     <main>
       <Meta
@@ -193,7 +210,7 @@ export default function FAQ() {
 
       <Section label="05 FAQ — List" style={{ paddingTop: 0, paddingBottom: 96 }}>
         <div className="faq-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 96 }}>
-          <div style={{ position: 'sticky', top: 'calc(var(--topbar-h) + 32px)', alignSelf: 'start' }}>
+          <div className="faq-index" style={{ position: 'sticky', top: 'calc(var(--topbar-h) + 32px)', alignSelf: 'start' }}>
             <Eyebrow>Index</Eyebrow>
             <ol
               style={{
@@ -206,9 +223,20 @@ export default function FAQ() {
               }}
             >
               {ALL_FAQS.map((item, i) => (
-                <li key={i} style={{ padding: '8px 0', display: 'flex', gap: 12 }}>
-                  <span style={{ color: 'var(--gold-500)' }}>{String(i + 1).padStart(2, '0')}</span>
-                  <span>{item.q}</span>
+                <li key={i} style={{ padding: '8px 0' }}>
+                  <a
+                    href={`#faq-${i + 1}`}
+                    className="faq-index-link"
+                    style={{
+                      display: 'flex',
+                      gap: 12,
+                      color: 'inherit',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    <span style={{ color: 'var(--gold-500)' }}>{String(i + 1).padStart(2, '0')}</span>
+                    <span>{item.q}</span>
+                  </a>
                 </li>
               ))}
             </ol>
@@ -217,8 +245,13 @@ export default function FAQ() {
             {FAQS_MAIN.map((item, i) => (
               <details
                 key={i}
+                id={`faq-${i + 1}`}
                 open={i < 2}
-                style={{ borderTop: '1px solid var(--border-bone-on-forest)', padding: '28px 0' }}
+                style={{
+                  borderTop: '1px solid var(--border-bone-on-forest)',
+                  padding: '28px 0',
+                  scrollMarginTop: 'calc(var(--topbar-h) + 16px)',
+                }}
               >
                 <summary
                   style={{
@@ -276,7 +309,12 @@ export default function FAQ() {
               return (
                 <details
                   key={globalIdx}
-                  style={{ borderTop: '1px solid var(--border-bone-on-forest)', padding: '28px 0' }}
+                  id={`faq-${globalIdx + 1}`}
+                  style={{
+                    borderTop: '1px solid var(--border-bone-on-forest)',
+                    padding: '28px 0',
+                    scrollMarginTop: 'calc(var(--topbar-h) + 16px)',
+                  }}
                 >
                   <summary
                     style={{
