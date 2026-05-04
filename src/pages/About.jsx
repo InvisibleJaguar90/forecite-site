@@ -34,13 +34,10 @@ export default function About() {
       >
         <div style={{ maxWidth: '62ch' }}>
           <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65, marginBottom: 24 }}>
-            I moved to Taiwan in 2017 to teach history. What was meant to be a short stretch turned into eight years across Taiwan and Mainland China, an MA in International Relations from the Johns Hopkins-Nanjing Center, and a thesis on Taiwan's semiconductor industry and energy security written in Chinese. I spent most of a decade thinking about chips and the geopolitics built around them.
-          </p>
-          <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65, marginBottom: 24 }}>
-            Late 2022 happened in the middle of that work. ChatGPT shipped, the AI boom that the chip industry had been priming for years became visible to everyone at once, and I started watching the consumer-discovery side of the same wave. The same compute substrate that was driving AI capability was about to reshape how people find businesses. The chip story I had been tracking and the search-behavior story I started seeing were the same story.
+            Boston College, then 2017 to 2025 across Taiwan and Mainland China. I taught history in Taiwan, did language school, and went on to Johns Hopkins SAIS for an MA in International Relations with concentrations in China Studies and International Economics. My thesis on Taiwan's semiconductor industry and energy security was written in Chinese. I spent those years thinking about chips and the geopolitics built around them.
           </p>
           <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65 }}>
-            I started auditing businesses to test the pattern. What I found was consistent across industries: companies that had spent years on SEO were invisible to the AI platforms. Their competitors, sometimes with weaker sites and thinner content, were getting cited because they had the right structural signals in the right places. The problem was measurable, the fixes were clear, and almost nobody was doing the work.
+            Late 2022 happened in the middle of that work. ChatGPT shipped, the AI boom that the chip industry had been priming for years became visible to everyone at once, and I started watching the consumer-discovery side of the same wave. The same compute substrate that was driving AI capability was about to reshape how people find businesses. The chip story I had been tracking and the search-behavior story I started seeing were the same story.
           </p>
         </div>
       </Section>
@@ -99,17 +96,6 @@ export default function About() {
               >
                 Founder
               </div>
-              <p
-                style={{
-                  fontSize: 15,
-                  color: 'var(--mute-400)',
-                  lineHeight: 1.65,
-                  marginTop: 20,
-                  maxWidth: '40ch',
-                }}
-              >
-                Boston College English Lit, then eight years living and working across Taiwan and Mainland China. An MA in International Relations from the Johns Hopkins-Nanjing Center, with concentrations in China Studies and International Economics. Chinese-language coursework and a thesis on Taiwan's semiconductor industry and energy security. Currently leads growth at Nestron, a prefab homebuilder. Photographs cities. Reads chip-and-China geopolitics and sci-fi about equally, as a pair of ways of looking at the same thing.
-              </p>
             </div>
           </div>
         </div>
