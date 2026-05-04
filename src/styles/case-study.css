@@ -1,0 +1,501 @@
+/* =====================================================================
+   Case Study page — animations and effects.
+
+   All animations are progressive enhancement. Default state in CSS shows
+   content fully visible (so server-rendered HTML works without JS for AI
+   crawlers). The .cs-anim-ready class is added to <html> by JS once the
+   IntersectionObserver hooks are wired up; only then do elements start in
+   their pre-animation state and fade/scale into place.
+
+   prefers-reduced-motion fully disables all transitions and animations.
+   ===================================================================== */
+
+/* ---------- Tab navigation ---------- */
+
+.cs-tabs {
+  position: sticky;
+  top: var(--topbar-h);
+  z-index: 40;
+  background: var(--forest-800);
+  border-top: 1px solid var(--border-bone-on-forest);
+  border-bottom: 1px solid var(--border-bone-on-forest);
+}
+
+.cs-tabs-inner {
+  max-width: var(--maxw-wide);
+  margin: 0 auto;
+  padding: 0 var(--gutter-md);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.cs-tab {
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--fg-2);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  padding: 22px 16px;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  transition: color 200ms var(--ease-editorial);
+  min-height: 44px;
+}
+
+.cs-tab:hover {
+  color: var(--fg-1);
+}
+
+.cs-tab[aria-selected="true"] {
+  color: var(--fg-1);
+}
+
+.cs-tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--gold-500);
+}
+
+.cs-tab:focus-visible {
+  outline: 2px solid var(--gold-500);
+  outline-offset: -4px;
+}
+
+/* Mobile: horizontal scroll pill bar */
+@media (max-width: 768px) {
+  .cs-tabs-inner {
+    display: flex !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 var(--gutter-md);
+    gap: 4px;
+  }
+  .cs-tab {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    padding: 18px 14px;
+    font-size: 12px;
+  }
+}
+
+/* ---------- Setup band ---------- */
+
+.cs-setup {
+  background: var(--forest-900);
+  border-top: 1px solid var(--border-bone-on-forest);
+  border-bottom: 1px solid var(--border-bone-on-forest);
+  padding: 28px var(--gutter-md);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--fg-2);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .cs-setup {
+    text-align: left;
+    padding: 20px var(--gutter-md);
+    font-size: 13px;
+  }
+}
+
+/* ---------- Headline + score block ---------- */
+
+.cs-headline-section {
+  padding: 96px var(--gutter-md);
+  max-width: var(--maxw-wide);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cs-chapter-title {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(28px, 4vw, 48px);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  text-wrap: balance;
+  margin: 0 0 48px;
+  color: var(--fg-1);
+}
+
+.cs-score-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.cs-score-number {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: clamp(120px, 16vw, 220px);
+  line-height: 1;
+  color: var(--alert-500);
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-score-number.is-fair {
+  color: var(--gold-500);
+}
+
+.cs-score-suffix {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--mute-400);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.cs-score-context {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  color: var(--bone-200);
+  line-height: 1.6;
+  max-width: 56ch;
+  margin: 24px auto 0;
+  text-wrap: pretty;
+}
+
+@media (max-width: 768px) {
+  .cs-headline-section {
+    padding: 56px var(--gutter-md);
+    text-align: left;
+  }
+  .cs-score-block {
+    align-items: flex-start;
+  }
+  .cs-score-context {
+    margin: 20px 0 0;
+    font-size: 15px;
+  }
+}
+
+/* ---------- Findings ---------- */
+
+.cs-findings-section {
+  padding: 96px var(--gutter-md);
+  max-width: var(--maxw-wide);
+  margin: 0 auto;
+  border-top: 1px solid var(--border-bone-on-forest);
+}
+
+.cs-findings-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold-500);
+  margin-bottom: 48px;
+}
+
+.cs-finding {
+  border-left: 2px solid rgba(201, 169, 97, 0.5); /* gold-500 at 50% */
+  padding: 8px 0 8px 28px;
+  margin-bottom: 48px;
+  max-width: 78ch;
+}
+
+.cs-finding-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mute-400);
+  margin-bottom: 12px;
+}
+
+.cs-finding-title {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(22px, 2.6vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  margin: 0 0 16px;
+  color: var(--fg-1);
+}
+
+.cs-finding-body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--bone-200);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+@media (max-width: 768px) {
+  .cs-findings-section {
+    padding: 56px var(--gutter-md);
+  }
+  .cs-finding {
+    padding-left: 20px;
+    margin-bottom: 36px;
+  }
+  .cs-finding-body {
+    font-size: 15px;
+  }
+}
+
+/* Reveal-on-scroll for findings (progressive enhancement) */
+html.cs-anim-ready .cs-finding {
+  opacity: 0.4;
+  transform: translateY(8px);
+  transition: opacity 500ms var(--ease-editorial), transform 500ms var(--ease-editorial);
+}
+html.cs-anim-ready .cs-finding.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Gameplan ---------- */
+
+.cs-gameplan-section {
+  padding: 96px var(--gutter-md) 120px;
+  max-width: var(--maxw-wide);
+  margin: 0 auto;
+  border-top: 1px solid var(--border-bone-on-forest);
+}
+
+.cs-gameplan-heading {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(36px, 5vw, 60px);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0 0 64px;
+  text-wrap: balance;
+}
+
+.cs-phase {
+  position: relative;
+  padding: 56px 0;
+}
+
+.cs-phase + .cs-phase {
+  border-top: 1px solid rgba(201, 169, 97, 0.3);
+}
+
+/* Phase divider line draw — the border-top above is the static fallback;
+   when JS marks the phase as in-view, we draw a brighter rule across it. */
+html.cs-anim-ready .cs-phase + .cs-phase::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold-500);
+  transition: width 1200ms var(--ease-editorial);
+}
+html.cs-anim-ready .cs-phase.is-in-view + .cs-phase::before,
+html.cs-anim-ready .cs-phase.is-in-view::before {
+  width: 100%;
+}
+
+.cs-phase-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--gold-500);
+  margin-bottom: 20px;
+}
+
+.cs-phase-outcome {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--fg-1);
+  margin: 0 0 32px;
+  max-width: 64ch;
+  text-wrap: pretty;
+  transition: transform 600ms var(--ease-editorial);
+  transform-origin: left center;
+}
+
+html.cs-anim-ready .cs-phase-outcome {
+  opacity: 0.7;
+  transition: opacity 600ms var(--ease-editorial), transform 600ms var(--ease-editorial);
+}
+html.cs-anim-ready .cs-phase.is-in-view .cs-phase-outcome {
+  opacity: 1;
+}
+
+.cs-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cs-bullet {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--bone-200);
+  max-width: 78ch;
+  transition: color 320ms var(--ease-editorial), font-weight 320ms var(--ease-editorial);
+}
+
+.cs-bullet-marker {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--mute-500);
+  line-height: 1.55;
+  text-align: center;
+  user-select: none;
+}
+
+.cs-bullet.is-highlight .cs-bullet-marker {
+  color: var(--gold-500);
+}
+
+/* Highlight bullets pulse when scrolled into focus zone */
+html.cs-anim-ready .cs-bullet.is-highlight {
+  color: var(--bone-300);
+}
+html.cs-anim-ready .cs-bullet.is-highlight.is-focused {
+  color: var(--gold-500);
+  font-weight: 500;
+}
+html.cs-anim-ready .cs-bullet.is-highlight.is-focused .cs-bullet-marker {
+  color: var(--gold-500);
+}
+
+@media (max-width: 768px) {
+  .cs-gameplan-section {
+    padding: 56px var(--gutter-md) 80px;
+  }
+  .cs-phase {
+    padding: 40px 0;
+  }
+  .cs-bullet {
+    font-size: 15px;
+    grid-template-columns: 20px 1fr;
+    gap: 10px;
+  }
+  /* Drop the scale animation on outcome headers on mobile to avoid jank */
+  .cs-phase-outcome {
+    transition: opacity 400ms var(--ease-editorial);
+    transform: none !important;
+  }
+}
+
+/* ---------- PDF link ---------- */
+
+.cs-pdf-section {
+  padding: 56px var(--gutter-md);
+  max-width: var(--maxw-wide);
+  margin: 0 auto;
+  border-top: 1px solid var(--border-bone-on-forest);
+}
+
+.cs-pdf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--fg-1);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  transition: color 200ms var(--ease-editorial);
+}
+
+.cs-pdf-link:hover {
+  color: var(--gold-500);
+}
+
+.cs-pdf-link .cs-pdf-arrow {
+  font-family: var(--font-mono);
+  color: var(--gold-500);
+  transition: transform 200ms var(--ease-editorial);
+}
+
+.cs-pdf-link:hover .cs-pdf-arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+  .cs-pdf-section {
+    padding: 32px var(--gutter-md);
+  }
+  .cs-pdf-link {
+    font-size: 16px;
+  }
+}
+
+/* ---------- Per-tab CTA ---------- */
+
+.cs-cta-section {
+  padding: 80px var(--gutter-md) 120px;
+  max-width: var(--maxw-wide);
+  margin: 0 auto;
+  border-top: 1px solid var(--border-bone-on-forest);
+}
+
+.cs-cta-headline {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(36px, 5vw, 60px);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0 0 16px;
+  text-wrap: balance;
+}
+
+.cs-cta-sub {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  color: var(--bone-200);
+  line-height: 1.6;
+  margin: 0 0 32px;
+  max-width: 48ch;
+}
+
+@media (max-width: 768px) {
+  .cs-cta-section {
+    padding: 48px var(--gutter-md) 72px;
+  }
+  .cs-cta-sub {
+    font-size: 16px;
+  }
+}
+
+/* ---------- Reduced motion: disable everything ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html.cs-anim-ready .cs-finding,
+  html.cs-anim-ready .cs-phase-outcome,
+  html.cs-anim-ready .cs-bullet,
+  html.cs-anim-ready .cs-bullet.is-highlight {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  html.cs-anim-ready .cs-phase + .cs-phase::before {
+    width: 100% !important;
+    transition: none !important;
+  }
+}

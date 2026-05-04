@@ -1,299 +1,365 @@
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Eyebrow, Button, Section } from '../components/Atoms.jsx';
 import Meta from '../components/Meta.jsx';
+import { CASE_STUDIES, DEFAULT_TAB_ID } from '../data/caseStudies.js';
 
-// Category scores from the real Tribeca MedSpa audit (redacted)
-const CATEGORIES = [
-  { name: 'Technical Foundations', score: 72, color: 'var(--gold-500)' },
-  { name: 'Content & E-E-A-T', score: 67, color: 'var(--gold-500)' },
-  { name: 'Schema & Structured Data', score: 55, color: 'var(--gold-500)' },
-  { name: 'AI Citability', score: 50, color: 'var(--alert-500)' },
-  { name: 'Platform Optimization', score: 40, color: 'var(--alert-500)' },
-  { name: 'Brand Authority', score: 28, color: 'var(--alert-500)' },
-];
+// Reads the location hash and returns the case study id if it matches one,
+// otherwise the default. Fragment ids: #med-spa, #dental, #legal, #financial.
+function parseHashId() {
+  if (typeof window === 'undefined') return DEFAULT_TAB_ID;
+  const raw = window.location.hash.replace(/^#/, '');
+  const found = CASE_STUDIES.find((cs) => cs.id === raw);
+  return found ? found.id : DEFAULT_TAB_ID;
+}
 
-const PLATFORMS = [
-  { name: 'Google AI Overviews', score: 56, missing: 'No publication dates, no comparison tables, no author bylines' },
-  { name: 'Google Gemini', score: 54, missing: 'No LocalBusiness schema, incomplete entity data' },
-  { name: 'Bing Copilot', score: 42, missing: 'No IndexNow, no Bing Webmaster Tools, weak LinkedIn' },
-  { name: 'ChatGPT', score: 32, missing: 'No Wikipedia or Wikidata entity, weak Bing optimization' },
-  { name: 'Perplexity', score: 14, missing: 'Zero Reddit presence, no original research data' },
-];
+// Eased ease-out for the score-counter tween. Matches the editorial ease.
+function easeOutCubic(t) {
+  return 1 - Math.pow(1 - t, 3);
+}
 
-const FINDINGS = [
-  {
-    title: 'Thirteen practitioners, zero author attribution',
-    body: 'The team page lists 13 qualified providers, including a board-certified dermatologist and a board-certified plastic surgeon. Credentials, training, and specialties are all documented there. None of that information is connected to the content those providers inform. Blog posts carry no byline. Service pages carry no author. AI systems evaluating medical content for trustworthiness see a site where nobody is willing to put their name on anything.',
-  },
-  {
-    title: "Twenty years of press coverage AI can't verify",
-    body: "This practice has been featured in nationally recognized publications. Awards, designations, and media logos appear on the site. But no Wikipedia article exists. No Wikidata entry. No structured link between the brand and its press history in any format an AI system can verify. ChatGPT draws 47.9% of its citations from Wikipedia. Without an entity there, the practice's entire press history is invisible to the platform that answers the most consumer health and beauty questions.",
-  },
-  {
-    title: "Two locations, and AI doesn't know about either one",
-    body: 'The site runs two physical locations in different neighborhoods. The schema markup contains an Organization type with a name, a URL, and a logo set to 1-pixel-by-1-pixel dimensions. No address. No phone number. No hours. No geo-coordinates. For any location-based query, "best med spa near me," "botox in [neighborhood]," AI platforms have no structured way to know this business is local, or where it is.',
-  },
-];
+// Headline + score block. The score number renders at its final value in
+// HTML (crawler-readable). On viewport entry, JS animates from 0 to value.
+function HeadlineScoreBlock({ headline, score }) {
+  const numberRef = useRef(null);
+  const animatedRef = useRef(false);
 
-function ScoreBar({ label, score, color }) {
+  useEffect(() => {
+    const el = numberRef.current;
+    if (!el || animatedRef.current) return;
+
+    // Honor reduced motion.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = String(score.value);
+      animatedRef.current = true;
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && !animatedRef.current) {
+            animatedRef.current = true;
+            const target = score.value;
+            const duration = 1200;
+            const start = performance.now();
+            // Reset to 0 at start, then tween up. Final HTML already reads
+            // the target value, so this is a one-shot replacement.
+            el.textContent = '0';
+            const tick = (now) => {
+              const t = Math.min(1, (now - start) / duration);
+              const eased = easeOutCubic(t);
+              const current = Math.round(target * eased);
+              el.textContent = String(current);
+              if (t < 1) {
+                requestAnimationFrame(tick);
+              } else {
+                el.textContent = String(target);
+              }
+            };
+            requestAnimationFrame(tick);
+            observer.disconnect();
+          }
+        }
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [score.value]);
+
+  // Color: gold for Fair (>= 60), alert (red) otherwise. Pure Financial at 59
+  // is right at the edge — treat 59 as alert (Poor) per the formula score
+  // approach we agreed on. Threshold: >= 60 = gold.
+  const isFair = score.value >= 60;
+
   return (
-    <div style={{ marginBottom: 20 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontFamily: 'var(--font-mono)', fontSize: 13 }}>
-        <span>{label}</span>
-        <span style={{ color }}>{score}</span>
-      </div>
-      <div style={{ height: 4, background: 'var(--forest-700)', borderRadius: 2 }}>
+    <section className="cs-headline-section">
+      <h2 className="cs-chapter-title">{headline}</h2>
+      <div className="cs-score-block">
         <div
-          style={{
-            height: '100%',
-            width: score + '%',
-            background: color,
-            borderRadius: 2,
-            transition: 'width 800ms var(--ease-editorial)',
-          }}
-        />
+          ref={numberRef}
+          className={'cs-score-number' + (isFair ? ' is-fair' : '')}
+          aria-label={`Overall score: ${score.value} out of 100`}
+        >
+          {score.value}
+        </div>
+        <div className="cs-score-suffix">{score.label}</div>
+        <p className="cs-score-context">{score.context}</p>
       </div>
-    </div>
+    </section>
+  );
+}
+
+// Three audit findings, each with reveal-on-scroll.
+function Findings({ findings }) {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const items = container.querySelectorAll('.cs-finding');
+    if (!items.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -10% 0px' },
+    );
+    items.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [findings]);
+
+  return (
+    <section className="cs-findings-section" ref={containerRef}>
+      <div className="cs-findings-eyebrow">From the audit</div>
+      {findings.map((f, i) => (
+        <article className="cs-finding" key={i}>
+          <div className="cs-finding-label">Finding 0{i + 1}</div>
+          <h3 className="cs-finding-title">{f.title}</h3>
+          <p className="cs-finding-body">{f.body}</p>
+        </article>
+      ))}
+    </section>
+  );
+}
+
+// 30/60/90 Gameplan with three phases. Each phase has its own observer for
+// the in-view state (drives outcome scale/opacity + divider line draw).
+// Highlight bullets get a separate, narrower-focus observer that toggles
+// is-focused as the bullet passes through the middle of the viewport.
+function Gameplan({ gameplan }) {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Phase visibility observer.
+    const phases = container.querySelectorAll('.cs-phase');
+    const phaseObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in-view');
+          }
+        }
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -15% 0px' },
+    );
+    phases.forEach((el) => phaseObserver.observe(el));
+
+    // Highlight bullet focus observer — narrow band centered on viewport.
+    const highlights = container.querySelectorAll('.cs-bullet.is-highlight');
+    const focusObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-focused');
+          } else {
+            entry.target.classList.remove('is-focused');
+          }
+        }
+      },
+      // ~30% strip in the middle of the viewport
+      { threshold: 0, rootMargin: '-35% 0px -35% 0px' },
+    );
+    highlights.forEach((el) => focusObserver.observe(el));
+
+    return () => {
+      phaseObserver.disconnect();
+      focusObserver.disconnect();
+    };
+  }, [gameplan]);
+
+  return (
+    <section className="cs-gameplan-section" ref={containerRef}>
+      <h2 className="cs-gameplan-heading">What we&rsquo;d do about it.</h2>
+      {gameplan.phases.map((phase) => (
+        <div className="cs-phase" key={phase.label}>
+          <div className="cs-phase-label">{phase.label}</div>
+          <p className="cs-phase-outcome">{phase.outcome}</p>
+          <ul className="cs-bullets">
+            {phase.items.map((item, i) => (
+              <li
+                key={i}
+                className={'cs-bullet' + (item.highlight ? ' is-highlight' : '')}
+              >
+                <span className="cs-bullet-marker" aria-hidden="true">
+                  {item.highlight ? '★' : '•'}
+                </span>
+                <span>{item.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+  );
+}
+
+// Single tab content. Renders all sections for one case study.
+function CaseStudyTab({ study }) {
+  return (
+    <>
+      <div className="cs-setup">{study.setup}</div>
+      <HeadlineScoreBlock headline={study.headline} score={study.score} />
+      <Findings findings={study.findings} />
+      <Gameplan gameplan={study.gameplan} />
+      <div className="cs-pdf-section">
+        <a className="cs-pdf-link" href={study.pdf.href}>
+          {study.pdf.label}
+          <span className="cs-pdf-arrow" aria-hidden="true">
+            &rarr;
+          </span>
+        </a>
+      </div>
+      <div className="cs-cta-section">
+        <h2 className="cs-cta-headline">Get yours.</h2>
+        <p className="cs-cta-sub">
+          Free audit, scoped to your business. We send a real report like the one above.
+        </p>
+        <Link to="/contact" style={{ textDecoration: 'none' }}>
+          <Button variant="primary">
+            Book your audit{' '}
+            <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+          </Button>
+        </Link>
+      </div>
+    </>
   );
 }
 
 export default function AuditShowcase() {
+  const [activeId, setActiveId] = useState(parseHashId);
+  const tabContentRef = useRef(null);
+
+  // Initial mount: enable animations now that JS is loaded.
+  useEffect(() => {
+    document.documentElement.classList.add('cs-anim-ready');
+    return () => document.documentElement.classList.remove('cs-anim-ready');
+  }, []);
+
+  // Sync activeId with location hash. Listen for hashchange events.
+  useEffect(() => {
+    const onHashChange = () => setActiveId(parseHashId());
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  const handleTabClick = useCallback(
+    (id) => {
+      setActiveId(id);
+      // Push hash so deep links work and back-button restores prior tab.
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, '', '#' + id);
+      } else {
+        window.location.hash = id;
+      }
+      // Scroll to the top of the tab content (just below the sticky tab bar).
+      // requestAnimationFrame so the browser paints the new content first.
+      requestAnimationFrame(() => {
+        const target = tabContentRef.current;
+        if (!target) return;
+        const topbarH =
+          parseInt(getComputedStyle(document.documentElement).getPropertyValue('--topbar-h')) || 72;
+        const tabsH = 64; // approximate; covered by the sticky tab bar
+        const rect = target.getBoundingClientRect();
+        const top = rect.top + window.scrollY - (topbarH + tabsH) - 8;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    },
+    [],
+  );
+
+  const study = CASE_STUDIES.find((cs) => cs.id === activeId) || CASE_STUDIES[0];
+
   return (
     <main>
       <Meta
-        title="Audit showcase · Forecite"
-        description="A real GEO audit, redacted for privacy. Manhattan med spa scored 52 out of 100. See how AI search reads a successful 20-year-old business, and what's missing."
+        title="Case studies · Forecite"
+        description="Four real GEO audits across med spa, dental, legal, and financial advisory. Findings, scores, and a 30/60/90 gameplan for each. Names changed."
         path="/audit"
       />
 
       {/* HERO */}
-      <Section label="03 Audit — Hero" style={{ paddingTop: 140, paddingBottom: 96 }}>
-        <Eyebrow style={{ marginBottom: 24 }}>Proof</Eyebrow>
+      <Section label="03 Audit — Hero" style={{ paddingTop: 140, paddingBottom: 64 }}>
+        <Eyebrow style={{ marginBottom: 24 }}>Case studies</Eyebrow>
         <h1
           style={{
             fontSize: 'clamp(48px, 6vw, 88px)',
             fontWeight: 500,
             letterSpacing: '-0.02em',
             lineHeight: 1.05,
-            maxWidth: '18ch',
+            maxWidth: '20ch',
             margin: 0,
           }}
         >
-          A med spa in Manhattan. Score: 52 out of 100.
+          Four real audits.
         </h1>
-        <p style={{ fontSize: 18, lineHeight: 1.6, maxWidth: '54ch', marginTop: 32, color: 'var(--bone-200)' }}>
-          A real GEO audit, redacted for privacy. This is what we find when we look under the hood.
-        </p>
-      </Section>
-
-      {/* BLOCK 01 — THE SETUP */}
-      <Section
-        label="03 Audit — Setup"
-        style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
-      >
-        <div style={{ maxWidth: '62ch' }}>
-          <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65, marginBottom: 24 }}>
-            Twenty years in business. Two locations. A physician-led medical team of 13 practitioners with board certifications in dermatology, plastic surgery, and aesthetics. Press features in Good Housekeeping, Today Show, Town & Country, and Manhattan Magazine. A Diamond Level Allergan designation. Over 150 Yelp reviews.
-          </p>
-          <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65, marginBottom: 24 }}>
-            By any conventional measure, this is a successful, well-established practice.
-          </p>
-          <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65 }}>
-            We ran a GEO audit across 12 pages of their site. The question was simple: when someone asks ChatGPT, Claude, Google AI Overviews, or Perplexity a question this practice should be answering, does the practice show up?
-          </p>
-        </div>
-      </Section>
-
-      {/* BLOCK 02 — OVERALL SCORE */}
-      <Section
-        label="03 Audit — Score"
-        style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
-      >
-        <div className="score-row" style={{ display: 'flex', alignItems: 'center', gap: 64 }}>
-          <div
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 'clamp(80px, 10vw, 140px)',
-              fontWeight: 500,
-              color: 'var(--alert-500)',
-              lineHeight: 1,
-              flexShrink: 0,
-            }}
-          >
-            52
-          </div>
-          <div>
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 14,
-                color: 'var(--mute-400)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.12em',
-                marginBottom: 12,
-              }}
-            >
-              out of 100 · Poor
-            </div>
-            <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65, maxWidth: '52ch' }}>
-              This practice has spent two decades building the kind of reputation that should make it a primary source for AI platforms answering questions about cosmetic treatments in New York. Instead, most of that authority sits in formats AI systems either can't find or can't parse.
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      {/* BLOCK 03 — CATEGORY BREAKDOWN */}
-      <Section
-        label="03 Audit — Categories"
-        style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
-      >
-        <Eyebrow style={{ marginBottom: 48 }}>Category breakdown</Eyebrow>
-        <div className="audit-cats" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64 }}>
-          <div>
-            {CATEGORIES.map((c) => (
-              <ScoreBar key={c.name} label={c.name} score={c.score} color={c.color} />
-            ))}
-          </div>
-          <div>
-            <p style={{ fontSize: 16, color: 'var(--bone-200)', lineHeight: 1.65, marginBottom: 20 }}>
-              Two categories scored above average. The site runs on WordPress with server-side rendering, which means AI crawlers can read the HTML without executing JavaScript. That alone puts the technical floor higher than most. And the content is real: FAQ sections with 13 treatment questions and direct answers on a single service page, before-and-after photography, published pricing.
-            </p>
-            <p style={{ fontSize: 16, color: 'var(--bone-200)', lineHeight: 1.65 }}>
-              The problem is everywhere else. Brand Authority at 28 means the platforms AI relies on for verification, Wikipedia, Reddit, LinkedIn, have almost no signal that this practice exists. Platform Optimization at 40 means five different AI systems are each missing different pieces of what they need to cite this business.
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      {/* BLOCK 04 — PLATFORM DASHBOARD */}
-      <Section
-        label="03 Audit — Platforms"
-        style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
-      >
-        <Eyebrow style={{ marginBottom: 48 }}>What the platforms see</Eyebrow>
-        <div className="platforms-5" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 0 }}>
-          {PLATFORMS.map((p, i) => (
-            <div
-              key={p.name}
-              style={{
-                borderTop: '1px solid var(--border-bone-on-forest)',
-                borderRight: i < 4 ? '1px solid var(--border-bone-on-forest)' : 'none',
-                padding: '28px 20px 32px',
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 32,
-                  fontWeight: 500,
-                  color: p.score >= 50 ? 'var(--gold-500)' : 'var(--alert-500)',
-                }}
-              >
-                {p.score}
-              </div>
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 12,
-                  color: 'var(--mute-400)',
-                  marginTop: 8,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                }}
-              >
-                {p.name}
-              </div>
-              <p style={{ fontSize: 13, color: 'var(--mute-500)', lineHeight: 1.5, marginTop: 12 }}>
-                {p.missing}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div style={{ maxWidth: '62ch', marginTop: 40 }}>
-          <p style={{ fontSize: 16, color: 'var(--bone-200)', lineHeight: 1.65, marginBottom: 20 }}>
-            Each platform pulls from different sources and weighs different signals. Google AI Overviews leans on structured headings, tables, and freshness dates. ChatGPT leans on Wikipedia and Bing's index. Perplexity leans on Reddit and community content. A site can score well on one and be invisible on another.
-          </p>
-          <p style={{ fontSize: 16, color: 'var(--bone-200)', lineHeight: 1.65 }}>
-            This practice's Perplexity score is 14 out of 100. Reddit accounts for nearly half of Perplexity's citations. This practice has zero Reddit threads discussing it. For anyone using Perplexity to find a med spa in Manhattan, this business does not exist.
-          </p>
-        </div>
-      </Section>
-
-      {/* BLOCK 05 — THREE FINDINGS */}
-      <Section
-        label="03 Audit — Findings"
-        style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
-      >
-        <Eyebrow style={{ marginBottom: 48 }}>Three findings that tell the story</Eyebrow>
-        {FINDINGS.map((f, i) => (
-          <div
-            key={i}
-            className="findings-row"
-            style={{
-              borderTop: '1px solid var(--border-bone-on-forest)',
-              padding: '32px 0',
-              display: 'grid',
-              gridTemplateColumns: '60px 1fr',
-              gap: 32,
-            }}
-          >
-            <Eyebrow style={{ paddingTop: 4 }}>0{i + 1}</Eyebrow>
-            <div>
-              <h3 style={{ fontSize: 24, fontWeight: 500, letterSpacing: '-0.01em', margin: '0 0 16px' }}>
-                {f.title}
-              </h3>
-              <p style={{ fontSize: 16, color: 'var(--mute-400)', lineHeight: 1.65, maxWidth: '60ch' }}>
-                {f.body}
-              </p>
-            </div>
-          </div>
-        ))}
-      </Section>
-
-      {/* BLOCK 06 — WHAT MOVES */}
-      <Section
-        label="03 Audit — What moves"
-        style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
-      >
-        <Eyebrow style={{ marginBottom: 24 }}>What moves</Eyebrow>
-        <div style={{ maxWidth: '62ch' }}>
-          <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65, marginBottom: 24 }}>
-            The audit doesn't just score. It ranks every fix by impact and sequences a 30-day action plan.
-          </p>
-          <p style={{ fontSize: 16, color: 'var(--bone-200)', lineHeight: 1.65, marginBottom: 24 }}>
-            For this practice, the five highest-leverage changes could be completed in a single afternoon: adding their LinkedIn profile to the site's entity data, creating a Wikidata entry with founding date and location, registering with Bing's webmaster tools, enabling instant indexing for new content, and deploying a machine-readable site summary for AI crawlers. Combined, those five changes would move the overall score by an estimated 8 to 12 points.
-          </p>
-          <p style={{ fontSize: 16, color: 'var(--bone-200)', lineHeight: 1.65 }}>
-            The deeper structural work, connecting practitioners to the content they inform, building the Wikipedia case from existing press coverage, beginning authentic community engagement in the forums Perplexity actually reads, fills weeks two through four and moves the score further.
-          </p>
-        </div>
-      </Section>
-
-      {/* CTA */}
-      <Section
-        label="03 Audit — CTA"
-        style={{ paddingTop: 120, paddingBottom: 144, borderTop: '1px solid var(--border-bone-on-forest)' }}
-      >
         <h2
           style={{
-            fontSize: 'clamp(36px, 5vw, 60px)',
+            fontSize: 'clamp(22px, 2.6vw, 32px)',
             fontWeight: 500,
-            letterSpacing: '-0.02em',
-            maxWidth: '20ch',
-            margin: '0 0 24px',
+            letterSpacing: '-0.01em',
+            lineHeight: 1.2,
+            color: 'var(--gold-500)',
+            fontFamily: 'var(--font-mono)',
+            margin: '16px 0 0',
           }}
         >
-          What would your score be?
+          What we found. What we&rsquo;d do.
         </h2>
-        <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.6, maxWidth: '48ch', marginBottom: 36 }}>
-          Every audit is specific to your site, your platforms, and your competitive landscape. The first one is free.
+        <p
+          style={{
+            fontSize: 17,
+            lineHeight: 1.65,
+            maxWidth: '62ch',
+            marginTop: 32,
+            color: 'var(--bone-200)',
+          }}
+        >
+          Four real audits run on four real businesses across med spa, dental, legal, and financial advisory. Findings, scores, and recommendations are unedited. Business names and identifying details have been changed.
         </p>
-        <Link to="/contact" style={{ textDecoration: 'none' }}>
-          <Button variant="primary">
-            Get your free audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-          </Button>
-        </Link>
       </Section>
+
+      {/* TAB NAV */}
+      <nav className="cs-tabs" aria-label="Case study sectors">
+        <div className="cs-tabs-inner" role="tablist">
+          {CASE_STUDIES.map((cs) => (
+            <button
+              key={cs.id}
+              role="tab"
+              type="button"
+              className="cs-tab"
+              aria-selected={cs.id === activeId}
+              aria-controls={`cs-panel-${cs.id}`}
+              id={`cs-tab-${cs.id}`}
+              onClick={() => handleTabClick(cs.id)}
+            >
+              {cs.tab}
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      {/* TAB CONTENT */}
+      <div
+        ref={tabContentRef}
+        role="tabpanel"
+        id={`cs-panel-${activeId}`}
+        aria-labelledby={`cs-tab-${activeId}`}
+        // Force a fresh subtree per tab so observers + animations re-init cleanly.
+        key={activeId}
+      >
+        <CaseStudyTab study={study} />
+      </div>
     </main>
   );
 }
