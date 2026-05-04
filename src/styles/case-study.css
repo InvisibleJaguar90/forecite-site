@@ -248,6 +248,181 @@
   }
 }
 
+/* ---------- Finding extras (sector-unique blocks under Finding 01) ---------- */
+
+.cs-extra {
+  margin-top: 28px;
+  max-width: 78ch;
+}
+
+.cs-extra-caption {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mute-400);
+  margin-bottom: 16px;
+}
+
+/* Table — peer-platform comparison (Med Spa) */
+.cs-extra-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  border: 1px solid var(--border-bone-on-forest);
+}
+.cs-extra-table thead th {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 500;
+  color: var(--mute-400);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid var(--border-bone-on-forest);
+  background: var(--forest-900);
+}
+.cs-extra-table tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-bone-on-forest);
+  color: var(--bone-200);
+}
+.cs-extra-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.cs-extra-table tbody td:last-child {
+  color: var(--alert-500);
+  font-weight: 500;
+}
+
+/* Byline mockup (Dental) — looks like an actual blog post header */
+.cs-byline-card {
+  background: var(--bone-200);
+  color: var(--ink-900);
+  padding: 24px 28px;
+  border: 1px solid var(--border-bone-on-forest);
+  border-radius: 2px;
+}
+.cs-byline-title {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--ink-900);
+  margin-bottom: 10px;
+}
+.cs-byline-meta {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--mute-500);
+}
+.cs-byline-name {
+  color: var(--alert-500);
+  font-weight: 500;
+}
+.cs-byline-sep,
+.cs-byline-date {
+  color: var(--mute-500);
+}
+
+/* Code diff (Legal) — broken vs corrected JSON-LD */
+.cs-codediff-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.cs-codediff-col {
+  border: 1px solid var(--border-bone-on-forest);
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--forest-900);
+}
+.cs-codediff-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-bone-on-forest);
+}
+.cs-codediff-before .cs-codediff-label {
+  color: var(--alert-500);
+}
+.cs-codediff-after .cs-codediff-label {
+  color: var(--gold-500);
+}
+.cs-codediff-col pre {
+  margin: 0;
+  padding: 16px;
+  overflow-x: auto;
+}
+.cs-codediff-col code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--bone-200);
+  white-space: pre;
+}
+
+/* Checklist (Financial) — what's missing */
+.cs-extra-checklist ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--border-bone-on-forest);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.cs-extra-checklist li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-bone-on-forest);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--bone-200);
+}
+.cs-extra-checklist li:last-child {
+  border-bottom: none;
+}
+.cs-checklist-mark {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  text-align: center;
+  font-weight: 500;
+  color: var(--gold-500);
+  line-height: 1;
+}
+.cs-extra-checklist li.is-missing .cs-checklist-mark {
+  color: var(--alert-500);
+}
+
+/* Mobile collapse for the wider extras */
+@media (max-width: 768px) {
+  .cs-codediff-grid {
+    grid-template-columns: 1fr;
+  }
+  .cs-extra-table thead th,
+  .cs-extra-table tbody td {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  .cs-byline-card {
+    padding: 18px 20px;
+  }
+  .cs-byline-title {
+    font-size: 18px;
+  }
+  .cs-extra-checklist li {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+}
+
 /* Reveal-on-scroll for findings (progressive enhancement) */
 html.cs-anim-ready .cs-finding {
   opacity: 0.4;

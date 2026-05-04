@@ -91,6 +91,88 @@ function HeadlineScoreBlock({ headline, score }) {
   );
 }
 
+// Renders the optional sector-unique visual block that sits under a finding.
+// Type dispatch: table | byline | code-diff | checklist.
+function FindingExtra({ extra }) {
+  if (!extra) return null;
+  if (extra.type === 'table') {
+    return (
+      <div className="cs-extra cs-extra-table">
+        {extra.caption && <div className="cs-extra-caption">{extra.caption}</div>}
+        <table>
+          <thead>
+            <tr>
+              {extra.headers.map((h, i) => (
+                <th key={i}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {extra.rows.map((row, i) => (
+              <tr key={i}>
+                {row.map((cell, j) => (
+                  <td key={j}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+  if (extra.type === 'byline') {
+    return (
+      <div className="cs-extra cs-extra-byline">
+        {extra.caption && <div className="cs-extra-caption">{extra.caption}</div>}
+        <div className="cs-byline-card">
+          <div className="cs-byline-title">{extra.postTitle}</div>
+          <div className="cs-byline-meta">
+            <span className="cs-byline-prefix">{extra.bylinePrefix}</span>
+            <span className="cs-byline-name">{extra.bylineName}</span>
+            <span className="cs-byline-sep"> · </span>
+            <span className="cs-byline-date">{extra.date}</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (extra.type === 'code-diff') {
+    return (
+      <div className="cs-extra cs-extra-codediff">
+        {extra.caption && <div className="cs-extra-caption">{extra.caption}</div>}
+        <div className="cs-codediff-grid">
+          <div className="cs-codediff-col cs-codediff-before">
+            <div className="cs-codediff-label">{extra.beforeLabel}</div>
+            <pre><code>{extra.beforeCode}</code></pre>
+          </div>
+          <div className="cs-codediff-col cs-codediff-after">
+            <div className="cs-codediff-label">{extra.afterLabel}</div>
+            <pre><code>{extra.afterCode}</code></pre>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (extra.type === 'checklist') {
+    return (
+      <div className="cs-extra cs-extra-checklist">
+        {extra.caption && <div className="cs-extra-caption">{extra.caption}</div>}
+        <ul>
+          {extra.items.map((item, i) => (
+            <li key={i} className={item.missing ? 'is-missing' : ''}>
+              <span className="cs-checklist-mark" aria-hidden="true">
+                {item.missing ? '×' : '✓'}
+              </span>
+              <span>{item.label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+  return null;
+}
+
 // Three audit findings, each with reveal-on-scroll.
 function Findings({ findings }) {
   const containerRef = useRef(null);
@@ -124,6 +206,7 @@ function Findings({ findings }) {
           <div className="cs-finding-label">Finding 0{i + 1}</div>
           <h3 className="cs-finding-title">{f.title}</h3>
           <p className="cs-finding-body">{f.body}</p>
+          <FindingExtra extra={f.extra} />
         </article>
       ))}
     </section>
@@ -215,7 +298,7 @@ function CaseStudyTab({ study }) {
       <div className="cs-cta-section">
         <h2 className="cs-cta-headline">Get yours.</h2>
         <p className="cs-cta-sub">
-          Free audit, scoped to your business. We send a real report like the one above.
+          Free audit, scoped to your business. We do the work. You approve the direction. This isn&rsquo;t a fit if you can&rsquo;t grant site access, won&rsquo;t put a real expert&rsquo;s name on the content, or aren&rsquo;t ready for an ongoing program.
         </p>
         <Link to="/contact" style={{ textDecoration: 'none' }}>
           <Button variant="primary">

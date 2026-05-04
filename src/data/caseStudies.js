@@ -9,7 +9,8 @@
 //   - setup: one-line description of the business
 //   - headline: chapter-title hook
 //   - score: { value, label, context }
-//   - findings: 3 audit excerpts
+//   - findings: 3 audit excerpts. Finding 01 may carry an `extra` field with
+//       a sector-unique visual block (table / byline / code-diff / checklist).
 //   - gameplan: { phases: [{ label, outcome, items: [{ text, highlight }] }] }
 
 export const CASE_STUDIES = [
@@ -30,6 +31,18 @@ export const CASE_STUDIES = [
       {
         title: 'Brand Authority 28/100',
         body: 'No Wikipedia article, no Wikidata entity, zero indexed Reddit threads. Two decades of operations and national lifestyle press coverage sit on platforms AI systems weight at 25% of brand authority each, with nothing to weight.',
+        extra: {
+          type: 'table',
+          caption: 'Where AI verifies med spa peer voices. What this practice has.',
+          headers: ['Platform', 'This practice'],
+          rows: [
+            ['Wikipedia entity', 'None'],
+            ['Wikidata entry', 'None'],
+            ['Reddit threads (indexed)', '0'],
+            ['YouTube subscribers', 'Under 1,000'],
+            ['LinkedIn followers', '220'],
+          ],
+        },
       },
       {
         title: 'Schema is structurally broken',
@@ -105,6 +118,14 @@ export const CASE_STUDIES = [
       {
         title: 'Every blog post is authored by a marketing agency',
         body: "Every blog post is bylined \"by [marketing agency]\" in both the rendered page and the Article schema (/author/[agency-slug]/). YMYL medical content authored by an agency is the single most damaging E-E-A-T signal AI systems can detect. Google's Quality Rater Guidelines specifically deprioritize health content authored without medical credentials.",
+        extra: {
+          type: 'byline',
+          caption: "What the byline actually says on every post:",
+          postTitle: 'Dental Implants: What to Know Before Your Procedure',
+          bylinePrefix: 'by ',
+          bylineName: '[marketing agency]',
+          date: 'February 2024',
+        },
       },
       {
         title: 'Brand Authority 16/100',
@@ -178,6 +199,23 @@ export const CASE_STUDIES = [
       {
         title: "The Organization schema doesn't know the firm's name",
         body: "Organization schema uses the domain name (www.[firm-name].com) as the business name field. AI systems identify the entity by its URL, not by the firm's actual name. This is the single most damaging schema error for AI citation, present site-wide.",
+        extra: {
+          type: 'code-diff',
+          caption: 'The Organization schema, as found and as it should read:',
+          beforeLabel: 'What we found',
+          beforeCode: `{
+  "@type": "Organization",
+  "name": "www.[firm-name].com"
+}`,
+          afterLabel: 'What it should be',
+          afterCode: `{
+  "@type": "Organization",
+  "name": "[Firm Name], PLLC",
+  "address": { ... },
+  "telephone": "+1-...",
+  "sameAs": [ ... ]
+}`,
+        },
       },
       {
         title: 'LocalBusiness schema declared but empty',
@@ -249,6 +287,19 @@ export const CASE_STUDIES = [
       {
         title: 'Three primary navigation pages are 404',
         body: "Three pages linked from the firm's own navigation return \"page can't be found.\" These pages are also linked from external press coverage. AI crawlers hitting them encounter dead entity signals and broken crawl paths.",
+        extra: {
+          type: 'checklist',
+          caption: "What citation-ready RIAs publish. What this firm is missing.",
+          items: [
+            { label: 'Wikipedia entity', missing: true },
+            { label: 'Wikidata entry', missing: true },
+            { label: 'LocalBusiness schema with location data', missing: true },
+            { label: 'llms.txt file at site root', missing: true },
+            { label: 'Functional /our-team/ page', missing: true },
+            { label: 'Functional /find-your-advisor/ page', missing: true },
+            { label: 'Crawlable PDF whitepapers (currently blocked sitewide)', missing: true },
+          ],
+        },
       },
       {
         title: 'Money pages run 633 words',
