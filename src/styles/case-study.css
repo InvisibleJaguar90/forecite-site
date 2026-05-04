@@ -401,51 +401,6 @@ html.cs-anim-ready .cs-bullet.is-highlight.is-focused .cs-bullet-marker {
   }
 }
 
-/* ---------- PDF link ---------- */
-
-.cs-pdf-section {
-  padding: 56px var(--gutter-md);
-  max-width: var(--maxw-wide);
-  margin: 0 auto;
-  border-top: 1px solid var(--border-bone-on-forest);
-}
-
-.cs-pdf-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: var(--fg-1);
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: -0.005em;
-  transition: color 200ms var(--ease-editorial);
-}
-
-.cs-pdf-link:hover {
-  color: var(--gold-500);
-}
-
-.cs-pdf-link .cs-pdf-arrow {
-  font-family: var(--font-mono);
-  color: var(--gold-500);
-  transition: transform 200ms var(--ease-editorial);
-}
-
-.cs-pdf-link:hover .cs-pdf-arrow {
-  transform: translateX(4px);
-}
-
-@media (max-width: 768px) {
-  .cs-pdf-section {
-    padding: 32px var(--gutter-md);
-  }
-  .cs-pdf-link {
-    font-size: 16px;
-  }
-}
-
 /* ---------- Per-tab CTA ---------- */
 
 .cs-cta-section {

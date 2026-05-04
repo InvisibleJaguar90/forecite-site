@@ -212,14 +212,6 @@ function CaseStudyTab({ study }) {
       <HeadlineScoreBlock headline={study.headline} score={study.score} />
       <Findings findings={study.findings} />
       <Gameplan gameplan={study.gameplan} />
-      <div className="cs-pdf-section">
-        <a className="cs-pdf-link" href={study.pdf.href}>
-          {study.pdf.label}
-          <span className="cs-pdf-arrow" aria-hidden="true">
-            &rarr;
-          </span>
-        </a>
-      </div>
       <div className="cs-cta-section">
         <h2 className="cs-cta-headline">Get yours.</h2>
         <p className="cs-cta-sub">

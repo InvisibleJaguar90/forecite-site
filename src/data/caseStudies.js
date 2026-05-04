@@ -11,7 +11,6 @@
 //   - score: { value, label, context }
 //   - findings: 3 audit excerpts
 //   - gameplan: { phases: [{ label, outcome, items: [{ text, highlight }] }] }
-//   - pdf: { href, label }
 
 export const CASE_STUDIES = [
   // ---------------------------------------------------------------- MED SPA
@@ -87,10 +86,6 @@ export const CASE_STUDIES = [
         },
       ],
     },
-    pdf: {
-      href: '#full-audit-medspa', // TODO: link to anonymized PDF when generated
-      label: 'Read the full audit (PDF, 14 pages)',
-    },
   },
 
   // ----------------------------------------------------------------- DENTAL
@@ -165,10 +160,6 @@ export const CASE_STUDIES = [
         },
       ],
     },
-    pdf: {
-      href: '#full-audit-dental',
-      label: 'Read the full audit (PDF, 12 pages)',
-    },
   },
 
   // ----------------------------------------------------------------- LEGAL
@@ -240,10 +231,6 @@ export const CASE_STUDIES = [
         },
       ],
     },
-    pdf: {
-      href: '#full-audit-legal',
-      label: 'Read the full audit (PDF, 16 pages)',
-    },
   },
 
   // ----------------------------------------------------------- FINANCIAL ADVISORY
@@ -313,10 +300,6 @@ export const CASE_STUDIES = [
           ],
         },
       ],
-    },
-    pdf: {
-      href: '#full-audit-financial',
-      label: 'Read the full audit (PDF, 18 pages)',
     },
   },
 ];
