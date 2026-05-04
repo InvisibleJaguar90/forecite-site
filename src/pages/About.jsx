@@ -27,50 +27,40 @@ export default function About() {
         </h1>
       </Section>
 
-      {/* Block 01 — the insight */}
+      {/* Block 02 — How I noticed */}
       <Section
-        label="04 About — The insight"
+        label="04 About — How I noticed"
         style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
       >
         <div style={{ maxWidth: '62ch' }}>
           <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65, marginBottom: 24 }}>
-            About two years ago, I noticed something changing in how people find businesses online. The questions they typed into Google were being answered before they ever saw a list of links. ChatGPT was pulling answers from sources most business owners had never heard of. Google's AI Overviews were citing pages that had nothing to do with traditional search rankings. Perplexity was building its own index entirely. Around the same time, researchers at Princeton, Georgia Tech, and the Allen Institute for AI published{' '}
-            <a
-              href="https://arxiv.org/abs/2311.09735"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                color: 'var(--gold-500)',
-                textDecoration: 'none',
-                borderBottom: '1px solid var(--gold-500)',
-              }}
-            >
-              the paper
-            </a>{' '}
-            that gave the field its name: generative engine optimization. The discipline was new, but the problem it described was already everywhere.
+            I moved to Taiwan in 2017 to teach history. What was meant to be a short stretch turned into eight years across Taiwan and Mainland China, an MA in International Relations from the Johns Hopkins-Nanjing Center, and a thesis on Taiwan's semiconductor industry and energy security written in Chinese. I spent most of a decade thinking about chips and the geopolitics built around them.
+          </p>
+          <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65, marginBottom: 24 }}>
+            Late 2022 happened in the middle of that work. ChatGPT shipped, the AI boom that the chip industry had been priming for years became visible to everyone at once, and I started watching the consumer-discovery side of the same wave. The same compute substrate that was driving AI capability was about to reshape how people find businesses. The chip story I had been tracking and the search-behavior story I started seeing were the same story.
           </p>
           <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65 }}>
-            I started auditing businesses to understand the pattern. What I found was consistent across industries: companies that had invested heavily in SEO for years were invisible to these platforms. Their competitors, sometimes with weaker sites and thinner content, were getting cited because they had the right structural signals in the right places. The problem was measurable and fixable, and almost nobody was doing the work.
+            I started auditing businesses to test the pattern. What I found was consistent across industries: companies that had spent years on SEO were invisible to the AI platforms. Their competitors, sometimes with weaker sites and thinner content, were getting cited because they had the right structural signals in the right places. The problem was measurable, the fixes were clear, and almost nobody was doing the work.
           </p>
         </div>
       </Section>
 
-      {/* Block 02 — what I built */}
+      {/* Block 03 — What I think is happening */}
       <Section
-        label="04 About — What I built"
+        label="04 About — What I think is happening"
         style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
       >
         <div style={{ maxWidth: '62ch' }}>
           <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65, marginBottom: 24 }}>
-            I spent the better part of a year building content systems and optimization tools for businesses navigating this shift. The audit framework behind Forecite came out of that work: six scoring categories, over 30 findings per site, every fix ranked by impact. I've run it across enough industries now to know what the patterns look like and where the highest-leverage changes sit.
+            Most business owners don't yet know AI search exists as a discovery channel. The ones who do tend to underestimate it. They look at an AI mention the way they'd look at a Google result, and Google results have been losing trust for years.
           </p>
           <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65 }}>
-            Forecite exists because this work shouldn't require a business owner to understand schema markup or know what llms.txt is. Someone should just measure it, explain what matters, and do the fixes.
+            An AI citation is a different kind of signal. When someone asks ChatGPT or Claude or Perplexity which therapist to call, which dentist to use, which firm to hire, and a name comes back, the user weights that name more heavily than they would a sponsored link. Right or wrong, people see god in the machine. They trust what the AI says more than they trust what an algorithm ranked. Customers are deciding inside those answers right now, ahead of competitors who haven't noticed there's a decision to make.
           </p>
         </div>
       </Section>
 
-      {/* Block 03 — how this works */}
+      {/* Block 04 — How this works */}
       <Section
         label="04 About — How this works"
         style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
@@ -78,7 +68,7 @@ export default function About() {
         <div className="about-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
           <div style={{ maxWidth: '48ch' }}>
             <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65 }}>
-              When you work with Forecite, you work with me. I run your audit, scope the engagement, and handle the implementation. There's no layer between us. I take on fewer clients because of that, and each engagement gets the full depth of the methodology and tools I've built.
+              When you work with Forecite, you work with me. I run your audit, scope the engagement, and handle the implementation. There's no layer between us. I take on fewer clients because of that, and each engagement gets the full depth of the methodology and tools I've built. Hiring someone to do this work should mean not having to learn what llms.txt is. Someone should just measure it, explain what matters, and do the fixes.
             </p>
           </div>
           <div className="person-row" style={{ display: 'flex', alignItems: 'start', gap: 24 }}>
@@ -109,6 +99,17 @@ export default function About() {
               >
                 Founder
               </div>
+              <p
+                style={{
+                  fontSize: 15,
+                  color: 'var(--mute-400)',
+                  lineHeight: 1.65,
+                  marginTop: 20,
+                  maxWidth: '40ch',
+                }}
+              >
+                Boston College English Lit, then eight years living and working across Taiwan and Mainland China. An MA in International Relations from the Johns Hopkins-Nanjing Center, with concentrations in China Studies and International Economics. Chinese-language coursework and a thesis on Taiwan's semiconductor industry and energy security. Currently leads growth at Nestron, a prefab homebuilder. Photographs cities. Reads chip-and-China geopolitics and sci-fi about equally, as a pair of ways of looking at the same thing.
+              </p>
             </div>
           </div>
         </div>
