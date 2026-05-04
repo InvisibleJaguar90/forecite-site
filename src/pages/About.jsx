@@ -49,7 +49,7 @@ export default function About() {
       >
         <div style={{ maxWidth: '62ch' }}>
           <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65, marginBottom: 24 }}>
-            Most agencies are still optimizing for Google, which is why their clients are invisible where customers are actually looking. Forecite finds where AI platforms aren't recommending your business and fixes the structural reasons why. Implementation is scoped to your site's actual gaps, not a generic checklist. Ongoing adaptation tracks platform changes so visibility holds as the platforms shift.
+            Most agencies are still optimizing for Google. In sectors where customers are already turning to AI first, like healthcare, legal, and financial advisory, that strategy isn't enough. Forecite finds where AI platforms aren't recommending your business and fixes the structural reasons why. Implementation is scoped to your site's actual gaps, not a generic checklist. Ongoing adaptation tracks platform changes so visibility holds as the platforms shift.
           </p>
           <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.65 }}>
             Hiring someone to do this work should mean not having to learn what llms.txt is.
@@ -105,7 +105,7 @@ export default function About() {
                   maxWidth: '40ch',
                 }}
               >
-                Boston College, MA from Johns Hopkins SAIS, eight years across Taiwan and Mainland China, thesis in Chinese on Taiwan's semiconductor industry: the substrate of the AI boom now reshaping consumer discovery.
+                Boston College, MA from Johns Hopkins SAIS, eight years across Taiwan and Mainland China, thesis in Chinese on Taiwan's semiconductor industry — the substrate of the AI boom now reshaping consumer discovery.
               </p>
             </div>
           </div>
