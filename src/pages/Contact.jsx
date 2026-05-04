@@ -80,10 +80,10 @@ export default function Contact() {
               Let's look at your site.
             </h1>
             <p style={{ fontSize: 18, lineHeight: 1.6, maxWidth: '46ch', marginTop: 32, color: 'var(--bone-200)' }}>
-              Free GEO audit. 30-minute call with Andrew, Forecite&rsquo;s founder. We score your AI visibility across six categories and have your audit ready before we talk. Include your website URL when you book.
+              Free GEO audit. 30-minute call with Forecite&rsquo;s founder. We score your AI visibility across six categories and have your audit ready before we talk. Add your website URL in the notes when you book so we have it ready in time.
             </p>
             <p style={{ fontSize: 18, lineHeight: 1.6, maxWidth: '46ch', marginTop: 24, color: 'var(--bone-200)' }}>
-              The call is where the audit becomes actionable. Andrew walks through the findings in plain English, explains what each one means for your business, and works with you on what to fix and in what order.
+              The call is where the audit becomes actionable. We&rsquo;ll walk you through the findings in plain English, explain what each one means for your business, and work with you on what to fix and in what order.
             </p>
             <div
               style={{
