@@ -80,14 +80,17 @@ export default function Contact() {
               Let's look at your site.
             </h1>
             <p style={{ fontSize: 18, lineHeight: 1.6, maxWidth: '46ch', marginTop: 32, color: 'var(--bone-200)' }}>
-              Every engagement starts with a free GEO audit. We score your AI visibility across six categories, identify the highest-impact fixes, and walk through the findings together on a call. Book a time below and include your website URL so we can have the audit ready before we talk.
+              Free GEO audit. 30-minute call with Andrew, Forecite&rsquo;s founder. We score your AI visibility across six categories and have your audit ready before we talk. Include your website URL when you book.
+            </p>
+            <p style={{ fontSize: 18, lineHeight: 1.6, maxWidth: '46ch', marginTop: 24, color: 'var(--bone-200)' }}>
+              The call is where the audit becomes actionable. Andrew walks through the findings in plain English, explains what each one means for your business, and works with you on what to fix and in what order.
             </p>
             <div
               style={{
                 marginTop: 48,
                 fontFamily: 'var(--font-mono)',
-                fontSize: 14,
-                color: 'var(--mute-400)',
+                fontSize: 13,
+                color: 'var(--mute-500)',
                 lineHeight: 1.8,
               }}
             >
@@ -96,10 +99,11 @@ export default function Contact() {
                 <a
                   href="mailto:andrew@forecite.agency"
                   style={{
-                    color: 'var(--gold-500)',
+                    color: 'var(--mute-400)',
                     textDecoration: 'none',
-                    borderBottom: '1px solid var(--gold-500)',
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-500)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--mute-400)')}
                 >
                   andrew@forecite.agency
                 </a>

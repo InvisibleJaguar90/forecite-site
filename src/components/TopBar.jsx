@@ -14,6 +14,13 @@ export default function TopBar() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
 
+  // The desktop and drawer CTAs both link to /contact. When the user is
+  // already on /contact, clicking the CTA is a no-op which reads as a
+  // broken button. Hide both CTAs on that route. The Contact nav link is
+  // still present and shows the active state, so navigation parity is
+  // preserved.
+  const onContactPage = location.pathname === '/contact';
+
   // Close drawer on route change.
   useEffect(() => {
     setOpen(false);
@@ -92,17 +99,19 @@ export default function TopBar() {
             </NavLink>
           ))}
         </nav>
-        <Link
-          to="/contact"
-          aria-label="Get your free audit"
-          className="tb-cta"
-          style={{ textDecoration: 'none' }}
-        >
-          <Button variant="primary" style={{ whiteSpace: 'nowrap', padding: '12px 18px', fontSize: 14 }}>
-            Get your free audit{' '}
-            <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-          </Button>
-        </Link>
+        {!onContactPage && (
+          <Link
+            to="/contact"
+            aria-label="Get your free audit"
+            className="tb-cta"
+            style={{ textDecoration: 'none' }}
+          >
+            <Button variant="primary" style={{ whiteSpace: 'nowrap', padding: '12px 18px', fontSize: 14 }}>
+              Get your free audit{' '}
+              <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+            </Button>
+          </Link>
+        )}
         <button
           type="button"
           className="tb-burger"
@@ -159,14 +168,16 @@ export default function TopBar() {
               <span>Contact</span>
               <span className="tb-drawer-arrow">&rarr;</span>
             </NavLink>
-            <Link
-              to="/contact"
-              className="tb-drawer-cta"
-              onClick={() => setOpen(false)}
-            >
-              <span>Get your free audit</span>
-              <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-            </Link>
+            {!onContactPage && (
+              <Link
+                to="/contact"
+                className="tb-drawer-cta"
+                onClick={() => setOpen(false)}
+              >
+                <span>Get your free audit</span>
+                <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+              </Link>
+            )}
           </div>
         </div>
       )}
