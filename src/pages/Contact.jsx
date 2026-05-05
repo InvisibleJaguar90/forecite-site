@@ -2,14 +2,21 @@ import { useEffect, useCallback } from 'react';
 import { Eyebrow, Button, Section } from '../components/Atoms.jsx';
 import Meta from '../components/Meta.jsx';
 
+// Session 4 item 4: Cal.com modal sitewide.
+//
+// First pass shipped a modal that rendered with broken empty bands above
+// and below the calendar on desktop. Second pass uses iframeAttrs (in
+// the modal call) plus CSS overrides on the modal host element (in
+// responsive.css) to cap iframe height and let the modal size to
+// content rather than reserve the full viewport. Mobile already worked
+// fine; the same constraints apply harmlessly there.
+//
+// If Cal.com isn't loaded yet (very fast click before embed.js finishes
+// fetching), the anchor's default target="_blank" behavior fires as a
+// graceful fallback. Nothing breaks.
+const CAL_BOOKING_URL = 'https://cal.com/forecite/geo-audit-walkthrough';
+
 export default function Contact() {
-  // Cal.com modal init. Same loader as the inline embed had, but we
-  // configure for a modal-mode trigger instead of pinning the calendar
-  // into a layout slot. Inline embed retired in Session 4 item 4 — it
-  // rendered broken on mobile (white block below the calendar; the 640px
-  // min-height floor exceeded Cal's mobile slots view height) and was a
-  // recurring layout-jank source. Modal floats over the page on click,
-  // user stays on /contact, no reservation issues.
   useEffect(() => {
     (function (C, A, L) {
       let p = function (a, ar) {
@@ -54,15 +61,24 @@ export default function Contact() {
     });
   }, []);
 
-  // Click handler opens the Cal modal with the same calLink + dark theme
-  // as the previous inline embed. Defensive null check in case Cal hasn't
-  // finished loading yet (e.g. fast click before embed.js finishes fetching).
-  const openCalModal = useCallback(() => {
-    if (typeof window === 'undefined' || !window.Cal || !window.Cal.ns?.['geo-audit-walkthrough']) return;
-    window.Cal.ns['geo-audit-walkthrough']('modal', {
-      config: { layout: 'month_view', theme: 'dark' },
-      calLink: 'forecite/geo-audit-walkthrough',
-    });
+  const handleBookingClick = useCallback((e) => {
+    if (typeof window === 'undefined') return;
+    const calReady = window.Cal && window.Cal.ns?.['geo-audit-walkthrough'];
+    if (calReady) {
+      e.preventDefault();
+      window.Cal.ns['geo-audit-walkthrough']('modal', {
+        config: { layout: 'month_view', theme: 'dark' },
+        calLink: 'forecite/geo-audit-walkthrough',
+        // iframeAttrs constrains the iframe element itself; combined
+        // with the .cal-embed CSS overrides this caps the modal height
+        // so the calendar fills it rather than floating in empty bands.
+        iframeAttrs: {
+          style: 'height: 680px; max-height: 90vh; width: 100%; border: 0;',
+        },
+      });
+    }
+    // Cal not yet loaded (fast click before embed.js finishes): anchor's
+    // default target="_blank" behavior fires as a fallback.
   }, []);
 
   return (
@@ -73,10 +89,6 @@ export default function Contact() {
         path="/contact"
       />
 
-      {/* Plain forest section, content center-aligned. Per Session 4 item 4
-          revision: HeroBackground dropped on Contact (the celestia treatment
-          was too much next to a single-CTA page); content shifts to center
-          so the modal-trigger button reads as the page's clear primary action. */}
       <Section label="06 Contact" style={{ paddingTop: 140, paddingBottom: 144 }}>
         <div style={{ maxWidth: '64ch', margin: '0 auto', textAlign: 'center' }}>
           <Eyebrow style={{ marginBottom: 24 }}>Contact</Eyebrow>
@@ -100,29 +112,35 @@ export default function Contact() {
             The call is where the audit becomes actionable. We&rsquo;ll walk you through the findings in plain English, explain what each one means for your business, and work with you on what to fix and in what order.
           </p>
 
-          {/* Primary CTA — bigger, more presence than the default Button.
-              Inline style override bumps padding + font-size beyond the
-              default primary variant; this is the page's lone action and
-              it should read as such. */}
+          {/* Primary CTA — anchor wraps the button so the link semantics
+              and target="_blank" fallback work cleanly on desktop. The
+              click handler intercepts on mobile only, opening the modal. */}
           <div style={{ marginTop: 48, display: 'flex', justifyContent: 'center' }}>
-            <Button
-              variant="primary"
-              onClick={openCalModal}
-              style={{
-                fontSize: 18,
-                fontWeight: 600,
-                padding: '20px 36px',
-                letterSpacing: '-0.005em',
-              }}
+            <a
+              href={CAL_BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={handleBookingClick}
+              style={{ textDecoration: 'none' }}
             >
-              Book your audit walkthrough <span style={{ fontFamily: 'var(--font-mono)', marginLeft: 4 }}>&rarr;</span>
-            </Button>
+              <Button
+                variant="primary"
+                style={{
+                  fontSize: 18,
+                  fontWeight: 600,
+                  padding: '20px 36px',
+                  letterSpacing: '-0.005em',
+                }}
+              >
+                Book your audit walkthrough <span style={{ fontFamily: 'var(--font-mono)', marginLeft: 4 }}>&rarr;</span>
+              </Button>
+            </a>
           </div>
 
-          {/* Email fallback. Readable size and color now (was 13px mute-500
-              with mute-400 link, which Andrew flagged as very hard to see).
-              Visual subordination to the calendar CTA comes from being small
-              + mono + below the button, not from poor contrast. */}
+          {/* Email fallback. Readable size and color (was 13px in mute tones,
+              which Andrew flagged as very hard to see). Visual subordination
+              to the calendar CTA comes from being small + mono + below the
+              button, not from poor contrast. */}
           <div
             style={{
               marginTop: 32,

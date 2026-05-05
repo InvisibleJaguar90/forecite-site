@@ -551,3 +551,31 @@ body.drawer-open {
     grid-column: 1 / -1 !important;
   }
 }
+
+/* ---------------------------------------------------------------------
+   8. Cal.com modal sizing override (Session 4 item 4)
+      Cal.com's modal renders by default with a wrapper that reserves
+      most of the viewport, leaving broken-looking empty bands above
+      and below the calendar on desktop. The iframeAttrs in the modal
+      call (Contact.jsx) caps iframe height; these CSS overrides ensure
+      the modal's host element sizes to content rather than viewport.
+
+      Cal.com v2 uses a custom element `cal-modal-box`. We target both
+      that and a few common Cal wrapper class patterns to be robust to
+      Cal embed version drift.
+   --------------------------------------------------------------------- */
+cal-modal-box,
+cal-modal-box::part(modal-box),
+cal-modal-box [data-testid="modal-box"],
+[data-cal-namespace] cal-modal-box {
+  height: auto !important;
+  max-height: 90vh !important;
+  max-width: min(1024px, 95vw) !important;
+}
+
+/* Modal iframe — supports the iframeAttrs height set in Contact.jsx;
+   without this the iframe sometimes reverts to full container height. */
+cal-modal-box iframe,
+[data-cal-namespace] iframe.cal-embed {
+  max-height: 90vh !important;
+}
