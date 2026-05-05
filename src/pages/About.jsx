@@ -72,19 +72,18 @@ export default function About() {
             </p>
           </div>
           <div className="person-row" style={{ display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'start' }}>
-            {/* Founder portrait. Full-frame as Andrew composed it — 3:2 native
-                aspect, no zoom-in. The window architecture, the curtain, the
-                plant, and the mug are intentional framing elements; the photo
-                gets the full right-column width so they actually read. The
-                credential block becomes a caption below. */}
+            {/* Founder portrait. Renders at the source file's native aspect —
+                no aspect-ratio lock, no object-fit:cover — so the photo is
+                NEVER cropped by the layout. Whatever Andrew puts at
+                /portrait.jpg shows in full, exactly as composed. Width is
+                fluid up to 520px; height auto follows. */}
             <img
               src="/portrait.jpg"
               alt="Andrew Bushnell"
               style={{
                 width: '100%',
                 maxWidth: 520,
-                aspectRatio: '3 / 2',
-                objectFit: 'cover',
+                height: 'auto',
                 border: '1px solid var(--border-bone-on-forest-hover)',
                 display: 'block',
               }}
