@@ -72,15 +72,22 @@ export default function About() {
             </p>
           </div>
           <div className="person-row" style={{ display: 'flex', alignItems: 'start', gap: 24 }}>
-            {/* Photo placeholder — real portrait lands in Session 4 */}
-            <div
-              aria-hidden
+            {/* Founder portrait. B&W candid; subject on the phone, mug at the
+                desk — real-moment composition rather than a stiff headshot.
+                Square crop at 180px — large enough to register a face, small
+                enough not to dominate the credential block. */}
+            <img
+              src="/portrait.jpg"
+              alt="Andrew Bushnell"
+              width="180"
+              height="180"
               style={{
-                width: 120,
-                height: 120,
-                background: 'var(--forest-700)',
+                width: 180,
+                height: 180,
+                objectFit: 'cover',
                 border: '1px solid var(--border-bone-on-forest-hover)',
                 flexShrink: 0,
+                display: 'block',
               }}
             />
             <div>
