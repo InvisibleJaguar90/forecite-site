@@ -1,6 +1,5 @@
 import { useEffect, useCallback } from 'react';
-import { Eyebrow, Button } from '../components/Atoms.jsx';
-import HeroBackground from '../components/HeroBackground.jsx';
+import { Eyebrow, Button, Section } from '../components/Atoms.jsx';
 import Meta from '../components/Meta.jsx';
 
 export default function Contact() {
@@ -74,56 +73,88 @@ export default function Contact() {
         path="/contact"
       />
 
-      <HeroBackground align="left" label="06 Contact — Hero">
-        <Eyebrow style={{ marginBottom: 24 }}>Contact</Eyebrow>
-        <h1
-          style={{
-            fontSize: 'clamp(44px, 5.2vw, 72px)',
-            fontWeight: 500,
-            letterSpacing: '-0.02em',
-            lineHeight: 1.05,
-            maxWidth: '14ch',
-            margin: 0,
-          }}
-        >
-          Let&rsquo;s look at your site.
-        </h1>
-        <p style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.6, maxWidth: '46ch', marginTop: 32, color: 'var(--bone-200)' }}>
-          Free GEO audit. 30-minute call with Forecite&rsquo;s founder. We score your AI visibility across six categories and have your audit ready before we talk. Add your website URL in the notes when you book so we have it ready in time.
-        </p>
-        <p style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.6, maxWidth: '46ch', marginTop: 24, color: 'var(--bone-200)' }}>
-          The call is where the audit becomes actionable. We&rsquo;ll walk you through the findings in plain English, explain what each one means for your business, and work with you on what to fix and in what order.
-        </p>
-        <div style={{ marginTop: 36 }}>
-          <Button variant="primary" onClick={openCalModal}>
-            Book your audit walkthrough <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-          </Button>
-        </div>
-        <div
-          style={{
-            marginTop: 36,
-            fontFamily: 'var(--font-mono)',
-            fontSize: 13,
-            color: 'var(--mute-500)',
-            lineHeight: 1.8,
-          }}
-        >
-          <div>
+      {/* Plain forest section, content center-aligned. Per Session 4 item 4
+          revision: HeroBackground dropped on Contact (the celestia treatment
+          was too much next to a single-CTA page); content shifts to center
+          so the modal-trigger button reads as the page's clear primary action. */}
+      <Section label="06 Contact" style={{ paddingTop: 140, paddingBottom: 144 }}>
+        <div style={{ maxWidth: '64ch', margin: '0 auto', textAlign: 'center' }}>
+          <Eyebrow style={{ marginBottom: 24 }}>Contact</Eyebrow>
+          <h1
+            style={{
+              fontSize: 'clamp(44px, 5.4vw, 76px)',
+              fontWeight: 500,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.05,
+              maxWidth: '14ch',
+              margin: '0 auto',
+              textWrap: 'balance',
+            }}
+          >
+            Let&rsquo;s look at your site.
+          </h1>
+          <p style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.6, maxWidth: '52ch', margin: '32px auto 0', color: 'var(--bone-200)' }}>
+            Free GEO audit. 30-minute call with Forecite&rsquo;s founder. We score your AI visibility across six categories and have your audit ready before we talk. Add your website URL in the notes when you book so we have it ready in time.
+          </p>
+          <p style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.6, maxWidth: '52ch', margin: '24px auto 0', color: 'var(--bone-200)' }}>
+            The call is where the audit becomes actionable. We&rsquo;ll walk you through the findings in plain English, explain what each one means for your business, and work with you on what to fix and in what order.
+          </p>
+
+          {/* Primary CTA — bigger, more presence than the default Button.
+              Inline style override bumps padding + font-size beyond the
+              default primary variant; this is the page's lone action and
+              it should read as such. */}
+          <div style={{ marginTop: 48, display: 'flex', justifyContent: 'center' }}>
+            <Button
+              variant="primary"
+              onClick={openCalModal}
+              style={{
+                fontSize: 18,
+                fontWeight: 600,
+                padding: '20px 36px',
+                letterSpacing: '-0.005em',
+              }}
+            >
+              Book your audit walkthrough <span style={{ fontFamily: 'var(--font-mono)', marginLeft: 4 }}>&rarr;</span>
+            </Button>
+          </div>
+
+          {/* Email fallback. Readable size and color now (was 13px mute-500
+              with mute-400 link, which Andrew flagged as very hard to see).
+              Visual subordination to the calendar CTA comes from being small
+              + mono + below the button, not from poor contrast. */}
+          <div
+            style={{
+              marginTop: 32,
+              fontFamily: 'var(--font-mono)',
+              fontSize: 15,
+              color: 'var(--bone-200)',
+              lineHeight: 1.6,
+            }}
+          >
             Prefer email?{' '}
             <a
               href="mailto:andrew@forecite.agency"
               style={{
-                color: 'var(--mute-400)',
-                textDecoration: 'none',
+                color: 'var(--bone-200)',
+                textDecoration: 'underline',
+                textDecorationColor: 'var(--mute-400)',
+                textUnderlineOffset: 4,
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-500)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--mute-400)')}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = 'var(--gold-500)';
+                e.currentTarget.style.textDecorationColor = 'var(--gold-500)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'var(--bone-200)';
+                e.currentTarget.style.textDecorationColor = 'var(--mute-400)';
+              }}
             >
               andrew@forecite.agency
             </a>
           </div>
         </div>
-      </HeroBackground>
+      </Section>
     </main>
   );
 }
