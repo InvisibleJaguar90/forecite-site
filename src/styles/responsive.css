@@ -476,13 +476,43 @@ body.drawer-open {
 /* ---------------------------------------------------------------------
    7. HeroBackground (Session 4 item 2)
       Desktop: full-bleed image background, content positioned in the
-        "open" column via 1fr 1fr grid.
-      Tablet (<=1024): tighten the open column to ~58% of width and
-        soften the image with a darker overlay so text reads cleanly
-        when the image gets relatively wider against the content.
+        "open" column via 1fr 1fr grid. A forest gradient overlay always
+        sits between the image and the content, transparent on the cloud
+        side and ramping to ~85% opaque forest on the text side, so text
+        legibility holds even when a variant's cloud mass bleeds across
+        the frame.
+      Tablet (<=1024): bias the open column wider so prose has room.
       Mobile (<=768): drop the image entirely, fall back to clean forest
         section, content goes full-width single column.
    --------------------------------------------------------------------- */
+
+/* Forest gradient overlay — applies at every viewport so the text zone
+   stays readable regardless of which variant is shipped (A, B, C reach
+   different distances across the frame). Ramp is intentionally tight:
+   0% transparent on cloud side preserves the illustration at full
+   strength; ramps fast through 25-45% so by the time the text column
+   starts (~50% across), the backdrop is already at 0.9+ opaque forest;
+   holds 0.92-0.96 across the entire text zone so body text reads
+   cleanly without any cloud-texture bleed-through. */
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to var(--hero-grad-dir, right),
+    rgba(14, 42, 31, 0) 0%,
+    rgba(14, 42, 31, 0) 25%,
+    rgba(14, 42, 31, 0.85) 45%,
+    rgba(14, 42, 31, 0.94) 70%,
+    rgba(14, 42, 31, 0.96) 100%
+  );
+  z-index: 1;
+}
+.hero-bg[data-hero-align="left"]::before {
+  --hero-grad-dir: left;
+}
+
 @media (max-width: 1024px) {
   .hero-bg .hero-bg-content {
     /* Bias the open column wider on tablet so prose has room to breathe
@@ -491,23 +521,6 @@ body.drawer-open {
   }
   .hero-bg[data-hero-align="left"] .hero-bg-content {
     grid-template-columns: 7fr 5fr !important;
-  }
-  /* Subtle overlay tinted to forest, only visible on tablet, helps text
-     contrast against any cloud bleed into the open side. */
-  .hero-bg::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(
-      to var(--hero-grad-dir, right),
-      rgba(14, 42, 31, 0) 0%,
-      rgba(14, 42, 31, 0.55) 100%
-    );
-    z-index: 1;
-  }
-  .hero-bg[data-hero-align="left"]::before {
-    --hero-grad-dir: left;
   }
 }
 

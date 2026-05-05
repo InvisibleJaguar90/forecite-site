@@ -85,7 +85,7 @@ export default function Services() {
         >
           What we do
         </h1>
-        <p style={{ fontSize: 22, lineHeight: 1.45, maxWidth: '32ch', marginTop: 32, color: 'var(--bone-200)' }}>
+        <p style={{ fontSize: 22, fontWeight: 500, lineHeight: 1.45, maxWidth: '32ch', marginTop: 32, color: 'var(--bone-200)' }}>
           We get AI platforms recommending your business.
         </p>
       </HeroBackground>

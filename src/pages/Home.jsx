@@ -50,6 +50,7 @@ export default function Home() {
         <p
           style={{
             fontSize: 18,
+            fontWeight: 500,
             lineHeight: 1.55,
             maxWidth: '46ch',
             marginTop: 32,

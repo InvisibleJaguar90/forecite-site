@@ -395,6 +395,7 @@ export default function AuditShowcase() {
         <p
           style={{
             fontSize: 17,
+            fontWeight: 500,
             lineHeight: 1.65,
             maxWidth: '46ch',
             marginTop: 32,
