@@ -525,26 +525,35 @@ body.drawer-open {
 }
 
 @media (max-width: 768px) {
-  /* Image as a top band, content below. The desktop side-by-side
-     composition can't survive a phone viewport, so we restage: image
-     fills the full width as a decorative band, content sits below
-     on solid forest. The image's "open side" doesn't matter at this
-     layout — both align variants show the cloud composition centered
-     and proportional. */
+  /* Mobile restaging: full-bleed image background with a vertical
+     gradient overlay. Cloud composition anchored to the top of the
+     section reads at near-full strength (light tint); the gradient
+     ramps fast to near-solid forest in the lower half so text content,
+     positioned at the bottom of the section, reads cleanly without
+     bleed-through. Single cohesive hero rather than image-band-on-top
+     + content-below stacking. */
   .hero-bg {
-    background-size: 100% auto !important;
+    background-size: cover !important;
     background-position: top center !important;
   }
   .hero-bg::before {
-    display: none !important;
+    display: block !important;
+    background: linear-gradient(
+      to bottom,
+      rgba(14, 42, 31, 0.2) 0%,
+      rgba(14, 42, 31, 0.35) 30%,
+      rgba(14, 42, 31, 0.9) 60%,
+      rgba(14, 42, 31, 0.96) 100%
+    ) !important;
   }
   .hero-bg .hero-bg-content {
     grid-template-columns: 1fr !important;
-    min-height: 0 !important;
-    /* Image at full width has natural height ~67vw (aspect ratio 1.48:1).
-       Padding-top reserves that space + a 32px gap before content starts. */
-    padding-top: calc(67vw + 32px) !important;
+    /* Tall enough to give the cloud presence at top; content sits in
+       the bottom half via align-items: end, where gradient is opaque. */
+    min-height: 70vh !important;
+    padding-top: 32px !important;
     padding-bottom: 64px !important;
+    align-items: end !important;
     gap: 0 !important;
   }
   .hero-bg .hero-bg-col {
