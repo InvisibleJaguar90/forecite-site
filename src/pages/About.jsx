@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Eyebrow, Button, Section } from '../components/Atoms.jsx';
 import HeroBackground from '../components/HeroBackground.jsx';
@@ -9,6 +10,25 @@ import Meta from '../components/Meta.jsx';
 import portraitImg from '../assets/portrait.jpg';
 
 export default function About() {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  // Esc-to-close + body scroll lock while the lightbox is open. Same pattern
+  // the burger drawer uses; if the body keeps scrolling under a fixed overlay
+  // it feels broken on mobile in particular.
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setLightboxOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [lightboxOpen]);
+
   return (
     <main>
       <Meta
@@ -17,7 +37,7 @@ export default function About() {
         path="/about"
       />
 
-      <HeroBackground align="left" variant="B" label="04 About — Hero">
+      <HeroBackground align="left" variant="A" label="04 About — Hero">
         <Eyebrow style={{ marginBottom: 24 }}>About</Eyebrow>
         <h1
           style={{
@@ -56,7 +76,7 @@ export default function About() {
                 maxWidth: '14ch',
               }}
             >
-              Why this matters
+              Why GEO matters
             </h2>
           </div>
           <div>
@@ -123,17 +143,33 @@ export default function About() {
                 /portrait.jpg shows in full, exactly as composed. Fixed at
                 240px wide; height auto follows the file's native ratio.
                 Sits LEFT of the bio block (horizontal flex). */}
-            <img
-              src={portraitImg}
-              alt="Andrew Bushnell"
+            {/* Click-to-enlarge: portrait wraps in a button so it's keyboard-
+                reachable + announces as an action. zoom-in cursor signals
+                clickability without an extra icon. Lightbox overlay below. */}
+            <button
+              type="button"
+              onClick={() => setLightboxOpen(true)}
+              aria-label="Enlarge photo of Andrew Bushnell"
               style={{
-                width: 240,
-                height: 'auto',
-                border: '1px solid var(--border-bone-on-forest-hover)',
+                background: 'transparent',
+                border: 0,
+                padding: 0,
+                cursor: 'zoom-in',
                 flexShrink: 0,
                 display: 'block',
               }}
-            />
+            >
+              <img
+                src={portraitImg}
+                alt="Andrew Bushnell"
+                style={{
+                  width: 240,
+                  height: 'auto',
+                  border: '1px solid var(--border-bone-on-forest-hover)',
+                  display: 'block',
+                }}
+              />
+            </button>
             <div>
               <h3 style={{ fontSize: 24, fontWeight: 500, letterSpacing: '-0.01em', margin: 0 }}>
                 Andrew Bushnell
@@ -189,6 +225,70 @@ export default function About() {
           Get your free audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
         </Button>
       </Section>
+
+      {/* Portrait lightbox. Renders only when open; backdrop click closes,
+          stopPropagation on the image so clicking the photo itself doesn't
+          close. X button is the explicit close affordance + Esc + backdrop.
+          Fade-in animation (200ms) defined in global.css as @keyframes
+          lightboxFadeIn so we don't pay the cost when the lightbox is closed. */}
+      {lightboxOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Photo of Andrew Bushnell, enlarged"
+          onClick={() => setLightboxOpen(false)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 100,
+            background: 'rgba(10, 31, 22, 0.92)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 'clamp(24px, 4vw, 48px)',
+            cursor: 'zoom-out',
+            animation: 'lightboxFadeIn 200ms var(--ease-editorial)',
+          }}
+        >
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setLightboxOpen(false);
+            }}
+            aria-label="Close enlarged photo"
+            style={{
+              position: 'absolute',
+              top: 'clamp(16px, 3vw, 32px)',
+              right: 'clamp(16px, 3vw, 32px)',
+              background: 'transparent',
+              border: '1px solid var(--border-bone-on-forest-hover)',
+              color: 'var(--bone-200)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: 13,
+              padding: '8px 14px',
+              cursor: 'pointer',
+              letterSpacing: '0.04em',
+            }}
+          >
+            Close <span style={{ marginLeft: 4 }}>×</span>
+          </button>
+          <img
+            src={portraitImg}
+            alt="Andrew Bushnell"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: '90vw',
+              maxHeight: '85vh',
+              width: 'auto',
+              height: 'auto',
+              border: '1px solid var(--border-bone-on-forest-hover)',
+              display: 'block',
+              cursor: 'default',
+            }}
+          />
+        </div>
+      )}
     </main>
   );
 }

@@ -77,3 +77,11 @@ details > summary > span:last-child {
   outline: 1px solid var(--gold-500);
   outline-offset: 3px;
 }
+
+/* About page portrait lightbox fade-in. Used by the click-to-enlarge
+   overlay on /about. Defined here (not inline) so React mounts can hook
+   straight into a CSS animation without state-machine ceremony. */
+@keyframes lightboxFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
