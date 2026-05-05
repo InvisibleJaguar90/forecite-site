@@ -72,17 +72,16 @@ export default function About() {
             </p>
           </div>
           <div className="person-row" style={{ display: 'flex', alignItems: 'start', gap: 24 }}>
-            {/* Founder portrait. B&W candid; subject on the phone, mug at the
-                desk — real-moment composition rather than a stiff headshot.
-                Square crop at 180px — large enough to register a face, small
-                enough not to dominate the credential block. */}
+            {/* Founder portrait. B&W candid; subject on the phone, plant + window
+                architecture in frame, mug at the desk — real-moment composition
+                rather than a stiff headshot. 4:3 aspect at 240×180 desktop. */}
             <img
               src="/portrait.jpg"
               alt="Andrew Bushnell"
-              width="180"
+              width="240"
               height="180"
               style={{
-                width: 180,
+                width: 240,
                 height: 180,
                 objectFit: 'cover',
                 border: '1px solid var(--border-bone-on-forest-hover)',
@@ -104,7 +103,7 @@ export default function About() {
                   letterSpacing: '0.12em',
                 }}
               >
-                Founder
+                Principal
               </div>
               <p
                 style={{

@@ -227,15 +227,15 @@
 /* About person row (photo + name) — keep horizontal on mobile but
    shrink photo so the row doesn't dominate.
    Session 4 item 8: selector lifted from `> div:first-child` to
-   `> :first-child` because the placeholder div became an <img>; bumped
-   from 80 → 120px since the real portrait benefits from more presence. */
+   `> :first-child` because the placeholder div became an <img>; sized
+   for the 4:3 portrait at 140×105 so the aspect carries through. */
 @media (max-width: 480px) {
   .person-row {
     gap: 16px !important;
   }
   .person-row > :first-child {
-    width: 120px !important;
-    height: 120px !important;
+    width: 140px !important;
+    height: 105px !important;
   }
 }
 
