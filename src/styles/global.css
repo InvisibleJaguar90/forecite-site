@@ -11,8 +11,14 @@ html, body {
   /* Belt-and-braces against horizontal scroll. Inline-styled grids that
      hadn't been told to collapse used to push body width past 100vw on
      phones; with responsive.css they no longer should, but this is the
-     safety net. */
-  overflow-x: hidden;
+     safety net.
+
+     `overflow-x: clip` instead of `hidden` — `hidden` promotes html to
+     a scroll container, which kills `position: sticky` for descendants
+     (the topbar fails to stick). `clip` prevents horizontal overflow
+     without creating a scroll container, so sticky still works.
+     Browser support: Chrome 90+, Firefox 81+, Safari 16+ (universal). */
+  overflow-x: clip;
   max-width: 100vw;
 }
 

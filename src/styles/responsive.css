@@ -531,8 +531,8 @@ body.drawer-open {
   background-image: linear-gradient(
     to var(--hero-grad-dir, right),
     rgba(14, 42, 31, 0.95) 0%,
-    rgba(14, 42, 31, 0.95) 8px,
-    rgba(14, 42, 31, 0) 32px,
+    rgba(14, 42, 31, 0.95) 16px,
+    rgba(14, 42, 31, 0) 112px,
     rgba(14, 42, 31, 0) 100%
   );
   background-size: 100% 100%;
