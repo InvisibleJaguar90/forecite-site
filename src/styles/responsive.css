@@ -76,13 +76,20 @@
   }
 }
 @media (max-width: 600px) {
+  /* 1-col layout: each stat card gets a complete four-corner frame
+     instead of the desktop grid's shared-border treatment. The desktop
+     bracket logic (top rule + vertical separators) doesn't translate
+     to a single column — each card needs its own enclosing rectangle.
+     16px gap between cards so they read as distinct framed units. */
   .stats-grid {
     grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    border-top: none !important;
   }
   .stats-grid > * {
-    padding-left: 0 !important;
-    border-right: none !important;
-    border-top: 1px solid var(--border-bone-on-forest);
+    border: 1px solid var(--border-bone-on-forest) !important;
+    padding: 24px !important;
+    padding-left: 24px !important;
   }
 }
 
