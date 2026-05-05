@@ -220,29 +220,9 @@
   }
 }
 
-/* Contact 1fr 1fr — stack so Cal.com gets full width on mobile.
-   Also drop the giant 96px gap on stack. */
-@media (max-width: 1024px) {
-  .contact-grid {
-    grid-template-columns: 1fr !important;
-    gap: 48px !important;
-  }
-}
-@media (max-width: 768px) {
-  .contact-grid {
-    gap: 32px !important;
-  }
-  /* Cal.com inline embed wrapper. Inline sets minHeight 580; phones
-     need full-bleed-feeling width and a slightly taller embed for
-     month_view. */
-  .cal-embed {
-    width: 100% !important;
-    min-height: 640px !important;
-  }
-  .cal-embed > div {
-    width: 100% !important;
-  }
-}
+/* Contact .contact-grid + .cal-embed rules retired in Session 4 item 4
+   when the inline Cal.com embed was replaced by a modal trigger button.
+   Page is now single-column hero, no grid stacking needed. */
 
 /* About person row (photo + name) — keep horizontal on mobile but
    shrink photo so the row doesn't dominate. */

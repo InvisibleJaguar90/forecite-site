@@ -1,11 +1,17 @@
-import { useEffect } from 'react';
-import { Eyebrow, Section } from '../components/Atoms.jsx';
+import { useEffect, useCallback } from 'react';
+import { Eyebrow, Button } from '../components/Atoms.jsx';
+import HeroBackground from '../components/HeroBackground.jsx';
 import Meta from '../components/Meta.jsx';
 
 export default function Contact() {
+  // Cal.com modal init. Same loader as the inline embed had, but we
+  // configure for a modal-mode trigger instead of pinning the calendar
+  // into a layout slot. Inline embed retired in Session 4 item 4 — it
+  // rendered broken on mobile (white block below the calendar; the 640px
+  // min-height floor exceeded Cal's mobile slots view height) and was a
+  // recurring layout-jank source. Modal floats over the page on click,
+  // user stays on /contact, no reservation issues.
   useEffect(() => {
-    // Cal.com inline embed loader. Same boot script as before, just lifted
-    // from the JSX-globals world into a real ESM useEffect.
     (function (C, A, L) {
       let p = function (a, ar) {
         a.q.push(ar);
@@ -41,17 +47,22 @@ export default function Contact() {
 
     window.Cal('init', 'geo-audit-walkthrough', { origin: 'https://app.cal.com' });
 
-    window.Cal.ns['geo-audit-walkthrough']('inline', {
-      elementOrSelector: '#my-cal-inline-geo-audit-walkthrough',
-      config: { layout: 'month_view', useSlotsViewOnSmallScreen: 'true', theme: 'dark' },
-      calLink: 'forecite/geo-audit-walkthrough',
-    });
-
     window.Cal.ns['geo-audit-walkthrough']('ui', {
       theme: 'dark',
       cssVarsPerTheme: { dark: { 'cal-brand': '#c8a55a' } },
       hideEventTypeDetails: true,
       layout: 'month_view',
+    });
+  }, []);
+
+  // Click handler opens the Cal modal with the same calLink + dark theme
+  // as the previous inline embed. Defensive null check in case Cal hasn't
+  // finished loading yet (e.g. fast click before embed.js finishes fetching).
+  const openCalModal = useCallback(() => {
+    if (typeof window === 'undefined' || !window.Cal || !window.Cal.ns?.['geo-audit-walkthrough']) return;
+    window.Cal.ns['geo-audit-walkthrough']('modal', {
+      config: { layout: 'month_view', theme: 'dark' },
+      calLink: 'forecite/geo-audit-walkthrough',
     });
   }, []);
 
@@ -63,60 +74,56 @@ export default function Contact() {
         path="/contact"
       />
 
-      <Section label="06 Contact" style={{ paddingTop: 140, paddingBottom: 144 }}>
-        <div className="contact-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 96, alignItems: 'start' }}>
+      <HeroBackground align="left" label="06 Contact — Hero">
+        <Eyebrow style={{ marginBottom: 24 }}>Contact</Eyebrow>
+        <h1
+          style={{
+            fontSize: 'clamp(44px, 5.2vw, 72px)',
+            fontWeight: 500,
+            letterSpacing: '-0.02em',
+            lineHeight: 1.05,
+            maxWidth: '14ch',
+            margin: 0,
+          }}
+        >
+          Let&rsquo;s look at your site.
+        </h1>
+        <p style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.6, maxWidth: '46ch', marginTop: 32, color: 'var(--bone-200)' }}>
+          Free GEO audit. 30-minute call with Forecite&rsquo;s founder. We score your AI visibility across six categories and have your audit ready before we talk. Add your website URL in the notes when you book so we have it ready in time.
+        </p>
+        <p style={{ fontSize: 18, fontWeight: 500, lineHeight: 1.6, maxWidth: '46ch', marginTop: 24, color: 'var(--bone-200)' }}>
+          The call is where the audit becomes actionable. We&rsquo;ll walk you through the findings in plain English, explain what each one means for your business, and work with you on what to fix and in what order.
+        </p>
+        <div style={{ marginTop: 36 }}>
+          <Button variant="primary" onClick={openCalModal}>
+            Book your audit walkthrough <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+          </Button>
+        </div>
+        <div
+          style={{
+            marginTop: 36,
+            fontFamily: 'var(--font-mono)',
+            fontSize: 13,
+            color: 'var(--mute-500)',
+            lineHeight: 1.8,
+          }}
+        >
           <div>
-            <Eyebrow style={{ marginBottom: 24 }}>Contact</Eyebrow>
-            <h1
+            Prefer email?{' '}
+            <a
+              href="mailto:andrew@forecite.agency"
               style={{
-                fontSize: 'clamp(48px, 5.5vw, 80px)',
-                fontWeight: 500,
-                letterSpacing: '-0.02em',
-                lineHeight: 1.05,
-                maxWidth: '14ch',
-                margin: 0,
+                color: 'var(--mute-400)',
+                textDecoration: 'none',
               }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-500)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--mute-400)')}
             >
-              Let's look at your site.
-            </h1>
-            <p style={{ fontSize: 18, lineHeight: 1.6, maxWidth: '46ch', marginTop: 32, color: 'var(--bone-200)' }}>
-              Free GEO audit. 30-minute call with Forecite&rsquo;s founder. We score your AI visibility across six categories and have your audit ready before we talk. Add your website URL in the notes when you book so we have it ready in time.
-            </p>
-            <p style={{ fontSize: 18, lineHeight: 1.6, maxWidth: '46ch', marginTop: 24, color: 'var(--bone-200)' }}>
-              The call is where the audit becomes actionable. We&rsquo;ll walk you through the findings in plain English, explain what each one means for your business, and work with you on what to fix and in what order.
-            </p>
-            <div
-              style={{
-                marginTop: 48,
-                fontFamily: 'var(--font-mono)',
-                fontSize: 13,
-                color: 'var(--mute-500)',
-                lineHeight: 1.8,
-              }}
-            >
-              <div>
-                Prefer email?{' '}
-                <a
-                  href="mailto:andrew@forecite.agency"
-                  style={{
-                    color: 'var(--mute-400)',
-                    textDecoration: 'none',
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--gold-500)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--mute-400)')}
-                >
-                  andrew@forecite.agency
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Cal.com inline scheduling embed */}
-          <div className="cal-embed" style={{ minHeight: 580, width: '100%' }}>
-            <div style={{ width: '100%', height: '100%', overflow: 'auto' }} id="my-cal-inline-geo-audit-walkthrough" />
+              andrew@forecite.agency
+            </a>
           </div>
         </div>
-      </Section>
+      </HeroBackground>
     </main>
   );
 }
