@@ -71,21 +71,21 @@ export default function About() {
               When you work with Forecite, you work with me. I run your audit, scope the engagement, and handle the implementation. There's no layer between us. I take on fewer clients because of that, and each engagement gets the full depth of the methodology and tools I've built.
             </p>
           </div>
-          <div className="person-row" style={{ display: 'flex', alignItems: 'start', gap: 24 }}>
-            {/* Founder portrait. B&W candid; subject on the phone, plant + window
-                architecture in frame, mug at the desk — real-moment composition
-                rather than a stiff headshot. 4:3 aspect at 240×180 desktop. */}
+          <div className="person-row" style={{ display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'start' }}>
+            {/* Founder portrait. Full-frame as Andrew composed it — 3:2 native
+                aspect, no zoom-in. The window architecture, the curtain, the
+                plant, and the mug are intentional framing elements; the photo
+                gets the full right-column width so they actually read. The
+                credential block becomes a caption below. */}
             <img
               src="/portrait.jpg"
               alt="Andrew Bushnell"
-              width="240"
-              height="180"
               style={{
-                width: 240,
-                height: 180,
+                width: '100%',
+                maxWidth: 520,
+                aspectRatio: '3 / 2',
                 objectFit: 'cover',
                 border: '1px solid var(--border-bone-on-forest-hover)',
-                flexShrink: 0,
                 display: 'block',
               }}
             />

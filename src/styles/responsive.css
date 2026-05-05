@@ -224,20 +224,10 @@
    when the inline Cal.com embed was replaced by a modal trigger button.
    Page is now single-column hero, no grid stacking needed. */
 
-/* About person row (photo + name) — keep horizontal on mobile but
-   shrink photo so the row doesn't dominate.
-   Session 4 item 8: selector lifted from `> div:first-child` to
-   `> :first-child` because the placeholder div became an <img>; sized
-   for the 4:3 portrait at 140×105 so the aspect carries through. */
-@media (max-width: 480px) {
-  .person-row {
-    gap: 16px !important;
-  }
-  .person-row > :first-child {
-    width: 140px !important;
-    height: 105px !important;
-  }
-}
+/* About person row layout: stacks photo above bio (Session 4 item 8 — full
+   3:2 frame, no crop). Image is fluid (width: 100% + aspectRatio: 3/2),
+   so no per-breakpoint size override is needed. The pixel-size rule that
+   used to live here is retired. */
 
 /* ---------------------------------------------------------------------
    3. Footer — 4-col → 2-col → 1-col responsive collapse.
