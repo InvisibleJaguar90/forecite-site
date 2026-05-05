@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Eyebrow, Button, Section } from '../components/Atoms.jsx';
+import HeroBackground from '../components/HeroBackground.jsx';
 import Meta from '../components/Meta.jsx';
 
 const STATS = [
@@ -30,16 +31,16 @@ export default function Home() {
         path="/"
       />
 
-      {/* HERO — static (no scattered-language atmosphere; motion deferred per Session 1 plan) */}
-      <Section label="01 Home — Hero" style={{ paddingTop: 140, paddingBottom: 160 }}>
+      {/* HERO — Celestia background, content in right-open column (Session 4 item 2) */}
+      <HeroBackground align="right" label="01 Home — Hero">
         <Eyebrow style={{ marginBottom: 36 }}>[Forecite] · Generative engine optimization</Eyebrow>
         <h1
           style={{
-            fontSize: 'clamp(56px, 7vw, 104px)',
+            fontSize: 'clamp(48px, 5.6vw, 88px)',
             fontWeight: 500,
-            lineHeight: 1.02,
+            lineHeight: 1.04,
             letterSpacing: '-0.02em',
-            maxWidth: '22ch',
+            maxWidth: '18ch',
             margin: 0,
             textWrap: 'balance',
           }}
@@ -50,9 +51,9 @@ export default function Home() {
           style={{
             fontSize: 18,
             lineHeight: 1.55,
-            maxWidth: '48ch',
+            maxWidth: '46ch',
             marginTop: 32,
-            color: 'var(--mute-400)',
+            color: 'var(--bone-200)',
           }}
         >
           On ChatGPT, Claude, Google AI Overviews, Perplexity, Gemini, and Bing Copilot, AI is already recommending businesses to your customers. Build citation coverage now and your competitors will spend years trying to earn it back.
@@ -67,10 +68,13 @@ export default function Home() {
             <Button variant="ghost">See a real audit</Button>
           </Link>
         </div>
+      </HeroBackground>
+
+      {/* STATS PANEL — split out of hero (Session 4 item 2) */}
+      <Section label="01 Home — Stats" style={{ paddingTop: 80, paddingBottom: 96 }}>
         <div
           className="stats-grid"
           style={{
-            marginTop: 96,
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
             gap: 0,

@@ -212,7 +212,42 @@ export function Card({ eyebrow, index, total, title, body, footnote, mark, onCli
 // no-op — the props are stripped here rather than at every callsite, but
 // the goal is to stop passing them entirely. Hero treatment is a clean
 // static section on forest-800.
-export function Section({ children, style, id, label }) {
+//
+// Session 4: optional `surface="bone"` flips the section to a full-bleed
+// bone band with ink-on-bone foregrounds. Inner content stays max-width
+// capped. borderTop / borderBottom from the caller's style are pulled
+// out and applied to the outer full-width <section> so the divider lines
+// span edge-to-edge instead of being inset to the content cap.
+export function Section({ children, style = {}, id, label, surface }) {
+  if (surface === 'bone') {
+    const { borderTop, borderBottom, ...innerStyle } = style;
+    return (
+      <section
+        id={id}
+        data-screen-label={label}
+        className="surface-bone grain"
+        style={{
+          position: 'relative',
+          width: '100%',
+          ...(borderTop ? { borderTop } : {}),
+          ...(borderBottom ? { borderBottom } : {}),
+        }}
+      >
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            maxWidth: 'var(--maxw-wide)',
+            margin: '0 auto',
+            padding: '120px var(--gutter-md)',
+            ...innerStyle,
+          }}
+        >
+          {children}
+        </div>
+      </section>
+    );
+  }
   return (
     <section
       id={id}

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Eyebrow, Button, Section } from '../components/Atoms.jsx';
+import HeroBackground from '../components/HeroBackground.jsx';
 import Meta from '../components/Meta.jsx';
 import { CASE_STUDIES, DEFAULT_TAB_ID } from '../data/caseStudies.js';
 
@@ -363,16 +364,16 @@ export default function AuditShowcase() {
         path="/audit"
       />
 
-      {/* HERO */}
-      <Section label="03 Audit — Hero" style={{ paddingTop: 140, paddingBottom: 64 }}>
+      {/* HERO — Celestia background, content in right-open column (Session 4 item 2) */}
+      <HeroBackground align="right" label="03 Audit — Hero">
         <Eyebrow style={{ marginBottom: 24 }}>Case studies</Eyebrow>
         <h1
           style={{
-            fontSize: 'clamp(48px, 6vw, 88px)',
+            fontSize: 'clamp(44px, 5.4vw, 80px)',
             fontWeight: 500,
             letterSpacing: '-0.02em',
             lineHeight: 1.05,
-            maxWidth: '20ch',
+            maxWidth: '14ch',
             margin: 0,
           }}
         >
@@ -380,7 +381,7 @@ export default function AuditShowcase() {
         </h1>
         <h2
           style={{
-            fontSize: 'clamp(22px, 2.6vw, 32px)',
+            fontSize: 'clamp(20px, 2.2vw, 28px)',
             fontWeight: 500,
             letterSpacing: '-0.01em',
             lineHeight: 1.2,
@@ -395,14 +396,14 @@ export default function AuditShowcase() {
           style={{
             fontSize: 17,
             lineHeight: 1.65,
-            maxWidth: '62ch',
+            maxWidth: '46ch',
             marginTop: 32,
             color: 'var(--bone-200)',
           }}
         >
           Four real audits run on four real businesses across med spa, dental, legal, and financial advisory. Findings, scores, and recommendations are unedited. Business names and identifying details have been changed.
         </p>
-      </Section>
+      </HeroBackground>
 
       {/* TAB NAV */}
       <nav className="cs-tabs" aria-label="Case study sectors">

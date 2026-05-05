@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Eyebrow, Button, Section } from '../components/Atoms.jsx';
+import HeroBackground from '../components/HeroBackground.jsx';
 import Meta from '../components/Meta.jsx';
 
 const STEPS = [
@@ -70,27 +71,30 @@ export default function Services() {
         path="/services"
       />
 
-      <Section label="02 Services — Hero" style={{ paddingTop: 140, paddingBottom: 64 }}>
+      <HeroBackground align="left" label="02 Services — Hero">
         <Eyebrow style={{ marginBottom: 24 }}>Services</Eyebrow>
         <h1
           style={{
-            fontSize: 'clamp(48px, 6vw, 88px)',
+            fontSize: 'clamp(44px, 5.2vw, 80px)',
             fontWeight: 500,
             letterSpacing: '-0.02em',
             lineHeight: 1.05,
-            maxWidth: '18ch',
+            maxWidth: '14ch',
             margin: 0,
           }}
         >
           What we do
         </h1>
-        <p style={{ fontSize: 22, lineHeight: 1.45, maxWidth: '36ch', marginTop: 32, color: 'var(--bone-200)' }}>
+        <p style={{ fontSize: 22, lineHeight: 1.45, maxWidth: '32ch', marginTop: 32, color: 'var(--bone-200)' }}>
           We get AI platforms recommending your business.
         </p>
+      </HeroBackground>
+
+      {/* STEP CARDS — split out of hero (Session 4 item 2) */}
+      <Section label="02 Services — Steps" style={{ paddingTop: 64, paddingBottom: 0 }}>
         <div
           className="cards-3 services-steps"
           style={{
-            marginTop: 56,
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: 0,

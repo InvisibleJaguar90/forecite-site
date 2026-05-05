@@ -232,6 +232,24 @@ hr {
 }
 
 /* =====================================================================
+   Surface tiers (Session 4)
+   Bone surface for selective long-prose sections (About 02-03, FAQ list).
+   Scoped CSS variable overrides flip every semantic-token foreground and
+   border for content inside the band. Literal-token inline styles
+   (e.g., `color: var(--bone-200)`) are edited at the page level.
+   ===================================================================== */
+.surface-bone {
+  background: var(--surface-bone);
+  color: var(--ink-900);
+  --bg: var(--surface-bone);
+  --fg-1: var(--ink-900);
+  --fg-2: var(--mute-500);
+  --fg-3: rgba(11, 26, 20, 0.55);
+  --border-bone-on-forest: var(--border-forest-on-bone);
+  --border-bone-on-forest-hover: var(--border-forest-on-bone-hover);
+}
+
+/* =====================================================================
    Responsive token overrides (Session 2)
    Shrinks type scale and gutters at tablet / mobile / small mobile.
    Page-level grid collapses live in responsive.css.

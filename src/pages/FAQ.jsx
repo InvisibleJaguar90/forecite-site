@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Eyebrow, Button, Section } from '../components/Atoms.jsx';
+import HeroBackground from '../components/HeroBackground.jsx';
 import Meta from '../components/Meta.jsx';
 
 const FAQS_MAIN = [
@@ -192,11 +193,11 @@ export default function FAQ() {
         path="/faq"
       />
 
-      <Section label="05 FAQ — Hero" style={{ paddingTop: 140, paddingBottom: 96 }}>
+      <HeroBackground align="left" label="05 FAQ — Hero">
         <Eyebrow style={{ marginBottom: 24 }}>FAQ</Eyebrow>
         <h1
           style={{
-            fontSize: 'clamp(48px, 6vw, 88px)',
+            fontSize: 'clamp(44px, 5.6vw, 80px)',
             fontWeight: 500,
             letterSpacing: '-0.02em',
             lineHeight: 1.05,
@@ -206,9 +207,9 @@ export default function FAQ() {
         >
           Questions we hear most
         </h1>
-      </Section>
+      </HeroBackground>
 
-      <Section label="05 FAQ — List" style={{ paddingTop: 0, paddingBottom: 96 }}>
+      <Section surface="bone" label="05 FAQ — List" style={{ paddingTop: 64, paddingBottom: 96 }}>
         <div className="faq-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 96 }}>
           <div className="faq-index" style={{ position: 'sticky', top: 'calc(var(--topbar-h) + 32px)', alignSelf: 'start' }}>
             <Eyebrow>Index</Eyebrow>
@@ -219,7 +220,7 @@ export default function FAQ() {
                 marginTop: 16,
                 fontFamily: 'var(--font-mono)',
                 fontSize: 13,
-                color: 'var(--mute-400)',
+                color: 'var(--fg-2)',
               }}
             >
               {ALL_FAQS.map((item, i) => (
@@ -278,14 +279,14 @@ export default function FAQ() {
                     </span>
                     {item.q}
                   </span>
-                  <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--mute-400)' }}>+</span>
+                  <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--fg-2)' }}>+</span>
                 </summary>
                 <div style={{ marginTop: 18, marginLeft: 48 }}>
                   {item.a.map((p, pi) => (
                     <p
                       key={pi}
                       style={{
-                        color: 'var(--mute-400)',
+                        color: 'var(--fg-2)',
                         lineHeight: 1.7,
                         maxWidth: '60ch',
                         fontSize: 16,
@@ -341,7 +342,7 @@ export default function FAQ() {
                       </span>
                       {item.q}
                     </span>
-                    <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--mute-400)' }}>+</span>
+                    <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--fg-2)' }}>+</span>
                   </summary>
                   <div style={{ marginTop: 18, marginLeft: 48 }}>
                     {item.a.map((p, pi) => (
