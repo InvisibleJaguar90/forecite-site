@@ -91,15 +91,16 @@ export default function Home() {
                 paddingLeft: i ? 24 : 0,
               }}
             >
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 28, fontWeight: 500 }}>{k}</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 32, fontWeight: 500 }}>{k}</div>
               <div
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: 11,
-                  color: 'var(--mute-400)',
-                  marginTop: 8,
+                  fontSize: 13,
+                  color: 'var(--bone-200)',
+                  marginTop: 12,
                   textTransform: 'uppercase',
                   letterSpacing: '0.08em',
+                  lineHeight: 1.5,
                 }}
               >
                 {v}
@@ -110,12 +111,12 @@ export default function Home() {
                 rel="noopener noreferrer"
                 style={{
                   fontFamily: 'var(--font-mono)',
-                  fontSize: 10,
-                  color: 'var(--mute-500)',
-                  marginTop: 6,
+                  fontSize: 12,
+                  color: 'var(--mute-400)',
+                  marginTop: 12,
                   display: 'inline-block',
                   textDecoration: 'none',
-                  borderBottom: '1px solid var(--mute-500)',
+                  borderBottom: '1px solid var(--mute-400)',
                 }}
               >
                 {src}
