@@ -33,35 +33,75 @@ export default function About() {
         </h1>
       </HeroBackground>
 
-      {/* Block 02 — Why this matters (bone band, top edge is the color cut from hero) */}
+      {/* Block 02 — Why this matters (bone band, top edge is the color cut from hero).
+          Two-col editorial layout: eyebrow + heading on the left, prose on the right.
+          Brings these bone-tier sections into the same structural pattern as every
+          other section on the site (FAQ 1fr 2fr, Block 04 1fr 1fr) — fixes the empty
+          right-side on the prior single-column treatment. */}
       <Section
         surface="bone"
         label="04 About — Why this matters"
         style={{ paddingTop: 96, paddingBottom: 96 }}
       >
-        <div style={{ maxWidth: '62ch' }}>
-          <p style={{ fontSize: 18, color: 'var(--fg-1)', lineHeight: 1.65, marginBottom: 24 }}>
-            Most business owners don't yet know AI search exists as a discovery channel. The ones who do tend to underestimate it. They look at an AI mention the way they'd look at a Google result, and Google results have been losing trust for years.
-          </p>
-          <p style={{ fontSize: 18, color: 'var(--fg-1)', lineHeight: 1.65 }}>
-            An AI citation is a different kind of signal. When someone asks ChatGPT or Claude or Perplexity which therapist to call, which dentist to use, which firm to hire, and a name comes back, the user weights that name more heavily than they would a sponsored link. Right or wrong, people see god in the machine. They trust what the AI says more than they trust what an algorithm ranked. Customers are deciding inside those answers right now, ahead of competitors who haven't noticed there's a decision to make. That's the bet behind the name: foresight in a market where citation is the new currency.
-          </p>
+        <div className="about-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
+          <div>
+            <Eyebrow>Context</Eyebrow>
+            <h2
+              style={{
+                fontSize: 'clamp(28px, 3.6vw, 44px)',
+                fontWeight: 500,
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+                margin: '20px 0 0',
+                maxWidth: '14ch',
+              }}
+            >
+              Why this matters
+            </h2>
+          </div>
+          <div>
+            <p style={{ fontSize: 18, color: 'var(--fg-1)', lineHeight: 1.65, marginBottom: 24 }}>
+              Most business owners don't yet know AI search exists as a discovery channel. The ones who do tend to underestimate it. They look at an AI mention the way they'd look at a Google result, and Google results have been losing trust for years.
+            </p>
+            <p style={{ fontSize: 18, color: 'var(--fg-1)', lineHeight: 1.65 }}>
+              An AI citation is a different kind of signal. When someone asks ChatGPT or Claude or Perplexity which therapist to call, which dentist to use, which firm to hire, and a name comes back, the user weights that name more heavily than they would a sponsored link. Right or wrong, people see god in the machine. They trust what the AI says more than they trust what an algorithm ranked. Customers are deciding inside those answers right now, ahead of competitors who haven't noticed there's a decision to make. That's the bet behind the name: foresight in a market where citation is the new currency.
+            </p>
+          </div>
         </div>
       </Section>
 
-      {/* Block 03 — What Forecite does (bone band continues; borderTop becomes a forest-on-bone divider via scope override) */}
+      {/* Block 03 — What Forecite does (bone band continues; borderTop becomes a
+          forest-on-bone divider via scope override). Same two-col editorial layout
+          as Block 02. */}
       <Section
         surface="bone"
         label="04 About — What Forecite does"
         style={{ paddingTop: 96, paddingBottom: 96, borderTop: '1px solid var(--border-bone-on-forest)' }}
       >
-        <div style={{ maxWidth: '62ch' }}>
-          <p style={{ fontSize: 18, color: 'var(--fg-1)', lineHeight: 1.65, marginBottom: 24 }}>
-            Most agencies are still optimizing for Google. In sectors where customers are already turning to AI first, like healthcare, legal, and financial advisory, that strategy isn't enough. Forecite finds where AI platforms aren't recommending your business and fixes the structural reasons why. Implementation is scoped to your site's actual gaps, not a generic checklist. Ongoing adaptation tracks platform changes so visibility holds as the platforms shift.
-          </p>
-          <p style={{ fontSize: 18, color: 'var(--fg-1)', lineHeight: 1.65 }}>
-            Hiring someone to do this work should mean not having to learn what llms.txt is.
-          </p>
+        <div className="about-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
+          <div>
+            <Eyebrow>Approach</Eyebrow>
+            <h2
+              style={{
+                fontSize: 'clamp(28px, 3.6vw, 44px)',
+                fontWeight: 500,
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+                margin: '20px 0 0',
+                maxWidth: '14ch',
+              }}
+            >
+              What Forecite does
+            </h2>
+          </div>
+          <div>
+            <p style={{ fontSize: 18, color: 'var(--fg-1)', lineHeight: 1.65, marginBottom: 24 }}>
+              Most agencies are still optimizing for Google. In sectors where customers are already turning to AI first, like healthcare, legal, and financial advisory, that strategy isn't enough. Forecite finds where AI platforms aren't recommending your business and fixes the structural reasons why. Implementation is scoped to your site's actual gaps, not a generic checklist. Ongoing adaptation tracks platform changes so visibility holds as the platforms shift.
+            </p>
+            <p style={{ fontSize: 18, color: 'var(--fg-1)', lineHeight: 1.65 }}>
+              Hiring someone to do this work should mean not having to learn what llms.txt is.
+            </p>
+          </div>
         </div>
       </Section>
 
