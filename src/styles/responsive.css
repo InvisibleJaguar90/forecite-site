@@ -80,16 +80,20 @@
      instead of the desktop grid's shared-border treatment. The desktop
      bracket logic (top rule + vertical separators) doesn't translate
      to a single column — each card needs its own enclosing rectangle.
-     16px gap between cards so they read as distinct framed units. */
+     16px gap between cards so they read as distinct framed units.
+
+     :nth-child(n) selector matches the specificity of the tablet rule's
+     :nth-child(odd) so my padding/border declarations win on source
+     order; without it, the tablet rule's `padding-left: 0 !important`
+     bleeds into mobile and odd cards (1st, 3rd) lose their left inset. */
   .stats-grid {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
     border-top: none !important;
   }
-  .stats-grid > * {
+  .stats-grid > *:nth-child(n) {
     border: 1px solid var(--border-bone-on-forest) !important;
     padding: 24px !important;
-    padding-left: 24px !important;
   }
 }
 
