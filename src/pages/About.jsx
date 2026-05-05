@@ -154,7 +154,7 @@ export default function About() {
                 background: 'transparent',
                 border: 0,
                 padding: 0,
-                cursor: 'zoom-in',
+                cursor: 'pointer',
                 flexShrink: 0,
                 display: 'block',
               }}
@@ -246,7 +246,7 @@ export default function About() {
             alignItems: 'center',
             justifyContent: 'center',
             padding: 'clamp(24px, 4vw, 48px)',
-            cursor: 'zoom-out',
+            cursor: 'pointer',
             animation: 'lightboxFadeIn 200ms var(--ease-editorial)',
           }}
         >
