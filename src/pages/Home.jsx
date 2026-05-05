@@ -31,8 +31,8 @@ export default function Home() {
         path="/"
       />
 
-      {/* HERO — Celestia background, content in right-open column (Session 4 item 2) */}
-      <HeroBackground align="right" label="01 Home — Hero">
+      {/* HERO — Celestia background, content in left-open column (Session 4 item 2) */}
+      <HeroBackground align="left" label="01 Home — Hero">
         <Eyebrow style={{ marginBottom: 36 }}>[Forecite] · Generative engine optimization</Eyebrow>
         <h1
           style={{

@@ -193,7 +193,7 @@ export default function FAQ() {
         path="/faq"
       />
 
-      <HeroBackground align="left" label="05 FAQ — Hero">
+      <HeroBackground align="left" variant="C" label="05 FAQ — Hero">
         <Eyebrow style={{ marginBottom: 24 }}>FAQ</Eyebrow>
         <h1
           style={{

@@ -7,8 +7,9 @@
 //   align="left"  → text in left column, image's mass on the right
 //                   (uses the {variant}-left-open.jpg asset)
 //
-// Variant swap is a one-line change: edit HERO_VARIANT below to flip the
-// entire site between Celestia A, B, and C without touching any page.
+// Variant: HERO_VARIANT below is the sitewide default. Pages can override
+// per-instance via the `variant` prop, e.g. <HeroBackground variant="C" />,
+// when a section calls for a different mood than the rest of the site.
 //
 // Mobile (<=768px): image is hidden entirely and the hero falls back to
 // a clean forest section with the text content full-width. The image's
@@ -21,16 +22,17 @@
 // foreign body. Pages can pass extra `style` props which apply to the
 // inner content cap (paddingTop/Bottom etc.).
 
-const HERO_VARIANT = 'A'; // 'A' | 'B' | 'C'
+const HERO_VARIANT = 'A'; // 'A' | 'B' | 'C' — sitewide default
 
-export default function HeroBackground({ align = 'right', children, style, label, id }) {
-  const imageSrc = `/hero/celestia-${HERO_VARIANT}-${align}-open.jpg`;
+export default function HeroBackground({ align = 'right', variant, children, style, label, id }) {
+  const v = variant || HERO_VARIANT;
+  const imageSrc = `/hero/celestia-${v}-${align}-open.jpg`;
 
   return (
     <section
       id={id}
       data-screen-label={label}
-      data-hero-variant={HERO_VARIANT}
+      data-hero-variant={v}
       data-hero-align={align}
       className="hero-bg grain"
       style={{

@@ -12,7 +12,7 @@ export default function About() {
         path="/about"
       />
 
-      <HeroBackground align="right" label="04 About — Hero">
+      <HeroBackground align="right" variant="C" label="04 About — Hero">
         <Eyebrow style={{ marginBottom: 24 }}>About</Eyebrow>
         <h1
           style={{
