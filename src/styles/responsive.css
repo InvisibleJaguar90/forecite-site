@@ -224,10 +224,17 @@
    when the inline Cal.com embed was replaced by a modal trigger button.
    Page is now single-column hero, no grid stacking needed. */
 
-/* About person row layout: stacks photo above bio (Session 4 item 8 — full
-   3:2 frame, no crop). Image is fluid (width: 100% + aspectRatio: 3/2),
-   so no per-breakpoint size override is needed. The pixel-size rule that
-   used to live here is retired. */
+/* About person row — photo LEFT of bio block (horizontal flex). Photo
+   width is fixed; height: auto follows the source file's native aspect.
+   Mobile: shrink the fixed width so the row doesn't dominate. */
+@media (max-width: 480px) {
+  .person-row {
+    gap: 16px !important;
+  }
+  .person-row > :first-child {
+    width: 140px !important;
+  }
+}
 
 /* ---------------------------------------------------------------------
    3. Footer — 4-col → 2-col → 1-col responsive collapse.

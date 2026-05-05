@@ -2,6 +2,11 @@ import { Link } from 'react-router-dom';
 import { Eyebrow, Button, Section } from '../components/Atoms.jsx';
 import HeroBackground from '../components/HeroBackground.jsx';
 import Meta from '../components/Meta.jsx';
+// Imported through Vite so the build emits portrait-[hash].jpg. Each new
+// portrait file ships at a fresh URL — no browser/CDN cache can serve a
+// stale version. Static /public/portrait.jpg ate three iterations of
+// "deployed but still showing the old image" — never doing that again.
+import portraitImg from '../assets/portrait.jpg';
 
 export default function About() {
   return (
@@ -71,20 +76,21 @@ export default function About() {
               When you work with Forecite, you work with me. I run your audit, scope the engagement, and handle the implementation. There's no layer between us. I take on fewer clients because of that, and each engagement gets the full depth of the methodology and tools I've built.
             </p>
           </div>
-          <div className="person-row" style={{ display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'start' }}>
+          <div className="person-row" style={{ display: 'flex', alignItems: 'start', gap: 24 }}>
             {/* Founder portrait. Renders at the source file's native aspect —
                 no aspect-ratio lock, no object-fit:cover — so the photo is
                 NEVER cropped by the layout. Whatever Andrew puts at
-                /portrait.jpg shows in full, exactly as composed. Width is
-                fluid up to 520px; height auto follows. */}
+                /portrait.jpg shows in full, exactly as composed. Fixed at
+                240px wide; height auto follows the file's native ratio.
+                Sits LEFT of the bio block (horizontal flex). */}
             <img
-              src="/portrait.jpg"
+              src={portraitImg}
               alt="Andrew Bushnell"
               style={{
-                width: '100%',
-                maxWidth: 520,
+                width: 240,
                 height: 'auto',
                 border: '1px solid var(--border-bone-on-forest-hover)',
+                flexShrink: 0,
                 display: 'block',
               }}
             />
