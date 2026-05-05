@@ -525,9 +525,15 @@ body.drawer-open {
 }
 
 @media (max-width: 768px) {
+  /* Image as a top band, content below. The desktop side-by-side
+     composition can't survive a phone viewport, so we restage: image
+     fills the full width as a decorative band, content sits below
+     on solid forest. The image's "open side" doesn't matter at this
+     layout — both align variants show the cloud composition centered
+     and proportional. */
   .hero-bg {
-    background-image: none !important;
-    background-color: var(--bg) !important;
+    background-size: 100% auto !important;
+    background-position: top center !important;
   }
   .hero-bg::before {
     display: none !important;
@@ -535,7 +541,9 @@ body.drawer-open {
   .hero-bg .hero-bg-content {
     grid-template-columns: 1fr !important;
     min-height: 0 !important;
-    padding-top: 96px !important;
+    /* Image at full width has natural height ~67vw (aspect ratio 1.48:1).
+       Padding-top reserves that space + a 32px gap before content starts. */
+    padding-top: calc(67vw + 32px) !important;
     padding-bottom: 64px !important;
     gap: 0 !important;
   }
