@@ -61,12 +61,14 @@ details > summary > span:last-child {
 }
 
 /* FAQ index links — desktop only (hidden on mobile by responsive.css).
-   Subtle bone lift on hover so they read as clickable. */
+   FAQ list section is bone-mode (Session 4 item 1). Hover lifts to ink-900
+   (the bone-mode primary fg) so the link visibly responds. Default state
+   inherits --fg-2 → --mute-bone-2 for AA-body contrast on bone. */
 .faq-index-link {
   transition: color 160ms var(--ease-editorial);
 }
 .faq-index-link:hover {
-  color: var(--bone-200);
+  color: var(--ink-900);
 }
 
 /* Focus outlines stay visible for keyboard users.

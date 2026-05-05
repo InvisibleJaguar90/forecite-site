@@ -316,15 +316,15 @@
 .cs-byline-meta {
   font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--mute-500);
+  color: var(--mute-bone-2); /* on bone bg — was mute-500 (3.95:1 fail). */
 }
 .cs-byline-name {
-  color: var(--alert-500);
+  color: var(--alert-deep); /* bone-context alert — pinned to deep tone (5.31:1). */
   font-weight: 500;
 }
 .cs-byline-sep,
 .cs-byline-date {
-  color: var(--mute-500);
+  color: var(--mute-bone-2);
 }
 
 /* Code diff (Legal) — broken vs corrected JSON-LD */
@@ -535,7 +535,7 @@ html.cs-anim-ready .cs-phase.is-in-view .cs-phase-outcome {
 .cs-bullet-marker {
   font-family: var(--font-mono);
   font-size: 14px;
-  color: var(--mute-500);
+  color: var(--mute-400); /* lifted from mute-500 (3.39:1 fail) for AA on forest. */
   line-height: 1.55;
   text-align: center;
   user-select: none;

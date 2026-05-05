@@ -30,13 +30,23 @@
   --mute-400:   #A8B3AC; /* Session 4 item 5: lifted from #8A968D so body prose
                             in mute tones reads clearly on forest. Stays in
                             the same gray-green family; contrast on forest-800
-                            jumps from 4.86:1 (borderline AA) to ~7.1:1 (AAA).
-                            mute-500 unchanged — it's the on-bone foreground. */
+                            jumps from 4.86:1 (borderline AA) to ~7.1:1 (AAA). */
+  --mute-bone-2: #5B685E; /* Session 4 item 6: bone-mode secondary text. mute-500
+                            on bone-200 only hits 3.95:1 (fail AA-body). This
+                            darker green-gray hits 5.11:1 (pass AA). Scoped to
+                            bone surfaces via the .surface-bone override. */
 
   --gold-500:   #C9A961;
   --gold-600:   #B08F46;
 
-  --alert-500:  #A8412A;
+  --alert-500:  #D87A5A; /* Session 4 item 6: lifted from #A8412A. Original
+                            failed AA-large on forest (2.52:1). Lifted terracotta
+                            hits 5.00:1 on forest-800 (pass AA-body) while keeping
+                            the warm-authoritative character (not salmon). Bone
+                            usage pinned to the original deep tone via the
+                            .surface-bone scope below. */
+  --alert-deep: #A8412A; /* Original alert tone, retained for bone-mode usage
+                            (case-study byline name, etc.) where 5.31:1 passes. */
 
   /* ---------- Color: semantic ---------- */
   --bg:           var(--forest-800);
@@ -48,7 +58,7 @@
   --fg-2:         var(--mute-400);
   --fg-3:         rgba(244, 239, 230, 0.55);
   --fg-on-bone-1: var(--ink-900);
-  --fg-on-bone-2: var(--mute-500);
+  --fg-on-bone-2: var(--mute-bone-2); /* Session 4 item 6: was mute-500 (3.95:1 fail). */
 
   --accent:       var(--gold-500);
   --accent-press: var(--gold-600);
@@ -247,8 +257,12 @@ hr {
   color: var(--ink-900);
   --bg: var(--surface-bone);
   --fg-1: var(--ink-900);
-  --fg-2: var(--mute-500);
+  --fg-2: var(--mute-bone-2); /* Session 4 item 6: was --mute-500 (3.95:1 fail).
+                                  --mute-bone-2 hits 5.11:1 on bone-200. */
   --fg-3: rgba(11, 26, 20, 0.55);
+  --alert-500: var(--alert-deep); /* Bone usage of alert pins to the original
+                                      deep tone (5.31:1 on bone). Forest alert
+                                      stays lifted for AA on forest. */
   --border-bone-on-forest: var(--border-forest-on-bone);
   --border-bone-on-forest-hover: var(--border-forest-on-bone-hover);
 }

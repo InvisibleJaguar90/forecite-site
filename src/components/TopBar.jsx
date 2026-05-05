@@ -100,17 +100,17 @@ export default function TopBar() {
           ))}
         </nav>
         {!onContactPage && (
-          <Link
+          <Button
+            as={Link}
             to="/contact"
+            variant="primary"
             aria-label="Get your free audit"
             className="tb-cta"
-            style={{ textDecoration: 'none' }}
+            style={{ whiteSpace: 'nowrap', padding: '12px 18px', fontSize: 14 }}
           >
-            <Button variant="primary" style={{ whiteSpace: 'nowrap', padding: '12px 18px', fontSize: 14 }}>
-              Get your free audit{' '}
-              <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-            </Button>
-          </Link>
+            Get your free audit{' '}
+            <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+          </Button>
         )}
         <button
           type="button"

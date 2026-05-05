@@ -274,11 +274,9 @@ export default function Services() {
         <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.6, maxWidth: '48ch', marginBottom: 36 }}>
           Free, specific to your business, and you'll see exactly how AI search sees you today.
         </p>
-        <Link to="/contact" style={{ textDecoration: 'none' }}>
-          <Button variant="primary">
-            Get your free audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-          </Button>
-        </Link>
+        <Button as={Link} to="/contact" variant="primary">
+          Get your free audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+        </Button>
       </Section>
     </main>
   );

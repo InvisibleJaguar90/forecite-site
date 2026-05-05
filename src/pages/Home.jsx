@@ -60,14 +60,10 @@ export default function Home() {
           On ChatGPT, Claude, Google AI Overviews, Perplexity, Gemini, and Bing Copilot, AI is already recommending businesses to your customers. Build citation coverage now and your competitors will spend years trying to earn it back.
         </p>
         <div className="flex-stack-sm" style={{ display: 'flex', gap: 16, marginTop: 32, flexWrap: 'wrap' }}>
-          <Link to="/contact" style={{ textDecoration: 'none' }}>
-            <Button variant="primary">
-              Get your free audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-            </Button>
-          </Link>
-          <Link to="/audit" style={{ textDecoration: 'none' }}>
-            <Button variant="ghost">See a real audit</Button>
-          </Link>
+          <Button as={Link} to="/contact" variant="primary">
+            Get your free audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+          </Button>
+          <Button as={Link} to="/audit" variant="ghost">See a real audit</Button>
         </div>
       </HeroBackground>
 
@@ -166,11 +162,9 @@ export default function Home() {
           ))}
         </div>
         <div style={{ marginTop: 32 }}>
-          <Link to="/services" style={{ textDecoration: 'none' }}>
-            <Button variant="ghost">
-              Learn more about our services <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-            </Button>
-          </Link>
+          <Button as={Link} to="/services" variant="ghost">
+            Learn more about our services <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+          </Button>
         </div>
       </Section>
 
@@ -196,11 +190,9 @@ export default function Home() {
         <p style={{ fontSize: 17, color: 'var(--bone-200)', lineHeight: 1.55, maxWidth: '60ch', marginBottom: 36 }}>
           Ask an AI which med spa to visit in Manhattan and this practice barely shows up. It's been in business 20 years, has 13 practitioners on staff, and has been featured in Good Housekeeping and on the Today Show. None of that signal reaches AI search. We ran a full GEO audit across 12 pages and six categories. The findings show what AI search actually needs to cite a business, and how far apart that is from what most businesses have in place. Their final GEO score: 52 out of 100.
         </p>
-        <Link to="/audit" style={{ textDecoration: 'none' }}>
-          <Button variant="ghost">
-            Read the full audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-          </Button>
-        </Link>
+        <Button as={Link} to="/audit" variant="ghost">
+          Read the full audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+        </Button>
       </Section>
 
       {/* FAQ TEASER */}
@@ -236,11 +228,9 @@ export default function Home() {
               </details>
             ))}
             <div style={{ borderTop: '1px solid var(--border-bone-on-forest)', paddingTop: 24, marginTop: 0 }}>
-              <Link to="/faq" style={{ textDecoration: 'none' }}>
-                <Button variant="ghost">
-                  All questions <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-                </Button>
-              </Link>
+              <Button as={Link} to="/faq" variant="ghost">
+                All questions <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+              </Button>
             </div>
           </div>
         </div>
@@ -265,11 +255,9 @@ export default function Home() {
         <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.6, maxWidth: '48ch', marginBottom: 36 }}>
           Free, specific to your business, and you'll see exactly how AI search sees you today.
         </p>
-        <Link to="/contact" style={{ textDecoration: 'none' }}>
-          <Button variant="primary">
-            Get your free audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-          </Button>
-        </Link>
+        <Button as={Link} to="/contact" variant="primary">
+          Get your free audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+        </Button>
       </Section>
     </main>
   );

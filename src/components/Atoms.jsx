@@ -55,7 +55,24 @@ export function FootnoteMark({ n = 1 }) {
 }
 
 // Buttons
-export function Button({ variant = 'primary', children, onClick, type, style }) {
+//
+// `as` lets the caller render the button as an anchor (`as="a"`) or a
+// React Router Link (`as={Link}`) and forward link-specific props (`href`,
+// `to`, `target`, `rel`). This collapses the old `<Link><Button></Link>`
+// pattern into a single tab stop with proper link semantics — fixes the
+// double-focus + redundant-button-tab-stop issue surfaced in the Session 4
+// item 7 focus-visible audit. When `as` is omitted the component is a
+// real <button> (default), so onClick handlers still work for buttons that
+// aren't navigational (e.g., Cal modal trigger).
+export function Button({
+  variant = 'primary',
+  children,
+  onClick,
+  type,
+  style,
+  as,
+  ...rest
+}) {
   const base = {
     fontFamily: 'var(--font-sans)',
     fontSize: 15,
@@ -70,50 +87,95 @@ export function Button({ variant = 'primary', children, onClick, type, style }) 
     display: 'inline-flex',
     alignItems: 'center',
     gap: 10,
+    textDecoration: 'none', /* anchors render without underline; native button ignores. */
     ...style,
   };
-  if (variant === 'primary') {
+
+  // When rendering as an anchor or Link, omit `type` (which only applies to
+  // <button>) and don't pass press-state mouse handlers (kept on primary
+  // <button> only — translateY tap feedback would interfere with link nav).
+  const renderAs = (Tag, extraStyle, extraProps = {}) => {
+    if (Tag === 'button') {
+      return (
+        <button
+          type={type || 'button'}
+          onClick={onClick}
+          {...extraProps}
+          {...rest}
+          style={{ ...base, ...extraStyle }}
+        >
+          {children}
+        </button>
+      );
+    }
     return (
-      <button
-        type={type || 'button'}
+      <Tag
         onClick={onClick}
-        onMouseDown={(e) => (e.currentTarget.style.transform = 'translateY(1px)')}
-        onMouseUp={(e) => (e.currentTarget.style.transform = '')}
-        onMouseLeave={(e) => (e.currentTarget.style.transform = '')}
-        style={{ ...base, background: 'var(--bone-200)', color: 'var(--ink-900)' }}
+        {...rest}
+        style={{ ...base, ...extraStyle }}
       >
         {children}
-      </button>
+      </Tag>
     );
+  };
+
+  const Tag = as || 'button';
+
+  if (variant === 'primary') {
+    const pressHandlers =
+      Tag === 'button'
+        ? {
+            onMouseDown: (e) => (e.currentTarget.style.transform = 'translateY(1px)'),
+            onMouseUp: (e) => (e.currentTarget.style.transform = ''),
+            onMouseLeave: (e) => (e.currentTarget.style.transform = ''),
+          }
+        : {};
+    return renderAs(Tag, { background: 'var(--bone-200)', color: 'var(--ink-900)' }, pressHandlers);
   }
   if (variant === 'secondary') {
+    return renderAs(Tag, {
+      background: 'transparent',
+      color: 'var(--fg-1)',
+      borderColor: 'var(--border-bone-on-forest-hover)',
+    });
+  }
+  // ghost — bracket on hover
+  const ghostStyle = {
+    background: 'transparent',
+    color: 'var(--fg-1)',
+    padding: '14px 0',
+  };
+  if (Tag === 'button') {
     return (
       <button
         type={type || 'button'}
         onClick={onClick}
-        style={{
-          ...base,
-          background: 'transparent',
-          color: 'var(--fg-1)',
-          borderColor: 'var(--border-bone-on-forest-hover)',
-        }}
+        className="ghost-btn"
+        {...rest}
+        style={{ ...base, ...ghostStyle }}
       >
+        <span
+          className="ghost-bracket"
+          style={{ color: 'var(--fg-3)', fontFamily: 'var(--font-mono)', transition: 'color 200ms' }}
+        >
+          [{' '}
+        </span>
         {children}
+        <span
+          className="ghost-bracket"
+          style={{ color: 'var(--fg-3)', fontFamily: 'var(--font-mono)', transition: 'color 200ms' }}
+        >
+          {' '}]
+        </span>
       </button>
     );
   }
-  // ghost — bracket on hover
   return (
-    <button
-      type={type || 'button'}
+    <Tag
       onClick={onClick}
       className="ghost-btn"
-      style={{
-        ...base,
-        background: 'transparent',
-        color: 'var(--fg-1)',
-        padding: '14px 0',
-      }}
+      {...rest}
+      style={{ ...base, ...ghostStyle }}
     >
       <span
         className="ghost-bracket"
@@ -128,7 +190,7 @@ export function Button({ variant = 'primary', children, onClick, type, style }) 
       >
         {' '}]
       </span>
-    </button>
+    </Tag>
   );
 }
 
@@ -197,7 +259,7 @@ export function Card({ eyebrow, index, total, title, body, footnote, mark, onCli
         <span>→</span>
       </div>
       {footnote && (
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--mute-500)' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--mute-400)' }}>
           {footnote}
         </div>
       )}

@@ -117,29 +117,28 @@ export default function Contact() {
             The call is where the audit becomes actionable. We&rsquo;ll walk you through the findings in plain English, explain what each one means for your business, and work with you on what to fix and in what order.
           </p>
 
-          {/* Primary CTA — anchor wraps the button so the link semantics
-              and target="_blank" fallback work cleanly on desktop. The
-              click handler intercepts on mobile only, opening the modal. */}
+          {/* Primary CTA — single anchor styled as the primary button via
+              Button's `as` prop. Click handler intercepts on mobile only,
+              opening the Cal modal; on desktop the native href + target
+              behavior takes over as the fallback. Single tab stop, proper
+              link semantics — Session 4 item 7. */}
           <div style={{ marginTop: 48, display: 'flex', justifyContent: 'center' }}>
-            <a
+            <Button
+              as="a"
               href={CAL_BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleBookingClick}
-              style={{ textDecoration: 'none' }}
+              variant="primary"
+              style={{
+                fontSize: 18,
+                fontWeight: 600,
+                padding: '20px 36px',
+                letterSpacing: '-0.005em',
+              }}
             >
-              <Button
-                variant="primary"
-                style={{
-                  fontSize: 18,
-                  fontWeight: 600,
-                  padding: '20px 36px',
-                  letterSpacing: '-0.005em',
-                }}
-              >
-                Book your audit walkthrough <span style={{ fontFamily: 'var(--font-mono)', marginLeft: 4 }}>&rarr;</span>
-              </Button>
-            </a>
+              Book your audit walkthrough <span style={{ fontFamily: 'var(--font-mono)', marginLeft: 4 }}>&rarr;</span>
+            </Button>
           </div>
 
           {/* Email fallback. Readable size and color (was 13px in mute tones,

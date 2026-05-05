@@ -30,17 +30,11 @@ export default function NotFound() {
           Either the URL got mistyped or the page was moved. The site is small, so it shouldn't take long to find what you were after.
         </p>
         <div className="flex-stack-sm" style={{ display: 'flex', gap: 16, marginTop: 48, flexWrap: 'wrap' }}>
-          <Link to="/" style={{ textDecoration: 'none' }}>
-            <Button variant="primary">
-              Go home <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-            </Button>
-          </Link>
-          <Link to="/audit" style={{ textDecoration: 'none' }}>
-            <Button variant="ghost">See a real audit</Button>
-          </Link>
-          <Link to="/contact" style={{ textDecoration: 'none' }}>
-            <Button variant="ghost">Book a free audit</Button>
-          </Link>
+          <Button as={Link} to="/" variant="primary">
+            Go home <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+          </Button>
+          <Button as={Link} to="/audit" variant="ghost">See a real audit</Button>
+          <Button as={Link} to="/contact" variant="ghost">Book a free audit</Button>
         </div>
       </Section>
     </main>

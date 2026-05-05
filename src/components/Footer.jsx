@@ -41,7 +41,7 @@ export default function Footer() {
           <div style={{ lineHeight: 1.7, maxWidth: '38ch' }}>
             Generative engine optimization for businesses that want to be cited in the answer.
           </div>
-          <div style={{ marginTop: 28, fontSize: 11, color: 'var(--mute-500)' }}>
+          <div style={{ marginTop: 28, fontSize: 11, color: 'var(--mute-400)' }}>
             <div>
               <a href="mailto:andrew@forecite.agency" style={{ color: 'inherit', textDecoration: 'none' }}>
                 andrew@forecite.agency
@@ -52,7 +52,7 @@ export default function Footer() {
         <div>
           <div
             style={{
-              color: 'var(--mute-500)',
+              color: 'var(--mute-400)',
               textTransform: 'uppercase',
               letterSpacing: '0.12em',
               marginBottom: 14,
@@ -76,7 +76,7 @@ export default function Footer() {
         <div>
           <div
             style={{
-              color: 'var(--mute-500)',
+              color: 'var(--mute-400)',
               textTransform: 'uppercase',
               letterSpacing: '0.12em',
               marginBottom: 14,
@@ -94,7 +94,7 @@ export default function Footer() {
         <div>
           <div
             style={{
-              color: 'var(--mute-500)',
+              color: 'var(--mute-400)',
               textTransform: 'uppercase',
               letterSpacing: '0.12em',
               marginBottom: 14,

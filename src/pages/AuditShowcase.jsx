@@ -301,12 +301,10 @@ function CaseStudyTab({ study }) {
         <p className="cs-cta-sub">
           Free audit, scoped to your business. We do the work. You approve the direction. This isn&rsquo;t a fit if you can&rsquo;t grant site access, won&rsquo;t put a real expert&rsquo;s name on the content, or aren&rsquo;t ready for an ongoing program.
         </p>
-        <Link to="/contact" style={{ textDecoration: 'none' }}>
-          <Button variant="primary">
-            Book your audit{' '}
-            <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-          </Button>
-        </Link>
+        <Button as={Link} to="/contact" variant="primary">
+          Book your audit{' '}
+          <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+        </Button>
       </div>
     </>
   );

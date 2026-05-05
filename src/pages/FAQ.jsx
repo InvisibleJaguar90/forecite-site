@@ -235,7 +235,10 @@ export default function FAQ() {
                       textDecoration: 'none',
                     }}
                   >
-                    <span style={{ color: 'var(--gold-500)' }}>{String(i + 1).padStart(2, '0')}</span>
+                    {/* Session 4 item 6: was gold-500 on bone (1.96:1 fail).
+                        Numerical prefix is a label, not a decorative accent —
+                        ink-900 reads cleaner and passes AA. */}
+                    <span style={{ color: 'var(--ink-900)' }}>{String(i + 1).padStart(2, '0')}</span>
                     <span>{item.q}</span>
                   </a>
                 </li>
@@ -270,7 +273,7 @@ export default function FAQ() {
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        color: 'var(--gold-500)',
+                        color: 'var(--ink-900)', /* was gold-500 (1.96:1 fail on bone). */
                         marginRight: 16,
                         fontSize: 14,
                       }}
@@ -333,7 +336,7 @@ export default function FAQ() {
                       <span
                         style={{
                           fontFamily: 'var(--font-mono)',
-                          color: 'var(--gold-500)',
+                          color: 'var(--ink-900)', /* was gold-500 (1.96:1 fail on bone). */
                           marginRight: 16,
                           fontSize: 14,
                         }}
@@ -385,11 +388,9 @@ export default function FAQ() {
         <p style={{ fontSize: 18, color: 'var(--bone-200)', lineHeight: 1.6, maxWidth: '48ch', marginBottom: 36 }}>
           Free, specific to your business, and you'll see exactly how AI search sees you today.
         </p>
-        <Link to="/contact" style={{ textDecoration: 'none' }}>
-          <Button variant="primary">
-            Get your free audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
-          </Button>
-        </Link>
+        <Button as={Link} to="/contact" variant="primary">
+          Get your free audit <span style={{ fontFamily: 'var(--font-mono)' }}>&rarr;</span>
+        </Button>
       </Section>
     </main>
   );
