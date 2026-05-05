@@ -54,8 +54,14 @@ export default function Contact() {
     window.Cal('init', 'geo-audit-walkthrough', { origin: 'https://app.cal.com' });
 
     window.Cal.ns['geo-audit-walkthrough']('ui', {
-      theme: 'dark',
-      cssVarsPerTheme: { dark: { 'cal-brand': '#c8a55a' } },
+      // Light theme inside the iframe matches Cal's default light modal-box
+      // background — uniform card-on-dark-backdrop modal pattern (the same
+      // Stripe / Calendly / most booking flows use). Cal's `theme: 'dark'`
+      // only themed the calendar UI; the modal frame itself stayed light,
+      // creating white bands above and below the dark calendar. Going light
+      // sitewide inside the modal removes the visual jank.
+      theme: 'light',
+      cssVarsPerTheme: { light: { 'cal-brand': '#c8a55a' } },
       hideEventTypeDetails: true,
       layout: 'month_view',
     });
@@ -67,11 +73,10 @@ export default function Contact() {
     if (calReady) {
       e.preventDefault();
       window.Cal.ns['geo-audit-walkthrough']('modal', {
-        config: { layout: 'month_view', theme: 'dark' },
+        config: { layout: 'month_view', theme: 'light' },
         calLink: 'forecite/geo-audit-walkthrough',
-        // iframeAttrs constrains the iframe element itself; combined
-        // with the .cal-embed CSS overrides this caps the modal height
-        // so the calendar fills it rather than floating in empty bands.
+        // iframeAttrs constrains the iframe so the modal sizes more
+        // tightly to the calendar widget rather than reserving viewport.
         iframeAttrs: {
           style: 'height: 680px; max-height: 90vh; width: 100%; border: 0;',
         },

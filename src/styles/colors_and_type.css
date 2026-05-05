@@ -27,7 +27,11 @@
   --ink-700:    #1F2D26;
 
   --mute-500:   #6B7A6F;
-  --mute-400:   #8A968D;
+  --mute-400:   #A8B3AC; /* Session 4 item 5: lifted from #8A968D so body prose
+                            in mute tones reads clearly on forest. Stays in
+                            the same gray-green family; contrast on forest-800
+                            jumps from 4.86:1 (borderline AA) to ~7.1:1 (AAA).
+                            mute-500 unchanged — it's the on-bone foreground. */
 
   --gold-500:   #C9A961;
   --gold-600:   #B08F46;
