@@ -477,6 +477,12 @@ body.drawer-open {
         section, content goes full-width single column.
    --------------------------------------------------------------------- */
 
+/* Direction variable lives on the host so both ::before (text-contrast
+   gradient) and ::after (cloud-edge fade) inherit cleanly. */
+.hero-bg[data-hero-align="left"] {
+  --hero-grad-dir: left;
+}
+
 /* Forest gradient overlay — applies at every viewport so the text zone
    stays readable regardless of which variant is shipped (A, B, C reach
    different distances across the frame). Ramp is intentionally tight:
@@ -500,8 +506,38 @@ body.drawer-open {
   );
   z-index: 1;
 }
-.hero-bg[data-hero-align="left"]::before {
-  --hero-grad-dir: left;
+
+/* Cloud-side edge fade — small forest band at the very edge where the
+   cloud illustration would otherwise butt up against the viewport.
+   Without it, image is fully flush right (or left depending on align)
+   while the text side has natural breathing room from its own gradient,
+   reading visually asymmetric. The 32px fade gives the impression of
+   a tiny margin on the cloud side without losing the full-bleed feel.
+   Direction inherits from --hero-grad-dir so it flips per align.
+
+   The opacity / mix-blend-mode resets are required because .grain::after
+   (in colors_and_type.css) sets opacity:0.08 + mix-blend-mode:overlay on
+   the pseudo-element for the grain texture. Without these resets, our
+   edge-fade gradient renders at 8% opacity in overlay mode, invisible.
+   Hero loses grain texture on the ::after layer as a result, which is
+   fine — the cloud illustration carries plenty of texture on its own. */
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 1 !important;
+  mix-blend-mode: normal !important;
+  background-image: linear-gradient(
+    to var(--hero-grad-dir, right),
+    rgba(14, 42, 31, 0.95) 0%,
+    rgba(14, 42, 31, 0.95) 8px,
+    rgba(14, 42, 31, 0) 32px,
+    rgba(14, 42, 31, 0) 100%
+  );
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  z-index: 1;
 }
 
 @media (max-width: 1024px) {
@@ -536,6 +572,11 @@ body.drawer-open {
       rgba(14, 42, 31, 0.9) 60%,
       rgba(14, 42, 31, 0.96) 100%
     ) !important;
+  }
+  /* Horizontal cloud-side edge fade is for desktop only; on mobile
+     the image is a top-band, the fade is irrelevant. */
+  .hero-bg::after {
+    display: none !important;
   }
   .hero-bg .hero-bg-content {
     grid-template-columns: 1fr !important;
