@@ -32,7 +32,7 @@ export default function Footer() {
           display: 'grid',
           gridTemplateColumns: '2fr 1fr 1fr 1fr',
           gap: 48,
-          maxWidth: 'var(--maxw-wide)',
+          maxWidth: 'var(--maxw-content)',
           margin: '0 auto',
         }}
       >
@@ -118,7 +118,7 @@ export default function Footer() {
           display: 'flex',
           justifyContent: 'space-between',
           gap: 16,
-          maxWidth: 'var(--maxw-wide)',
+          maxWidth: 'var(--maxw-content)',
           margin: '64px auto 0',
         }}
       >

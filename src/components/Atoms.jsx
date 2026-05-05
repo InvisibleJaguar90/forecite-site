@@ -213,55 +213,47 @@ export function Card({ eyebrow, index, total, title, body, footnote, mark, onCli
 // the goal is to stop passing them entirely. Hero treatment is a clean
 // static section on forest-800.
 //
-// Session 4: optional `surface="bone"` flips the section to a full-bleed
-// bone band with ink-on-bone foregrounds. Inner content stays max-width
-// capped. borderTop / borderBottom from the caller's style are pulled
-// out and applied to the outer full-width <section> so the divider lines
-// span edge-to-edge instead of being inset to the content cap.
+// Session 4: full-bleed background, content centered.
+//
+// Both forest (default) and bone (`surface="bone"`) modes now share the
+// same architecture: outer <section> spans the full viewport width and
+// carries the background, grain texture, and any border dividers from
+// the caller's style. Inner div is capped at --maxw-content (1240px),
+// centered, and carries the padding and rest of the caller's style.
+//
+// Why: when the section element itself was capped at 1240, the section's
+// grain overlay only painted a 1240-wide stripe down the middle, leaving
+// a faintly-visible boundary where it met the un-grained body forest in
+// the gutter. Pushing the background to a full-bleed outer makes the
+// section's bg/grain spans edge-to-edge while content stays bounded at
+// 1240. Same pattern HeroBackground already uses.
 export function Section({ children, style = {}, id, label, surface }) {
-  if (surface === 'bone') {
-    const { borderTop, borderBottom, ...innerStyle } = style;
-    return (
-      <section
-        id={id}
-        data-screen-label={label}
-        className="surface-bone grain"
-        style={{
-          position: 'relative',
-          width: '100%',
-          ...(borderTop ? { borderTop } : {}),
-          ...(borderBottom ? { borderBottom } : {}),
-        }}
-      >
-        <div
-          style={{
-            position: 'relative',
-            zIndex: 2,
-            maxWidth: 'var(--maxw-wide)',
-            margin: '0 auto',
-            padding: '120px var(--gutter-md)',
-            ...innerStyle,
-          }}
-        >
-          {children}
-        </div>
-      </section>
-    );
-  }
+  const { borderTop, borderBottom, ...innerStyle } = style;
+  const className = surface === 'bone' ? 'surface-bone grain' : 'grain';
   return (
     <section
       id={id}
       data-screen-label={label}
-      className="grain"
+      className={className}
       style={{
         position: 'relative',
-        padding: '120px var(--gutter-md)',
-        maxWidth: 'var(--maxw-wide)',
-        margin: '0 auto',
-        ...style,
+        width: '100%',
+        ...(borderTop ? { borderTop } : {}),
+        ...(borderBottom ? { borderBottom } : {}),
       }}
     >
-      <div style={{ position: 'relative', zIndex: 2 }}>{children}</div>
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 2,
+          maxWidth: 'var(--maxw-content)',
+          margin: '0 auto',
+          padding: '120px var(--gutter-md)',
+          ...innerStyle,
+        }}
+      >
+        {children}
+      </div>
     </section>
   );
 }

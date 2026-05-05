@@ -22,7 +22,7 @@
 }
 
 .cs-tabs-inner {
-  max-width: var(--maxw-wide);
+  max-width: var(--maxw-content);
   margin: 0 auto;
   padding: 0 var(--gutter-md);
   display: grid;
@@ -113,7 +113,7 @@
 
 .cs-headline-section {
   padding: 96px var(--gutter-md);
-  max-width: var(--maxw-wide);
+  max-width: var(--maxw-content);
   margin: 0 auto;
   text-align: center;
 }
@@ -185,7 +185,7 @@
 
 .cs-findings-section {
   padding: 96px var(--gutter-md);
-  max-width: var(--maxw-wide);
+  max-width: var(--maxw-content);
   margin: 0 auto;
   border-top: 1px solid var(--border-bone-on-forest);
 }
@@ -438,7 +438,7 @@ html.cs-anim-ready .cs-finding.is-revealed {
 
 .cs-gameplan-section {
   padding: 96px var(--gutter-md) 120px;
-  max-width: var(--maxw-wide);
+  max-width: var(--maxw-content);
   margin: 0 auto;
   border-top: 1px solid var(--border-bone-on-forest);
 }
@@ -580,7 +580,7 @@ html.cs-anim-ready .cs-bullet.is-highlight.is-focused .cs-bullet-marker {
 
 .cs-cta-section {
   padding: 80px var(--gutter-md) 120px;
-  max-width: var(--maxw-wide);
+  max-width: var(--maxw-content);
   margin: 0 auto;
   border-top: 1px solid var(--border-bone-on-forest);
 }

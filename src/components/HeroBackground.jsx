@@ -50,7 +50,7 @@ export default function HeroBackground({ align = 'right', variant, children, sty
         style={{
           position: 'relative',
           zIndex: 2,
-          maxWidth: 'var(--maxw-wide)',
+          maxWidth: 'var(--maxw-content)',
           margin: '0 auto',
           padding: '140px var(--gutter-md) 120px',
           minHeight: 'clamp(560px, 80vh, 720px)',
